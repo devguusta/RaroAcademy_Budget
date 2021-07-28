@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:raro_academy_budget/shared/widgets/next_button_widget.dart';
 import 'package:raro_academy_budget/util/constants/colors.dart';
 
 class AppWidget extends StatelessWidget {
@@ -6,19 +7,17 @@ class AppWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Budget',
-      
       home: HomePage(),
     );
   }
 }
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: AppColors.kCyan,
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Center(),
     );
   }
 }
