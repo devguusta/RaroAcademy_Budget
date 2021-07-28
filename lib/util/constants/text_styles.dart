@@ -17,4 +17,10 @@ class AppTextStyles {
     fontWeight: FontWeight.w500,
     height: 24.5,
   );
+
+  static const TextStyle kNextButtonMedium = TextStyle(
+    color: Colors.white,
+    fontSize: 14.0,
+    letterSpacing: 0.4,
+  );
 }

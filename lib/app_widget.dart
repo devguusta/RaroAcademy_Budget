@@ -1,7 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:raro_academy_budget/shared/widgets/input_form_widget.dart';
 
-import 'shared/widgets/visible_widget.dart';
+import 'package:flutter/material.dart';
 
 class AppWidget extends StatelessWidget {
   @override
@@ -13,26 +11,12 @@ class AppWidget extends StatelessWidget {
   }
 }
 
-class HomePage extends StatefulWidget {
-
-  const HomePage({Key? key}) : super(key: key);
-
-  @override
-  _HomePageState createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  bool passwordVisible = false;
-
+class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          
-        ],
-      ),
+      backgroundColor: Colors.white,
+      body: Center(),
     );
   }
 }
