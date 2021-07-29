@@ -9,10 +9,11 @@ class AppWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Budget',
-      initialRoute: SplashPage.id,
+      debugShowCheckedModeBanner: false,
+      initialRoute: SplashPagePrimary.id,
       routes: {
-        SplashPage.id: (context) => SplashPage(),
-        SplashPageSec.id: (context) => SplashPageSec(),
+        SplashPagePrimary.id: (context) => const SplashPagePrimary(),
+        SplashPageSecondary.id: (context) => const SplashPageSecondary(),
         // HomePage.id: (context) => HomePage(); incluir a rota nomeada como static const
         // Login.id: (context) => HomePage();
         // CreateAccount.id: (context) => HomePage();
