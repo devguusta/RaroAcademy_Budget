@@ -1,10 +1,12 @@
-
 import 'package:flutter/material.dart';
+import 'package:raro_academy_budget/util/constants/app_colors.dart';
 
 class AppWidget extends StatelessWidget {
+  const AppWidget({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'Budget',
       home: HomePage(),
     );
@@ -12,10 +14,12 @@ class AppWidget extends StatelessWidget {
 }
 
 class HomePage extends StatelessWidget {
+  const HomePage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
+    return const Scaffold(
+      backgroundColor: AppColors.kWhite,
       body: Center(),
     );
   }
