@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:raro_academy_budget/util/constants/app_colors.dart';
 
 class InputForm extends StatelessWidget {
   final String hintText;
@@ -26,10 +27,13 @@ class InputForm extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 48.0),
       child: TextFormField(
+        
         obscureText: obscureText,
         keyboardType: keyboardType,
         validator: validator,
         decoration: InputDecoration(
+          
+          focusColor: AppColors.kPurple,
           suffixIcon: suffixIcon,
           hintText: hintText,
           hintStyle: const TextStyle(

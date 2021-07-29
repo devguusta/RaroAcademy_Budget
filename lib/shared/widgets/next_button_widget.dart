@@ -34,11 +34,12 @@ class NextButtonWidget extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
+             const SizedBox(width: 12.0),
               Text(
                 buttonText.toUpperCase(),
                 style: AppTextStyles.kNextButtonMedium,
               ),
-              const SizedBox(width: 6.0),
+              const SizedBox(width: 0.0),
               Icon(
                 buttonIcon,
                 color: Colors.white,
