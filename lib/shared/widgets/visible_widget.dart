@@ -1,11 +1,10 @@
-
 import 'package:flutter/material.dart';
 
 class VisibleWidget extends StatelessWidget {
   const VisibleWidget({
     Key? key,
-  required  this.visible,
-  required  this.onPressed,
+    required this.visible,
+    required this.onPressed,
   }) : super(key: key);
 
   final bool visible;
@@ -16,7 +15,7 @@ class VisibleWidget extends StatelessWidget {
     return IconButton(
       icon: Icon(
         visible ? Icons.visibility_off_outlined : Icons.visibility_outlined,
-        color: Color.fromRGBO(0,0,0,58),
+        color: const Color.fromRGBO(0, 0, 0, 58),
       ),
       onPressed: onPressed,
     );

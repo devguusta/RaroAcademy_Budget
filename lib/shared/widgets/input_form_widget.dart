@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 class InputForm extends StatelessWidget {
   final String hintText;
   final String labelText;
-
   final FormFieldValidator<String>? validator;
   final ValueChanged<String>? onChanged;
   final TextEditingController? controller;
@@ -33,24 +32,20 @@ class InputForm extends StatelessWidget {
         decoration: InputDecoration(
           suffixIcon: suffixIcon,
           hintText: hintText,
-          hintStyle: TextStyle(
-            fontFamily:"Roboto",
+          hintStyle: const TextStyle(
+            fontFamily: "Roboto",
             fontWeight: FontWeight.w400,
             fontSize: 16,
             letterSpacing: 0.15,
           ),
           labelText: labelText,
-          labelStyle: TextStyle(
+          labelStyle: const TextStyle(
             fontFamily: "Roboto",
             fontWeight: FontWeight.w400,
             fontSize: 12,
             color: Color.fromRGBO(52, 48, 144, 1),
             letterSpacing: 0.15,
           ),
-          
-          // focusedBorder:
-
-          // errorText: TextStyle(),
         ),
       ),
     );
