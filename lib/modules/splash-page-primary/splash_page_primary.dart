@@ -19,7 +19,10 @@ class _SplashPageState extends State<SplashPage> {
   void initState() {
     WidgetsFlutterBinding.ensureInitialized().addPostFrameCallback((timeStamp) {
       Future.delayed(Duration(seconds: 2)).then(
-        (value) => Navigator.pushReplacementNamed(context, SplashPageSec.id),
+        (value) => Navigator.pushReplacementNamed(
+          context,
+          SplashPageSec.id,
+        ),
       );
     });
     super.initState();
