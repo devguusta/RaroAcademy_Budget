@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:raro_academy_budget/shared/widgets/input_form_widget.dart';
 import 'package:raro_academy_budget/shared/widgets/next_button_widget.dart';
 import 'package:raro_academy_budget/util/constants/app_colors.dart';
+import 'package:raro_academy_budget/util/validators/text_validator.dart';
 
 class InitialLoginPage extends StatefulWidget {
   const InitialLoginPage({Key? key}) : super(key: key);
@@ -78,6 +79,8 @@ class _InitialLoginPageState extends State<InitialLoginPage> {
                       hintText: "Insira seu e-mail",
                       labelText: "E-mail",
                       controller: emailController,
+                      onChanged: (value){},
+                      validator: (String? value) => Validators.validateEmail(value),
                       keyboardType: TextInputType.emailAddress,
                     ),
                     Padding(
@@ -92,7 +95,12 @@ class _InitialLoginPageState extends State<InitialLoginPage> {
                             borderRadius: BorderRadius.circular(20),
                           ),
                         ),
-                          onPressed: (){print("inseriu email");},
+                          onPressed: (){
+                            if(_formKey.currentState!.validate()){
+                            print("Olá");
+                          }
+
+                          },
                           child: Text("CONTINUAR", style: TextStyle(color: Color.fromRGBO(0,0,0, 0.26 ), fontSize: 14, fontWeight: FontWeight.w500, fontFamily: "Roboto")),
                         ),
                       ),
@@ -132,11 +140,7 @@ class _InitialLoginPageState extends State<InitialLoginPage> {
                           ),
                         ),
                         onPressed: () {
-                          if(_formKey.currentState!.validate()) {
-                            Future.delayed(Duration(seconds: 2), () {
-                              print("Olá");
-                            });
-                          }
+                          print("Entrou com o facebook");
                           },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -148,7 +152,8 @@ class _InitialLoginPageState extends State<InitialLoginPage> {
                       ),
                     ),
                   ],
-                )),
+                ),
+                ),
           ],
         ),
       ),
