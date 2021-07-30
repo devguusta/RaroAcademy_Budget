@@ -6,6 +6,8 @@ import 'package:raro_academy_budget/util/constants/app_text_styles.dart';
 import 'package:raro_academy_budget/util/validators/text_validator.dart';
 
 class InitialLoginPage extends StatefulWidget {
+  static const String id = '/initial-login';
+
   const InitialLoginPage({Key? key}) : super(key: key);
 
   @override
@@ -77,7 +79,7 @@ class _InitialLoginPageState extends State<InitialLoginPage> {
                       child: ElevatedButton(
                         style: TextButton.styleFrom(
                           primary: AppColors.kContinueButton,
-                          backgroundColor: AppColors.kWhite,
+                          backgroundColor: AppColors.kContinueButton,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20),
                           ),
@@ -112,10 +114,10 @@ class _InitialLoginPageState extends State<InitialLoginPage> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Image.asset(AppImages.logoFacebook),
+                          Image.asset(AppImages.logoGoogle),
                           const Text(
                             "CONTINUAR COM O GOOGLE",
-                            style: AppTextStyles.kTextButton,
+                            style: AppTextStyles.kTextButtonGoogle,
                           )
                         ],
                       ),
@@ -140,7 +142,7 @@ class _InitialLoginPageState extends State<InitialLoginPage> {
                           Image.asset(AppImages.logoFacebook),
                           const Text(
                             "CONTINUAR COM O FACEBOOK",
-                            style: AppTextStyles.kTextButton,
+                            style: AppTextStyles.kTextButtonFacebook,
                           )
                         ],
                       ),

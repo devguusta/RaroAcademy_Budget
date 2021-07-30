@@ -79,8 +79,15 @@ class AppTextStyles {
     fontFamily: "Roboto",
   );
 
-  static const TextStyle kTextButton = TextStyle(
+  static const TextStyle kTextButtonGoogle = TextStyle(
     color: AppColors.kTextButtonColor,
+    fontSize: 13,
+    fontWeight: FontWeight.w500,
+    fontFamily: "Roboto",
+  );
+
+  static const TextStyle kTextButtonFacebook = TextStyle(
+    color: AppColors.kWhite,
     fontSize: 13,
     fontWeight: FontWeight.w500,
     fontFamily: "Roboto",
