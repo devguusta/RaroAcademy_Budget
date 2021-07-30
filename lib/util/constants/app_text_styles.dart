@@ -8,7 +8,7 @@ class AppTextStyles {
     fontStyle: FontStyle.normal,
     fontWeight: FontWeight.w500,
     letterSpacing: 0.15,
-    height: 19.0,
+    
   );
   static const TextStyle kSubtitle3Medium = TextStyle(
     fontFamily: 'Roboto',
@@ -16,7 +16,7 @@ class AppTextStyles {
     fontStyle: FontStyle.normal,
     letterSpacing: 0.15,
     fontWeight: FontWeight.w500,
-    height: 24.5,
+    
   );
 
 
@@ -144,6 +144,32 @@ class AppTextStyles {
     letterSpacing: 0.1,
     fontWeight: FontWeight.w500,
     color: Color.fromRGBO(196,196,196,1),
+  );
+
+  static const TextStyle kTitleListLastTransictions = TextStyle(
+    fontFamily: 'Roboto',
+    fontSize: 16.0,
+    fontStyle: FontStyle.normal,
+    letterSpacing: 0.1,
+    fontWeight: FontWeight.w500,
+    color: Color.fromRGBO(52,48,144,1),
+  );
+
+  static const TextStyle kDateLastTransictions = TextStyle(
+    fontFamily: 'Roboto',
+    fontSize: 14.0,
+    fontStyle: FontStyle.normal,
+    letterSpacing: 0.1,
+    fontWeight: FontWeight.w400,
+    color: Color.fromRGBO(196,196,196,1),
+  );
+  static const TextStyle kValueLastTransictions = TextStyle(
+    fontFamily: 'Roboto',
+    fontSize: 16.0,
+    fontStyle: FontStyle.normal,
+    letterSpacing: 0.1,
+    fontWeight: FontWeight.w400,
+    color: Color.fromRGBO(0,0,0,0.87),
   );
 
 }
