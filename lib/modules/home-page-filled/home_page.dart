@@ -18,19 +18,25 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
+      top: false,
       child: Scaffold(
-       
-        appBar: PreferredSize(
-            child: Container(
-              padding: EdgeInsets.only(top: 50),
-              // child: Text("Olá,name"),
-              decoration:
-                  BoxDecoration(gradient: AppColors.kblueGradientAppBar),
-            ),
-            preferredSize: Size.fromHeight(100)),
+        drawer: Drawer(),
+        appBar: AppBar(
+          toolbarHeight: 80,
+          centerTitle: true,
+         title: Text("Olá,José", style: AppTextStyles.kAppBarName),
+         flexibleSpace: Container(
+           
+           decoration: BoxDecoration(
+             gradient: AppColors.kblueGradientAppBar,
+           ),
+           
+         ),
+        ),
         body: SingleChildScrollView(
           child: Column(
             children: [
+             
               Padding(
                 padding: const EdgeInsets.all(16),
                 child: CardGeneralBalance(),

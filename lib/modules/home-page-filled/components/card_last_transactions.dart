@@ -8,9 +8,10 @@ class LastTransactions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+     Size size = MediaQuery.of(context).size;
     return SingleChildScrollView(
       child: Container(
-        width: 330,
+        width: size.width * 0.9,
         height: 200,
         decoration: BoxDecoration(
           boxShadow: [

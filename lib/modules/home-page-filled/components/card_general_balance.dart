@@ -8,10 +8,11 @@ class CardGeneralBalance extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+      Size size = MediaQuery.of(context).size;
     return SingleChildScrollView(
           child: Container(
-        height: 96,
-        width: 330,
+        height: size.width * 0.3,
+        width: size.width * 0.9,
         decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(

@@ -102,6 +102,14 @@ class AppTextStyles {
     fontWeight: FontWeight.w500,
     color: Color.fromRGBO(52,48,144,1),
   );
+  static const TextStyle kAppBarName = TextStyle(
+    fontFamily: 'Roboto',
+    fontSize: 24.0,
+    fontStyle: FontStyle.normal,
+    letterSpacing: 0.15,
+    fontWeight: FontWeight.w400,
+    color: Color.fromRGBO(255,255,255,1),
+  );
 
   static const TextStyle kSubTitleHomeMedium = TextStyle(
     fontFamily: 'Roboto',
