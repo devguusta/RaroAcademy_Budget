@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:raro_academy_budget/features/login/initial_login_page.dart';
-
-import 'package:raro_academy_budget/util/constants/app_colors.dart';
+import 'package:raro_academy_budget/modules/login-page/initial_login_page.dart';
 
 class AppWidget extends StatelessWidget {
   const AppWidget({Key? key}) : super(key: key);

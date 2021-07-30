@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:raro_academy_budget/util/constants/app_colors.dart';
 
 class ButtonLogin extends StatelessWidget {
   final String text;
@@ -19,18 +20,27 @@ class ButtonLogin extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
-      margin: EdgeInsets.all(16),
+      margin: const EdgeInsets.all(16),
       width: size.width * 0.9,
       child: ElevatedButton(
         style: TextButton.styleFrom(
-          primary: Color.fromRGBO(0,0,0,0.58),
-          backgroundColor: Colors.white,
+          primary: AppColors.kTextButtonColor,
+          backgroundColor: AppColors.kWhite,
         ),
         onPressed: onPressed,
-        child: Row(children: [
-          
-          Text(text, style: TextStyle(color: textColor, fontSize: 13, fontWeight: FontWeight.w500, fontFamily: "Roboto" ))
-        ],),
+        child: Row(
+          children: [
+            Text(
+              text,
+              style: TextStyle(
+                color: textColor,
+                fontSize: 13,
+                fontWeight: FontWeight.w500,
+                fontFamily: "Roboto",
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
