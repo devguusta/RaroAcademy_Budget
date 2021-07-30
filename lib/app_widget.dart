@@ -1,26 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:raro_academy_budget/util/constants/app_colors.dart';
+import 'package:raro_academy_budget/modules/login-page/initial_login_page.dart';
+import 'package:raro_academy_budget/modules/splash-page-primary/splash_page_primary.dart';
+import 'package:raro_academy_budget/modules/splash-page-secondary/splash_page_seconday.dart';
 
 class AppWidget extends StatelessWidget {
   const AppWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: 'Budget',
-      home: HomePage(),
-    );
-  }
-}
-
-class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-      backgroundColor: AppColors.kWhite,
-      body: Center(),
+      debugShowCheckedModeBanner: false,
+      initialRoute: SplashPageSecondary.id,
+      routes: {
+        SplashPagePrimary.id: (context) => const SplashPagePrimary(),
+        SplashPageSecondary.id: (context) => const SplashPageSecondary(),
+        InitialLoginPage.id: (context) => const InitialLoginPage(),
+        // HomePage.id: (context) => HomePage(); incluir a rota nomeada como static const
+        // Login.id: (context) => HomePage();
+        // CreateAccount.id: (context) => HomePage();
+        // RecoverPage.id: (context) => RecoverPage();
+        // TourPage.id: (context) => TourPage();
+      },
     );
   }
 }
