@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:raro_academy_budget/modules/home-page/home_page.dart';
 import 'package:raro_academy_budget/shared/widgets/input_form_widget.dart';
 import 'package:raro_academy_budget/util/constants/app_colors.dart';
 import 'package:raro_academy_budget/util/constants/app_images.dart';
@@ -85,7 +86,12 @@ class _InitialLoginPageState extends State<InitialLoginPage> {
                           ),
                         ),
                         onPressed: () {
-                          if (_formKey.currentState!.validate()) {}
+                          if (_formKey.currentState!.validate()) {
+                            Navigator.pushReplacementNamed(
+                            context,
+                            HomePage.id,
+                            );
+                          }
                         },
                         child: const Text(
                           "CONTINUAR",
