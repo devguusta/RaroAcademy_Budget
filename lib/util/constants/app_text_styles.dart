@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:raro_academy_budget/util/constants/app_colors.dart';
 
 class AppTextStyles {
   static const TextStyle kInputTextMedium = TextStyle(
@@ -44,8 +45,44 @@ class AppTextStyles {
   );
 
   static const TextStyle kNextButtonMedium = TextStyle(
-    color: Colors.white,
+    color: AppColors.kWhite,
     fontSize: 14.0,
     letterSpacing: -0.4,
+  );
+
+  static const TextStyle kPrimaryTextLoginPage = TextStyle(
+    fontWeight: FontWeight.w400,
+    fontSize: 48,
+    fontFamily: "Roboto",
+    color: AppColors.kCyan,
+  );
+
+  static const TextStyle kSecondaryTextLoginPage = TextStyle(
+    fontSize: 16,
+    fontFamily: "Roboto",
+    letterSpacing: 0.15,
+    color: Color.fromRGBO(0, 0, 0, 0.58),
+  );
+
+  static const TextStyle kSecondaryBoldTextLoginPage = TextStyle(
+    color: AppColors.kPurple,
+    fontWeight: FontWeight.w400,
+    fontSize: 16,
+    letterSpacing: 0.15,
+    fontFamily: "Roboto",
+  );
+
+  static const TextStyle kContinueTextButton = TextStyle(
+    color: AppColors.kContinueTextButton,
+    fontSize: 14,
+    fontWeight: FontWeight.w500,
+    fontFamily: "Roboto",
+  );
+
+  static const TextStyle kTextButton = TextStyle(
+    color: AppColors.kTextButtonColor,
+    fontSize: 13,
+    fontWeight: FontWeight.w500,
+    fontFamily: "Roboto",
   );
 }
