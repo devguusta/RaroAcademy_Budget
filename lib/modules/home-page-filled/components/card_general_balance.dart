@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:raro_academy_budget/shared/widgets/visible_widget.dart';
 import 'package:raro_academy_budget/util/constants/app_text_styles.dart';
 
-class CardGeneralBalance extends StatelessWidget {
+class CardGeneralBalance extends StatefulWidget {
   const CardGeneralBalance({
     Key? key,
   }) : super(key: key);
 
+  @override
+  _CardGeneralBalanceState createState() => _CardGeneralBalanceState();
+}
+
+class _CardGeneralBalanceState extends State<CardGeneralBalance> {
+  bool balanceVisible = true;
   @override
   Widget build(BuildContext context) {
       Size size = MediaQuery.of(context).size;
@@ -44,8 +51,11 @@ class CardGeneralBalance extends StatelessWidget {
                 children: [
                   Text("Saldo geral",
                       style: AppTextStyles.kTitleHomeMedium),
-                  Icon(Icons.visibility,
-                      color: Color.fromRGBO(52, 48, 144, 1)),
+                  VisibleWidget(visible: balanceVisible, onPressed: (){
+                    setState(() {
+                      balanceVisible = !balanceVisible;
+                    });
+                  })
                 ],
               ),
             ),
@@ -56,8 +66,10 @@ class CardGeneralBalance extends StatelessWidget {
                   left: 16.0,
                   bottom: 16,
                 ),
-                child: Text("R\$ 3.000,00",
-                    style: AppTextStyles.kSubTitleHomeMedium),
+                child: balanceVisible ?  Container()
+                    :  Text("R\$ 3.000,00",
+                    style: AppTextStyles.kSubTitleHomeMedium) 
+                   
               ),
             ),
           ],

@@ -14,8 +14,8 @@ class VisibleWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
       icon: Icon(
-        visible ? Icons.visibility_off_outlined : Icons.visibility_outlined,
-        color: const Color.fromRGBO(0, 0, 0, 58),
+        visible ? Icons.visibility_off : Icons.visibility,
+        color: Color.fromRGBO(52, 48, 144, 1),
       ),
       onPressed: onPressed,
     );
