@@ -15,6 +15,9 @@ class CardDaybyDay extends StatefulWidget {
 class _CardDaybyDayState extends State<CardDaybyDay> {
   DateTime selectedDate = DateTime.now();
   String dropdownValue = 'Agosto';
+  String out = 'R\$ 5.000,00';
+  String entradas = 'R\$ 8.0000';
+  
 
   @override
   Widget build(BuildContext context) {
@@ -65,10 +68,11 @@ class _CardDaybyDayState extends State<CardDaybyDay> {
                           ),
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 8.0),
+                          padding: const EdgeInsets.only(left: 8.0, ),
                           child: DropdownButton<String>(
+                            
                             menuMaxHeight: size.height * 0.3,
-                            elevation:8,
+                            elevation: 8,
                             dropdownColor: AppColors.kPurple,
                             value: dropdownValue,
                             underline: Container(height: 0,),
@@ -88,11 +92,12 @@ class _CardDaybyDayState extends State<CardDaybyDay> {
                                 .map<DropdownMenuItem<String>>((String value) {
                               return DropdownMenuItem<String>(
                                 value: value,
-                                child: Center(child: Text(
-                                  value,overflow: TextOverflow.ellipsis,
+                                child: Text(
+                                  value,
+                                  overflow: TextOverflow.ellipsis,
                                    style: AppTextStyles.kNextButtonMedium,
                                    
-                                    )),
+                                    ),
                               );
                             }).toList(),
                           ),
@@ -123,7 +128,7 @@ class _CardDaybyDayState extends State<CardDaybyDay> {
                   SizedBox(width: 65),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 6, top: 16),
-                    child: Text("R\$ 5.000,00",
+                    child: Text(out,
                         style: AppTextStyles.kValueDayTransactions),
                   ),
                 ],
@@ -162,7 +167,7 @@ class _CardDaybyDayState extends State<CardDaybyDay> {
                   Padding(
                     padding:
                         const EdgeInsets.only(bottom: 6, top: 16, right: 6),
-                    child: Text("R\$8.000,00",
+                    child: Text(entradas,
                         style: AppTextStyles.kValueDayTransactions),
                   ),
                 ],

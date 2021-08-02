@@ -26,7 +26,6 @@ class _HomePageState extends State<HomePage> {
           centerTitle: true,
          title: Text("Olá,José", style: AppTextStyles.kAppBarName),
          flexibleSpace: Container(
-           
            decoration: BoxDecoration(
              gradient: AppColors.kblueGradientAppBar,
            ),
@@ -49,18 +48,19 @@ class _HomePageState extends State<HomePage> {
                padding: const EdgeInsets.all(16.0),
                child: LastTransactions(),
              ),
-             Padding(
-               padding: const EdgeInsets.only(top:16),
-               child: NextButtonWidget(
-                 onTap: (){},
-                 prefixIcon: Icons.add,
-                 buttonText: "Novo Controle",
-               ),
-             ),
+             
              
             ],
           ),
         ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton: NextButtonWidget(
+                 onTap: (){ 
+                 },
+                 prefixIcon: Icons.add,
+                 buttonText: "Novo Controle",
+               ),
+        
       ),
     );
   }
