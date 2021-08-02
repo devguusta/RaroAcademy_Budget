@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:raro_academy_budget/modules/home-page-filled/components/card_day_by_day.dart';
 import 'package:raro_academy_budget/modules/home-page-filled/components/card_general_balance.dart';
@@ -15,58 +18,77 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  late StreamSubscription sub;
+  late bool isInternet = true;
+  @override
+  void initState()  {
+    Future.delayed(Duration(seconds: 1), () {
+      sub =  Connectivity().onConnectivityChanged.listen((result) {
+      setState(() {
+        isInternet = (result != ConnectivityResult.none);
+      });
+    });
+    });
+    
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       top: false,
       child: Scaffold(
-        drawer: Drawer(),
-        appBar: AppBar(
-          toolbarHeight: 80,
-          centerTitle: true,
-         title: Text("Olá,José", style: AppTextStyles.kAppBarName),
-         flexibleSpace: Container(
-           decoration: BoxDecoration(
-             gradient: AppColors.kblueGradientAppBar,
-           ),
-           
-         ),
-        ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-             
-              Padding(
-                padding: const EdgeInsets.all(16),
-                child: CardGeneralBalance(),
+          drawer: Drawer(),
+          appBar: AppBar(
+            toolbarHeight: 80,
+            centerTitle: true,
+            title: Text("Olá,José", style: AppTextStyles.kAppBarName),
+            flexibleSpace: Container(
+              decoration: BoxDecoration(
+                gradient: AppColors.kblueGradientAppBar,
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: CardDaybyDay(),
-              ),
-             Padding(
-               padding: const EdgeInsets.all(16.0),
-               child: LastTransactions(),
-             ),
-             
-             
-            ],
+            ),
           ),
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        floatingActionButton: NextButtonWidget(
-                 onTap: (){ 
-                 },
-                 prefixIcon: Icons.add,
-                 buttonText: "Novo Controle",
-               ),
-        
-      ),
+          body: SingleChildScrollView(
+            child: isInternet
+                ? Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: CardGeneralBalance(),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: CardDaybyDay(),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: LastTransactions(),
+                      ),
+                    ],
+                  )
+                : Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text("Erro na conexão", style: AppTextStyles.kInputTextMedium,),
+                  ],
+                ),
+          ),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerFloat,
+          floatingActionButton: isInternet
+              ? NextButtonWidget(
+                  onTap: () {},
+                  prefixIcon: Icons.add,
+                  buttonText: "Novo Controle",
+                )
+              : NextButtonWidget(
+                  onTap: () {},
+                  buttonText: "Tentar Novamente",
+                )),
     );
   }
+
+  void showConnectivity(ConnectivityResult result) {}
 }
-
-
-
-
-
