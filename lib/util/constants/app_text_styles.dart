@@ -92,4 +92,11 @@ class AppTextStyles {
     fontWeight: FontWeight.w500,
     fontFamily: "Roboto",
   );
+
+  static const TextStyle kTextTrasanctionHeader = TextStyle(
+    color: AppColors.kWhite,
+    fontSize: 26,
+    fontWeight: FontWeight.w700,
+    fontFamily: "Roboto",
+  );
 }
