@@ -72,7 +72,14 @@ class _HomePageState extends State<HomePage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(height: size.height * 0.3),
-                    Text("Erro na\n conexão", style: AppTextStyles.kNoConnection,),
+                    Center(child: Text("Erro na\nconexão", style: AppTextStyles.kNoConnection,)),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 24.0),
+                      child: NextButtonWidget(
+                  onTap: () {},
+                  buttonText: "Tentar Novamente",
+                ),
+                    ),
                   ],
                 ),
           ),
@@ -84,10 +91,8 @@ class _HomePageState extends State<HomePage> {
                   prefixIcon: Icons.add,
                   buttonText: "Novo Controle",
                 )
-              : NextButtonWidget(
-                  onTap: () {},
-                  buttonText: "Tentar Novamente",
-                )),
+              : Container(),
+              ),
     );
   }
 
