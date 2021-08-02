@@ -179,5 +179,13 @@ class AppTextStyles {
     fontWeight: FontWeight.w400,
     color: Color.fromRGBO(0,0,0,0.87),
   );
+  static const TextStyle kNoConnection = TextStyle(
+    fontFamily: 'Roboto',
+    fontSize: 48.0,
+    fontStyle: FontStyle.normal,
+    letterSpacing: 0.1,
+    fontWeight: FontWeight.normal,
+    color: AppColors.kCyan,
+  );
 
 }

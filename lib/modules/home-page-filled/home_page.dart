@@ -35,6 +35,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return SafeArea(
       top: false,
       child: Scaffold(
@@ -69,9 +70,9 @@ class _HomePageState extends State<HomePage> {
                   )
                 : Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text("Erro na conexão", style: AppTextStyles.kInputTextMedium,),
+                    SizedBox(height: size.height * 0.3),
+                    Text("Erro na\n conexão", style: AppTextStyles.kNoConnection,),
                   ],
                 ),
           ),
@@ -90,5 +91,5 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  void showConnectivity(ConnectivityResult result) {}
+
 }
