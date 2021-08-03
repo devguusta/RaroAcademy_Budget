@@ -92,4 +92,12 @@ class AppTextStyles {
     fontWeight: FontWeight.w500,
     fontFamily: "Roboto",
   );
+
+  static const TextStyle kSubTitleSignUpText = TextStyle(
+    fontFamily: 'Roboto',
+    fontWeight: FontWeight.w500,
+    fontSize: 20.0,
+    color: AppColors.kPurple,
+    letterSpacing: 0.15,
+  );
 }
