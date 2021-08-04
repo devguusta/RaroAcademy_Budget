@@ -18,7 +18,7 @@ class _CardGeneralBalanceState extends State<CardGeneralBalance> {
       Size size = MediaQuery.of(context).size;
     return SingleChildScrollView(
           child: Container(
-        height: size.width * 0.3,
+        
         width: size.width * 0.9,
         decoration: BoxDecoration(
           boxShadow: [
@@ -68,7 +68,9 @@ class _CardGeneralBalanceState extends State<CardGeneralBalance> {
                 ),
                 child: balanceVisible ?  Container()
                     :  Text("R\$ 3.000,00",
-                    style: AppTextStyles.kSubTitleHomeMedium) 
+                    
+                    style: 
+                    AppTextStyles.kSubTitleHomeMedium) 
                    
               ),
             ),
