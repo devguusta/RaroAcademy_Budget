@@ -22,23 +22,22 @@ class _HomePageState extends State<HomePage> {
   late bool isInternet = true;
   @override
   void initState() {
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
-      checkInternet();
-      sub = Connectivity().onConnectivityChanged.listen((result) {
-        setState(() {
-          isInternet = (result != ConnectivityResult.none);
-        });
+    Future.delayed(Duration(seconds: 1), () {
+      sub =  Connectivity().onConnectivityChanged.listen((result) {
+      setState(() {
+        isInternet = (result != ConnectivityResult.none);
       });
+    });
     });
 
     super.initState();
   }
 
-  void checkInternet() async {
-    if ((await Connectivity().checkConnectivity()) == ConnectivityResult.none) {
-      isInternet = false;
-    }
-  }
+  // void checkInternet() async {
+  //   if ((await Connectivity().checkConnectivity()) == ConnectivityResult.none) {
+  //     isInternet = false;
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +47,7 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
         drawer: Drawer(),
         appBar: AppBar(
-          toolbarHeight: 80,
+          toolbarHeight: size.height * 0.12625,
           centerTitle: true,
           title: Text("Olá,José", style: AppTextStyles.kAppBarName),
           flexibleSpace: Container(
@@ -78,7 +77,7 @@ class _HomePageState extends State<HomePage> {
               : Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SizedBox(height: size.height * 0.3),
+                    SizedBox(height: size.height * 0.25),
                     Center(
                         child: Text(
                       "Erro na\nconexão",
