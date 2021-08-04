@@ -55,14 +55,17 @@ class _InitialLoginPageState extends State<InitialLoginPage> {
             Padding(
               padding: const EdgeInsets.only(left: 52.0, top: 8),
               child: Row(
-                children: const [
+                children:  [
                   Text(
                     "Novo usuário?",
                     style: AppTextStyles.kSecondaryTextLoginPage,
                   ),
-                  Text(
-                    " Crie uma conta",
-                    style: AppTextStyles.kSecondaryBoldTextLoginPage,
+                  GestureDetector(
+                    onTap: (){}, // navegar para signup
+                    child: Text(
+                      " Crie uma conta",
+                      style: AppTextStyles.kSecondaryBoldTextLoginPage,
+                    ),
                   ),
                 ],
               ),

@@ -32,7 +32,11 @@ class InputForm extends StatelessWidget {
         keyboardType: keyboardType,
         validator: validator,
         decoration: InputDecoration(
-          
+          focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(
+              color : AppColors.kPurple,
+            ),
+          ),
           focusColor: AppColors.kPurple,
           suffixIcon: suffixIcon,
           hintText: hintText,
