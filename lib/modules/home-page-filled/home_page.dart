@@ -21,16 +21,23 @@ class _HomePageState extends State<HomePage> {
   late StreamSubscription sub;
   late bool isInternet = true;
   @override
-  void initState()  {
-    Future.delayed(Duration(seconds: 1), () {
-      sub =  Connectivity().onConnectivityChanged.listen((result) {
-      setState(() {
-        isInternet = (result != ConnectivityResult.none);
+  void initState() {
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      checkInternet();
+      sub = Connectivity().onConnectivityChanged.listen((result) {
+        setState(() {
+          isInternet = (result != ConnectivityResult.none);
+        });
       });
     });
-    });
-    
+
     super.initState();
+  }
+
+  void checkInternet() async {
+    if ((await Connectivity().checkConnectivity()) == ConnectivityResult.none) {
+      isInternet = false;
+    }
   }
 
   @override
@@ -39,62 +46,63 @@ class _HomePageState extends State<HomePage> {
     return SafeArea(
       top: false,
       child: Scaffold(
-          drawer: Drawer(),
-          appBar: AppBar(
-            toolbarHeight: 80,
-            centerTitle: true,
-            title: Text("Olá,José", style: AppTextStyles.kAppBarName),
-            flexibleSpace: Container(
-              decoration: BoxDecoration(
-                gradient: AppColors.kblueGradientAppBar,
-              ),
+        drawer: Drawer(),
+        appBar: AppBar(
+          toolbarHeight: 80,
+          centerTitle: true,
+          title: Text("Olá,José", style: AppTextStyles.kAppBarName),
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+              gradient: AppColors.kblueGradientAppBar,
             ),
           ),
-          body: SingleChildScrollView(
-            child: isInternet
-                ? Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(16),
-                        child: CardGeneralBalance(),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        child: CardDaybyDay(),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: LastTransactions(),
-                      ),
-                    ],
-                  )
-                : Column(
+        ),
+        body: SingleChildScrollView(
+          child: isInternet
+              ? Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: CardGeneralBalance(),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: CardDaybyDay(),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: LastTransactions(),
+                    ),
+                  ],
+                )
+              : Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(height: size.height * 0.3),
-                    Center(child: Text("Erro na\nconexão", style: AppTextStyles.kNoConnection,)),
+                    Center(
+                        child: Text(
+                      "Erro na\nconexão",
+                      style: AppTextStyles.kNoConnection,
+                    )),
                     Padding(
                       padding: const EdgeInsets.only(top: 24.0),
                       child: NextButtonWidget(
-                  onTap: () {},
-                  buttonText: "Tentar Novamente",
-                ),
+                        onTap: () {},
+                        buttonText: "Tentar Novamente",
+                      ),
                     ),
                   ],
                 ),
-          ),
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerFloat,
-          floatingActionButton: isInternet
-              ? NextButtonWidget(
-                  onTap: () {},
-                  prefixIcon: Icons.add,
-                  buttonText: "Novo Controle",
-                )
-              : Container(),
-              ),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton: isInternet
+            ? NextButtonWidget(
+                onTap: () {},
+                prefixIcon: Icons.add,
+                buttonText: "Novo Controle",
+              )
+            : Container(),
+      ),
     );
   }
-
-
 }
