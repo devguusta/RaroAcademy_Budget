@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:raro_academy_budget/modules/home-page-filled/components/card_day_by_day.dart';
 import 'package:raro_academy_budget/modules/home-page-filled/components/card_general_balance.dart';
 import 'package:raro_academy_budget/modules/home-page-filled/components/card_last_transactions.dart';
+import 'package:raro_academy_budget/shared/widgets/drawer_widget.dart';
 import 'package:raro_academy_budget/shared/widgets/next_button_widget.dart';
 import 'package:raro_academy_budget/util/constants/app_colors.dart';
 import 'package:raro_academy_budget/util/constants/app_text_styles.dart';
@@ -23,11 +24,11 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     Future.delayed(Duration(seconds: 1), () {
-      sub =  Connectivity().onConnectivityChanged.listen((result) {
-      setState(() {
-        isInternet = (result != ConnectivityResult.none);
+      sub = Connectivity().onConnectivityChanged.listen((result) {
+        setState(() {
+          isInternet = (result != ConnectivityResult.none);
+        });
       });
-    });
     });
 
     super.initState();
@@ -45,7 +46,7 @@ class _HomePageState extends State<HomePage> {
     return SafeArea(
       top: false,
       child: Scaffold(
-        drawer: Drawer(),
+        drawer: DrawerWidget(),
         appBar: AppBar(
           toolbarHeight: size.height * 0.12625,
           centerTitle: true,
