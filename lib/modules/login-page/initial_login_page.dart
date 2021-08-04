@@ -1,3 +1,4 @@
+import 'package:animated_card/animated_card.dart';
 import 'package:flutter/material.dart';
 import 'package:raro_academy_budget/modules/home-page-filled/home_page.dart';
 import 'package:raro_academy_budget/shared/widgets/input_form_widget.dart';
@@ -40,9 +41,10 @@ class _InitialLoginPageState extends State<InitialLoginPage> {
               visible: MediaQuery.of(context).viewInsets.bottom == 0,
               child: Padding(
                 padding: const EdgeInsets.only(left: 48.0),
-                child: Hero(
-                tag: 'initial_logo',
-                child: Image.asset(AppImages.logoBudget)),
+                child: AnimatedCard(
+                  direction: AnimatedCardDirection.top,
+                   duration: const Duration(milliseconds: 400),
+                  child: Image.asset(AppImages.logoBudget)),
               ),
             ),
             const Padding(
@@ -134,7 +136,10 @@ class _InitialLoginPageState extends State<InitialLoginPage> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              Image.asset(AppImages.logoGoogle),
+                              Padding(
+                                padding: const EdgeInsets.only(right: 8.0),
+                                child: Image.asset(AppImages.logoGoogle),
+                              ),
                               const Text(
                                 "CONTINUAR COM O GOOGLE",
                                 style: AppTextStyles.kTextButtonGoogle,
@@ -165,7 +170,10 @@ class _InitialLoginPageState extends State<InitialLoginPage> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Image.asset(AppImages.logoFacebook),
+                              Padding(
+                                padding: const EdgeInsets.only(right: 8.0),
+                                child: Image.asset(AppImages.logoFacebook),
+                              ),
                              const Text(
                                "CONTINUAR COM O FACEBOOK",
                                style: AppTextStyles.kTextButtonFacebook,
