@@ -25,6 +25,7 @@ class _ListViewLastTransactionsState extends State<ListViewLastTransactions> {
           itemCount: 2,
           itemBuilder: (_, index) => Container(
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               mainAxisSize: MainAxisSize.max,
               children: [
                 Flex(
@@ -61,25 +62,30 @@ class _ListViewLastTransactionsState extends State<ListViewLastTransactions> {
                         ],
                       ),
                     ),
-                    SizedBox(width: size.width * 0.25),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(
-                            bottom: 8,
-                          ),
-                          child: Text("-R\$ 25,00",
-                              style: AppTextStyles
-                                  .kValueLastTransictions),
-                        ),
-                      ],
-                    ),
+                    // SizedBox(width: size.width * 0.25),
+                    
                   ],
                 ),
+                FittedBox(
+                      fit: BoxFit.fitWidth,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              bottom: 8,
+                            ),
+                            child: Text("-R\$ 25,00",
+                                style: AppTextStyles
+                                    .kValueLastTransictions),
+                          ),
+                        ],
+                      ),
+                    ),
               ],
             ),
+            
           ),
         ),
       ],
