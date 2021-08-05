@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:raro_academy_budget/util/constants/app_colors.dart';
+import 'package:raro_academy_budget/util/constants/app_text_styles.dart';
 
 class SignUpFooter extends StatelessWidget {
-  const SignUpFooter({Key? key}) : super(key: key);
+  final String page;
+  const SignUpFooter({Key? key, required this.page}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,34 +24,19 @@ class SignUpFooter extends StatelessWidget {
                     color: Color.fromRGBO(0, 0, 0, 26),
                   ),
                   SizedBox(width: 11.0),
-                  Text(
-                    "VOLTAR",
-                    style: TextStyle(
-                      fontFamily: 'Roboto',
-                      fontWeight: FontWeight.w500,
-                      fontSize: 14.0,
-                      letterSpacing: 0.4,
-                    ),
-                  ),
+                  Text("VOLTAR", style: AppTextStyles.kBackSignUpButton),
                 ],
               ),
             ),
           ),
           SizedBox(
-              height: MediaQuery.of(context).size.height * 0.25,
-              child: Row(
-                children: const [
-                  Text(
-                    "1/4",
-                    style: TextStyle(
-                      fontFamily: 'Roboto',
-                      fontWeight: FontWeight.w400,
-                      fontSize: 14.0,
-                      letterSpacing: 0.15,
-                    ),
-                  ),
-                ],
-              )),
+            height: MediaQuery.of(context).size.height * 0.25,
+            child: Row(
+              children: [
+                Text('$page/4', style: AppTextStyles.kPaginationSignUpButton),
+              ],
+            ),
+          ),
           ElevatedButton(
             style: TextButton.styleFrom(
               primary: AppColors.kContinueButton,
@@ -63,15 +50,7 @@ class SignUpFooter extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: const [
-                Text(
-                  "CONTINUAR",
-                  style: TextStyle(
-                    color: AppColors.kWhite,
-                    fontFamily: 'Roboto',
-                    fontSize: 14.0,
-                    letterSpacing: 0.4,
-                  ),
-                ),
+                Text("CONTINUAR", style: AppTextStyles.kForwadSignUpButton),
                 SizedBox(width: 11.0),
                 Icon(
                   Icons.arrow_forward,
