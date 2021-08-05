@@ -58,6 +58,7 @@ class LastTransactions extends StatelessWidget {
               padding: const EdgeInsets.only(left: 16, top: 24.0),
               child: ListViewLastTransactions(),
             ),
+            
           ],
         ),
       ),

@@ -187,5 +187,31 @@ class AppTextStyles {
     fontWeight: FontWeight.normal,
     color: AppColors.kCyan,
   );
+  static const TextStyle kSubTitleSignUpText = TextStyle(
+    fontFamily: 'Roboto',
+    fontWeight: FontWeight.w500,
+    fontSize: 20.0,
+    color: AppColors.kPurple,
+    letterSpacing: 0.15,
+  );
+
+  static const TextStyle kBackSignUpButton = TextStyle(
+    fontFamily: 'Roboto',
+    fontWeight: FontWeight.w500,
+    fontSize: 14.0,
+    letterSpacing: 0.4,
+  );
+  static const TextStyle kPaginationSignUpButton = TextStyle(
+    fontFamily: 'Roboto',
+    fontWeight: FontWeight.w400,
+    fontSize: 14.0,
+    letterSpacing: 0.15,
+  );
+  static const TextStyle kForwadSignUpButton = TextStyle(
+    color: AppColors.kWhite,
+    fontFamily: 'Roboto',
+    fontSize: 14.0,
+    letterSpacing: 0.4,
+  );
 
 }

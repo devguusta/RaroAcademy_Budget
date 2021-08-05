@@ -90,6 +90,7 @@ class _HomePageState extends State<HomePage> {
                         buttonText: "Tentar Novamente",
                       ),
                     ),
+                   
                   ],
                 ),
         ),

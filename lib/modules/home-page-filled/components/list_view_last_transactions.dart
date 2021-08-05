@@ -88,6 +88,7 @@ class _ListViewLastTransactionsState extends State<ListViewLastTransactions> {
             
           ),
         ),
+        
       ],
     );
   }
