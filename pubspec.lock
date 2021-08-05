@@ -78,6 +78,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.1"
+  cpf_cnpj_validator:
+    dependency: "direct main"
+    description:
+      name: cpf_cnpj_validator
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
   crypto:
     dependency: transitive
     description:
@@ -135,6 +142,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flux_validator_dart:
+    dependency: "direct main"
+    description:
+      name: flux_validator_dart
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
   google_fonts:
     dependency: "direct main"
     description:

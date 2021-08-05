@@ -1,6 +1,7 @@
 import 'package:animated_card/animated_card.dart';
 import 'package:flutter/material.dart';
 import 'package:raro_academy_budget/modules/home-page-filled/home_page.dart';
+import 'package:raro_academy_budget/modules/signup-page/signup_page.dart';
 import 'package:raro_academy_budget/shared/widgets/input_form_widget.dart';
 import 'package:raro_academy_budget/util/constants/app_colors.dart';
 import 'package:raro_academy_budget/util/constants/app_images.dart';
@@ -102,7 +103,7 @@ class _InitialLoginPageState extends State<InitialLoginPage> {
                           if (_formKey.currentState!.validate()) {
                             Navigator.pushReplacementNamed(
                             context,
-                            HomePage.id,
+                            SignUpPage.id,
                             );
                           }
                         },
