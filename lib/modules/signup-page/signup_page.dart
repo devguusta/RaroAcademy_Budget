@@ -1,13 +1,14 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
 import 'package:raro_academy_budget/modules/signup-page/page-view/page-view_two.dart';
+import 'package:raro_academy_budget/modules/signup-page/page-view/page_view_for.dart';
+import 'package:raro_academy_budget/modules/signup-page/page-view/page_view_onboarding.dart';
 import 'package:raro_academy_budget/modules/signup-page/page-view/page_view_one.dart';
 import 'package:raro_academy_budget/modules/signup-page/signup-footer/signup_footer.dart';
-import 'package:raro_academy_budget/modules/signup-page/signup-form/signup_form.dart';
 
-import 'package:raro_academy_budget/modules/signup-page/signup-use-terms/signup_use_terms.dart';
 
+import 'package:raro_academy_budget/modules/signup-page/page-view/signup_use_terms.dart';
 
 class SignUpPage extends StatefulWidget {
   static const String id = '/sign-up';
@@ -18,6 +19,8 @@ class SignUpPage extends StatefulWidget {
   createState() => _SignUpPageState();
 }
 
+enum SingingCharacter { yes, no }
+
 class _SignUpPageState extends State<SignUpPage> {
   final formKey = GlobalKey<FormState>();
   PageController pageController = PageController();
@@ -27,6 +30,9 @@ class _SignUpPageState extends State<SignUpPage> {
   TextEditingController _phoneController = TextEditingController();
   TextEditingController _confirmPasswordController = TextEditingController();
   TextEditingController _nameController = TextEditingController();
+ 
+  SingingCharacter? character = SingingCharacter.no;
+  bool stateRadio = true;
   int pageChanged = 0;
   @override
   initState() {
@@ -91,12 +97,11 @@ class _SignUpPageState extends State<SignUpPage> {
                               }),
                         ),
                       ]),
-                      
                       Stack(
                         children: [
                           PageViewTwo(
                               phoneController: _phoneController,
-                              nameController: _nameController),
+                              cpfController: _cpfController),
                           Align(
                             alignment: Alignment.bottomCenter,
                             child: SignUpFooter(
@@ -119,11 +124,40 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
                       Stack(
                         children: [
-                           SignUpUseTerms(),
-                           Align(
+                          SignUpUseTerms(
+                            state: stateRadio,
+                          ),
+                        
+                          Align(
                             alignment: Alignment.bottomCenter,
                             child: SignUpFooter(
                                 page: '3',
+                                onPressed: () {
+                                  if (stateRadio == true) {
+                                    pageController.nextPage(
+                                      duration: Duration(microseconds: 400),
+                                      curve: Curves.easeIn,
+                                    );
+                                  }
+                                },
+                                onBack: () {
+                                  pageController.previousPage(
+                                      duration: Duration(microseconds: 400),
+                                      curve: Curves.easeIn);
+                                }),
+                          ),
+                        ],
+                      ),
+                      Stack(
+                        children: [
+                          PageViewFor(
+                              passwordController: _passwordController,
+                              confirmPasswordController:
+                                  _confirmPasswordController),
+                                  Align(
+                            alignment: Alignment.bottomCenter,
+                            child: SignUpFooter(
+                                page: '4',
                                 onPressed: () {
                                   if (formKey.currentState!.validate()) {
                                     pageController.nextPage(
@@ -138,11 +172,10 @@ class _SignUpPageState extends State<SignUpPage> {
                                       curve: Curves.easeIn);
                                 }),
                           ),
-
                         ],
                       ),
-                    
-                      SignUpFormEmail(),
+                      OnBoarding(),
+                      
                     ],
                   ),
                 ),

@@ -60,6 +60,7 @@ class _PageViewOneState extends State<PageViewOne> {
               style: AppTextStyles.kSubTitleSignUpText),
         ),
       ),
+      SizedBox(height: size.height * 0.1),
       InputForm(
         hintText: "Email",
         labelText: "Email",
@@ -69,6 +70,7 @@ class _PageViewOneState extends State<PageViewOne> {
         Validators.validateEmail(value),
         keyboardType: TextInputType.emailAddress,
       ),
+      SizedBox(height: size.height * 0.05),
       InputForm(
         hintText: "Nome",
         labelText: "Nome",

@@ -17,8 +17,8 @@ dependencies:
   connectivity: ^3.0.6
   flux_validator_dart: ^2.0.0
   cpf_cnpj_validator: ^2.0.0
-  
-
+  mask_text_input_formatter: ^2.0.0 
+  validatorless: ^1.2.0 
   
 dev_dependencies:
   flutter_test:

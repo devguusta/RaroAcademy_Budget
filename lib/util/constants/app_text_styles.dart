@@ -213,5 +213,13 @@ class AppTextStyles {
     fontSize: 14.0,
     letterSpacing: 0.4,
   );
+  static const TextStyle kOnBoardingText = TextStyle(
+    color: AppColors.kCyan,
+    fontFamily: 'Roboto',
+    fontStyle: FontStyle.normal,
+    fontWeight: FontWeight.w700,
+    fontSize: 34,
+    letterSpacing: 0.25
+  );
 
 }

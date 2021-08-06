@@ -25,18 +25,19 @@ class SignUpFooter extends StatelessWidget {
           InkWell(
             child: SizedBox(
               height: MediaQuery.of(context).size.height * 0.25,
-              child: Row(
-                children: [
-                  Icon(
-                    Icons.arrow_back,
-                    color: Color.fromRGBO(0, 0, 0, 26),
-                  ),
-                  SizedBox(width: 11.0),
-                  GestureDetector(
-                      onTap: onBack,
-                      child: Text("VOLTAR",
-                          style: AppTextStyles.kBackSignUpButton)),
-                ],
+              child: GestureDetector(
+                 onTap: onBack,
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.arrow_back,
+                      color: Color.fromRGBO(0, 0, 0, 26),
+                    ),
+                    SizedBox(width: 11.0),
+                    Text("VOLTAR",
+                        style: AppTextStyles.kBackSignUpButton),
+                  ],
+                ),
               ),
             ),
           ),
