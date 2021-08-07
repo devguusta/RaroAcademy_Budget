@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:raro_academy_budget/modules/home-page/home_page.dart';
 import 'package:raro_academy_budget/modules/login-page/widgets/facebook_button_widget.dart';
 import 'package:raro_academy_budget/modules/login-page/widgets/google_button_widget.dart';
-import 'package:raro_academy_budget/modules/login-page/widgets/single_button_widget.dart';
 import 'package:raro_academy_budget/shared/widgets/input_form_widget.dart';
+import 'package:raro_academy_budget/util/constants/app_colors.dart';
 import 'package:raro_academy_budget/util/constants/app_text_styles.dart';
 import 'package:raro_academy_budget/util/validators/text_validator.dart';
 
@@ -37,11 +38,31 @@ class _SingleEmailFormWidgetState extends State<SingleEmailFormWidget> {
             validator: (String? value) => Validators.validateEmail(value),
             keyboardType: TextInputType.emailAddress,
           ),
-          const Padding(
-            padding: EdgeInsets.only(top: 16.0, right: 48),
+          Padding(
+            padding: const EdgeInsets.only(top: 16.0, right: 48),
             child: Align(
               alignment: Alignment.centerRight,
-              child: SingleButtonWidget(),
+              child: ElevatedButton(
+                style: TextButton.styleFrom(
+                  primary: AppColors.kContinueButton,
+                  backgroundColor: AppColors.kContinueButton,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                ),
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    Navigator.pushReplacementNamed(
+                      context,
+                      HomePage.id,
+                    );
+                  }
+                },
+                child: const Text(
+                  "CONTINUAR",
+                  style: AppTextStyles.kContinueTextButton,
+                ),
+              ),
             ),
           ),
           SizedBox(height: MediaQuery.of(context).size.height * 0.06),

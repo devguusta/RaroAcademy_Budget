@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:raro_academy_budget/modules/home-page/components/list_view_last_transactions.dart';
+import 'package:raro_academy_budget/modules/home-page/widgets/list_view_last_transactions.dart';
 import 'package:raro_academy_budget/util/constants/app_text_styles.dart';
 
 class LastTransactions extends StatelessWidget {
