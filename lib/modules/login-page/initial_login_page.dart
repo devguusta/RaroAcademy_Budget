@@ -1,6 +1,6 @@
 import 'package:animated_card/animated_card.dart';
 import 'package:flutter/material.dart';
-import 'package:raro_academy_budget/modules/home-page-filled/home_page.dart';
+import 'package:raro_academy_budget/modules/home-page/home_page.dart';
 import 'package:raro_academy_budget/shared/widgets/input_form_widget.dart';
 import 'package:raro_academy_budget/util/constants/app_colors.dart';
 import 'package:raro_academy_budget/util/constants/app_images.dart';
@@ -42,9 +42,9 @@ class _InitialLoginPageState extends State<InitialLoginPage> {
               child: Padding(
                 padding: const EdgeInsets.only(left: 48.0),
                 child: AnimatedCard(
-                  direction: AnimatedCardDirection.top,
-                   duration: const Duration(milliseconds: 400),
-                  child: Image.asset(AppImages.logoBudget)),
+                    direction: AnimatedCardDirection.top,
+                    duration: const Duration(milliseconds: 400),
+                    child: Image.asset(AppImages.logoBudget)),
               ),
             ),
             const Padding(
@@ -57,13 +57,13 @@ class _InitialLoginPageState extends State<InitialLoginPage> {
             Padding(
               padding: const EdgeInsets.only(left: 52.0, top: 8),
               child: Row(
-                children:  [
+                children: [
                   Text(
                     "Novo usuário?",
                     style: AppTextStyles.kSecondaryTextLoginPage,
                   ),
                   GestureDetector(
-                    onTap: (){}, // navegar para signup
+                    onTap: () {}, // navegar para signup
                     child: Text(
                       " Crie uma conta",
                       style: AppTextStyles.kSecondaryBoldTextLoginPage,
@@ -101,8 +101,8 @@ class _InitialLoginPageState extends State<InitialLoginPage> {
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
                             Navigator.pushReplacementNamed(
-                            context,
-                            HomePage.id,
+                              context,
+                              HomePage.id,
                             );
                           }
                         },
@@ -174,12 +174,11 @@ class _InitialLoginPageState extends State<InitialLoginPage> {
                                 padding: const EdgeInsets.only(right: 8.0),
                                 child: Image.asset(AppImages.logoFacebook),
                               ),
-                             const Text(
-                               "CONTINUAR COM O FACEBOOK",
-                               style: AppTextStyles.kTextButtonFacebook,
-                               maxLines: 2,
-                               
-                             )
+                              const Text(
+                                "CONTINUAR COM O FACEBOOK",
+                                style: AppTextStyles.kTextButtonFacebook,
+                                maxLines: 2,
+                              )
                             ],
                           ),
                         ),

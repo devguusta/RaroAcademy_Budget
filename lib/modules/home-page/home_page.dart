@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
-import 'package:raro_academy_budget/modules/home-page-filled/components/card_day_by_day.dart';
-import 'package:raro_academy_budget/modules/home-page-filled/components/card_general_balance.dart';
-import 'package:raro_academy_budget/modules/home-page-filled/components/card_last_transactions.dart';
+import 'package:raro_academy_budget/modules/home-page/components/card_day_by_day.dart';
+import 'package:raro_academy_budget/modules/home-page/components/card_general_balance.dart';
+import 'package:raro_academy_budget/modules/home-page/components/card_last_transactions.dart';
 import 'package:raro_academy_budget/shared/widgets/drawer_widget.dart';
 import 'package:raro_academy_budget/shared/widgets/next_button_widget.dart';
 import 'package:raro_academy_budget/util/constants/app_colors.dart';
@@ -12,7 +12,7 @@ import 'package:raro_academy_budget/util/constants/app_text_styles.dart';
 
 class HomePage extends StatefulWidget {
   static const String id = '/home';
-  HomePage({Key? key}) : super(key: key);
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
