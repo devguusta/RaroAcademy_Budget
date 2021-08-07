@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:raro_academy_budget/modules/home-page/home_page.dart';
 import 'package:raro_academy_budget/modules/login-page/initial_login_page.dart';
+import 'package:raro_academy_budget/modules/signup-page/signup_page.dart';
 import 'package:raro_academy_budget/modules/splash-page/splash_page.dart';
 
 class AppWidget extends StatelessWidget {
@@ -11,12 +12,14 @@ class AppWidget extends StatelessWidget {
     return MaterialApp(
       title: 'Budget',
       debugShowCheckedModeBanner: false,
-      initialRoute: SplashPagePrimary.id,
+      initialRoute: SignUpPage.id,
       routes: {
         SplashPagePrimary.id: (context) => const SplashPagePrimary(),
         InitialLoginPage.id: (context) => const InitialLoginPage(),
-        HomePage.id: (context) => HomePage(),
+        HomePage.id: (context) => const HomePage(),
         // incluir a rota nomeada como static const
+        SignUpPage.id: (context) => const SignUpPage()
+        // HomePage.id: (context) => HomePage(); incluir a rota nomeada como static const
         // Login.id: (context) => HomePage();
         // CreateAccount.id: (context) => HomePage();
         // RecoverPage.id: (context) => RecoverPage();
