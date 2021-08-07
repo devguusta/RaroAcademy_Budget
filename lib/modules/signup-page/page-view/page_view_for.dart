@@ -91,12 +91,7 @@ class _PageViewForState extends State<PageViewFor> {
           labelText: "Senha",
           controller: widget.passwordController,
           onChanged: (String value) => {},
-          validator: (String? value) {
-           
-            if(value!.length < 8) {
-              return 'No minímo 8 dígitos';
-            }
-          },
+          // validator: (value) => Validators().validatePassword(value,)
           keyboardType: TextInputType.visiblePassword,
           obscureText: true,
         ),
@@ -107,7 +102,9 @@ class _PageViewForState extends State<PageViewFor> {
           labelText: "Confirmar senha",
           onChanged: (String value) =>{},
           controller: widget.confirmPasswordController,
-          validator: (String? value) => Validators().validatePassword(value!, widget.passwordController!.text),
+          validator: (value) => Validators().validateConfirmPassword(
+            value!, widget.passwordController!.text
+            ),
           obscureText: true,
         ),
       ],
