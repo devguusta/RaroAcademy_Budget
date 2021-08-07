@@ -12,13 +12,13 @@ class AppWidget extends StatelessWidget {
     return MaterialApp(
       title: 'Budget',
       debugShowCheckedModeBanner: false,
-      initialRoute: SignUpPage.id,
+      initialRoute: SplashPagePrimary.id,
       routes: {
         SplashPagePrimary.id: (context) => const SplashPagePrimary(),
         InitialLoginPage.id: (context) => const InitialLoginPage(),
         HomePage.id: (context) => const HomePage(),
-        // incluir a rota nomeada como static const
         SignUpPage.id: (context) => const SignUpPage()
+        // incluir a rota nomeada como static const
         // HomePage.id: (context) => HomePage(); incluir a rota nomeada como static const
         // Login.id: (context) => HomePage();
         // CreateAccount.id: (context) => HomePage();
