@@ -14,8 +14,42 @@ class InPage extends StatefulWidget {
   _InPageState createState() => _InPageState();
 }
 
+class Item {
+  final String category;
+  final Icon icon;
+  const Item({required this.category, required this.icon});
+}
+
 class _InPageState extends State<InPage> {
   DateTime _dateTime = DateTime.now();
+  late String _value;
+
+  List<Item> items = [
+    const Item(
+      category: 'Refeição',
+      icon: Icon(Icons.restaurant),
+    ),
+    const Item(
+      category: 'Transporte',
+      icon: Icon(Icons.bus_alert),
+    ),
+    const Item(
+      category: 'Viagem',
+      icon: Icon(Icons.airplanemode_active),
+    ),
+    const Item(
+      category: 'Educação',
+      icon: Icon(Icons.school),
+    ),
+    const Item(
+      category: 'Pagamentos',
+      icon: Icon(Icons.money),
+    ),
+    const Item(
+      category: 'Outros',
+      icon: Icon(Icons.circle),
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -91,9 +125,30 @@ class _InPageState extends State<InPage> {
                             direction: Axis.horizontal,
                             children: [
                               Expanded(
-                                child: InputForm(
-                                  hintText: "Escolha",
-                                  labelText: "Tipo de Entrada",
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 48.0),
+                                  child: DropdownButton<Item>(
+                                    hint: Text("Escolha"),
+                                    isExpanded: true,
+                                    items: items.map((Item item) {
+                                      return DropdownMenuItem<Item>(
+                                        value: item,
+                                        child: Row(
+                                          children: [
+                                            item.icon,
+                                            Text(item.category),
+                                          ],
+                                        ),
+                                      );
+                                    }).toList(),
+                                    onChanged: (Item? item) {
+                                      setState(() {
+                                        _value = item!.category;
+                                        print(_value);
+                                      });
+                                    },
+                                  ),
                                 ),
                               ),
                             ],
