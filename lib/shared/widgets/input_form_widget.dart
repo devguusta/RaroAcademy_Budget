@@ -31,7 +31,7 @@ class InputForm extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 48.0),
       child: TextFormField(
-        
+        onChanged: onChanged,
         obscureText: obscureText,
         keyboardType: keyboardType,
         validator: validator,

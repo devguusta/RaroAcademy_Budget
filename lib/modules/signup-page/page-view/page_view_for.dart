@@ -7,13 +7,13 @@ import 'package:raro_academy_budget/util/constants/app_text_styles.dart';
 import 'package:raro_academy_budget/util/validators/text_validator.dart';
 
 class PageViewFor extends StatefulWidget {
-  final TextEditingController? passwordController;
-  final TextEditingController? confirmPasswordController;
- 
+  final TextEditingController passwordController;
+  final TextEditingController confirmPasswordController;
+  
   PageViewFor({
     Key? key,
-    this.passwordController,
-    this.confirmPasswordController,
+    required this.passwordController,
+    required this.confirmPasswordController,
    
   }) : super(key: key);
 
@@ -22,6 +22,9 @@ class PageViewFor extends StatefulWidget {
 }
 
 class _PageViewForState extends State<PageViewFor> {
+
+  String password = '';
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -90,8 +93,19 @@ class _PageViewForState extends State<PageViewFor> {
           hintText: "Crie uma senha",
           labelText: "Senha",
           controller: widget.passwordController,
-          onChanged: (String value) => {},
-          // validator: (value) => Validators().validatePassword(value,)
+          onChanged: (value) {
+            password = value;
+            print(password);
+          },
+          validator: (value) => Validators().validatePassword(
+            value!,
+          ),
+          
+          // onChanged: (value) => {
+          //   password = value,
+          //   widget.passwordController!.text = password,
+          //    print(widget.passwordController!.text),
+          // },      
           keyboardType: TextInputType.visiblePassword,
           obscureText: true,
         ),
@@ -100,10 +114,10 @@ class _PageViewForState extends State<PageViewFor> {
           keyboardType: TextInputType.visiblePassword,
           hintText: "Confirme sua senha",
           labelText: "Confirmar senha",
-          onChanged: (String value) =>{},
           controller: widget.confirmPasswordController,
-          validator: (value) => Validators().validateConfirmPassword(
-            value!, widget.passwordController!.text
+             
+          validator: (value) => Validators().validateConfirmPassword(   
+             value! ,password,
             ),
           obscureText: true,
         ),
@@ -111,3 +125,20 @@ class _PageViewForState extends State<PageViewFor> {
     );
   }
 }
+
+
+
+//  onChanged: (String value) => {
+//             password = value,
+//             widget.passwordController!.text = password,
+//              print(widget.passwordController!.text),
+//           },
+          // validator: (value) => Validators().validatePassword(value,)
+
+          // onChanged: (String value) =>{
+          //   confirmPassword = value,
+          //   // print(value),
+          //   widget.confirmPasswordController!.text = confirmPassword,
+          //   print(widget.confirmPasswordController!.text),
+           
+          // },

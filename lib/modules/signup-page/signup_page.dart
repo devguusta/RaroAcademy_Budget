@@ -28,7 +28,7 @@ class _SignUpPageState extends State<SignUpPage> {
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _cpfController = TextEditingController();
   TextEditingController _phoneController = TextEditingController();
-  TextEditingController _confirmPasswordController = TextEditingController();
+  TextEditingController _confirmpasswordController = TextEditingController();
   TextEditingController _nameController = TextEditingController();
  
   SingingCharacter? character = SingingCharacter.no;
@@ -50,7 +50,7 @@ class _SignUpPageState extends State<SignUpPage> {
     _passwordController.dispose();
     _cpfController.dispose();
     _phoneController.dispose();
-    _confirmPasswordController.dispose();
+   _confirmpasswordController.dispose();
     pageController.dispose();
     super.dispose();
   }
@@ -153,7 +153,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           PageViewFor(
                               passwordController: _passwordController,
                               confirmPasswordController:
-                                  _confirmPasswordController),
+                                  _confirmpasswordController),
                                   Align(
                             alignment: Alignment.bottomCenter,
                             child: SignUpFooter(

@@ -69,6 +69,7 @@ class _PageViewTwoState extends State<PageViewTwo> {
           hintText: "Cpf",
           labelText: "Cpf",
           controller: widget.cpfController,
+          
           validator: (String? value) => Validators().cpfValidator(value!),
           inputFormatters: [
             FilteringTextInputFormatter.digitsOnly,
