@@ -16,38 +16,38 @@ class InPage extends StatefulWidget {
 
 class Item {
   final String category;
-  final Icon icon;
-  const Item({required this.category, required this.icon});
+  final IconData? icon;
+  const Item({required this.category, this.icon});
 }
 
 class _InPageState extends State<InPage> {
   DateTime _dateTime = DateTime.now();
-  late String _value;
+  Item? _value;
 
   List<Item> items = [
     const Item(
       category: 'Refeição',
-      icon: Icon(Icons.restaurant),
+      icon: Icons.restaurant,
     ),
     const Item(
       category: 'Transporte',
-      icon: Icon(Icons.bus_alert),
+      icon: Icons.bus_alert,
     ),
     const Item(
       category: 'Viagem',
-      icon: Icon(Icons.airplanemode_active),
+      icon: Icons.airplanemode_active,
     ),
     const Item(
       category: 'Educação',
-      icon: Icon(Icons.school),
+      icon: Icons.school,
     ),
     const Item(
       category: 'Pagamentos',
-      icon: Icon(Icons.money),
+      icon: Icons.money,
     ),
     const Item(
       category: 'Outros',
-      icon: Icon(Icons.circle),
+      icon: Icons.circle,
     ),
   ];
 
@@ -129,23 +129,38 @@ class _InPageState extends State<InPage> {
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 48.0),
                                   child: DropdownButton<Item>(
-                                    hint: Text("Escolha"),
+                                    value: _value,
+                                    hint: Align(
+                                      child: Text("Escolha"),
+                                      alignment: Alignment.centerLeft,
+                                    ),
                                     isExpanded: true,
+                                    selectedItemBuilder:
+                                        (BuildContext context) {
+                                      return items.map((Item item) {
+                                        return Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            item.category,
+                                          ),
+                                        );
+                                      }).toList();
+                                    },
                                     items: items.map((Item item) {
                                       return DropdownMenuItem<Item>(
                                         value: item,
                                         child: Row(
                                           children: [
-                                            item.icon,
+                                            Icon(item.icon),
                                             Text(item.category),
                                           ],
                                         ),
                                       );
                                     }).toList(),
-                                    onChanged: (Item? item) {
+                                    onChanged: (Item? value) {
                                       setState(() {
-                                        _value = item!.category;
-                                        print(_value);
+                                        _value = value;
+                                        print(_value!.category);
                                       });
                                     },
                                   ),
