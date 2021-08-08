@@ -99,4 +99,12 @@ class AppTextStyles {
     fontWeight: FontWeight.w700,
     fontFamily: "Roboto",
   );
+
+  static const TextStyle kInputLabel = TextStyle(
+    fontFamily: "Roboto",
+    fontWeight: FontWeight.w400,
+    fontSize: 12,
+    color: Color.fromRGBO(52, 48, 144, 1),
+    letterSpacing: 0.15,
+  );
 }

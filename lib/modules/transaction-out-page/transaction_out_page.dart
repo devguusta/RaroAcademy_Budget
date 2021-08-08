@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:raro_academy_budget/shared/widgets/dropdown_item_widget.dart';
+import 'package:raro_academy_budget/shared/widgets/dropdown_widget.dart';
 import 'package:raro_academy_budget/shared/widgets/input_form_widget.dart';
 import 'package:raro_academy_budget/shared/widgets/insert_button_widget.dart';
 import 'package:raro_academy_budget/util/constants/app_colors.dart';
+import 'package:raro_academy_budget/util/constants/app_icons.dart';
 import 'package:raro_academy_budget/util/constants/app_text_styles.dart';
 
 class OutPage extends StatefulWidget {
@@ -16,6 +19,35 @@ class OutPage extends StatefulWidget {
 
 class _OutPageState extends State<OutPage> {
   DateTime _dateTime = DateTime.now();
+  DropDownMenuItem? _value;
+
+  List<DropDownMenuItem> items = [
+    const DropDownMenuItem(
+      category: 'Pix',
+      icon: AppIcons.kPix,
+      color: AppColors.kPurple,
+    ),
+    const DropDownMenuItem(
+      category: 'Dinheiro',
+      icon: AppIcons.kMoney,
+      color: AppColors.kPurple,
+    ),
+    const DropDownMenuItem(
+      category: 'Doc',
+      icon: AppIcons.kDoc,
+      color: AppColors.kPurple,
+    ),
+    const DropDownMenuItem(
+      category: 'Ted',
+      icon: AppIcons.kTed,
+      color: AppColors.kPurple,
+    ),
+    const DropDownMenuItem(
+      category: 'Boleto',
+      icon: AppIcons.kBoleto,
+      color: AppColors.kPurple,
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -91,9 +123,37 @@ class _OutPageState extends State<OutPage> {
                             direction: Axis.horizontal,
                             children: [
                               Expanded(
-                                child: InputForm(
-                                  hintText: "Tipo de Saída",
-                                  labelText: "Escolha",
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 48.0),
+                                  child: DropdownWidget(
+                                    value: _value,
+                                    labelText: "Tipo de Saída",
+                                    selectedItemBuilder: (_) =>
+                                        items.map((DropDownMenuItem item) {
+                                      return Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                          item.category,
+                                        ),
+                                      );
+                                    }).toList(),
+                                    items: items.map((DropDownMenuItem item) {
+                                      return DropdownMenuItem(
+                                          value: item,
+                                          child: DropDownMenuItem(
+                                            category: item.category,
+                                            icon: item.icon,
+                                            color: item.color,
+                                          ));
+                                    }).toList(),
+                                    onChanged: (DropDownMenuItem? value) {
+                                      setState(() {
+                                        _value = value;
+                                        print(_value!.category);
+                                      });
+                                    },
+                                  ),
                                 ),
                               ),
                             ],
@@ -118,10 +178,6 @@ class _OutPageState extends State<OutPage> {
                                 });
                               },
                             ),
-                          ),
-                          InputForm(
-                            hintText: "Escolha",
-                            labelText: "Nome da Saída",
                           ),
                         ],
                       ),

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:raro_academy_budget/shared/widgets/dropdown_item_widget.dart';
+import 'package:raro_academy_budget/shared/widgets/dropdown_widget.dart';
 import 'package:raro_academy_budget/shared/widgets/input_form_widget.dart';
 import 'package:raro_academy_budget/shared/widgets/insert_button_widget.dart';
 import 'package:raro_academy_budget/util/constants/app_colors.dart';
+import 'package:raro_academy_budget/util/constants/app_icons.dart';
 import 'package:raro_academy_budget/util/constants/app_text_styles.dart';
 
 class InPage extends StatefulWidget {
@@ -14,40 +17,40 @@ class InPage extends StatefulWidget {
   _InPageState createState() => _InPageState();
 }
 
-class Item {
-  final String category;
-  final IconData? icon;
-  const Item({required this.category, this.icon});
-}
-
 class _InPageState extends State<InPage> {
   DateTime _dateTime = DateTime.now();
-  Item? _value;
+  DropDownMenuItem? _value;
 
-  List<Item> items = [
-    const Item(
+  List<DropDownMenuItem> items = [
+    const DropDownMenuItem(
       category: 'Refeição',
-      icon: Icons.restaurant,
+      icon: AppIcons.kMeal,
+      color: AppColors.kYellow,
     ),
-    const Item(
+    const DropDownMenuItem(
       category: 'Transporte',
-      icon: Icons.bus_alert,
+      icon: AppIcons.kTransport,
+      color: AppColors.kGreen,
     ),
-    const Item(
+    const DropDownMenuItem(
       category: 'Viagem',
-      icon: Icons.airplanemode_active,
+      icon: AppIcons.kTravel,
+      color: AppColors.kPink,
     ),
-    const Item(
+    const DropDownMenuItem(
       category: 'Educação',
-      icon: Icons.school,
+      icon: AppIcons.kEducation,
+      color: AppColors.kCyan,
     ),
-    const Item(
+    const DropDownMenuItem(
       category: 'Pagamentos',
-      icon: Icons.money,
+      icon: AppIcons.kPayments,
+      color: AppColors.kPurple,
     ),
-    const Item(
+    const DropDownMenuItem(
       category: 'Outros',
-      icon: Icons.circle,
+      icon: AppIcons.kOthers,
+      color: AppColors.kLilac,
     ),
   ];
 
@@ -128,36 +131,28 @@ class _InPageState extends State<InPage> {
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 48.0),
-                                  child: DropdownButton<Item>(
+                                  child: DropdownWidget(
                                     value: _value,
-                                    hint: Align(
-                                      child: Text("Escolha"),
-                                      alignment: Alignment.centerLeft,
-                                    ),
-                                    isExpanded: true,
-                                    selectedItemBuilder:
-                                        (BuildContext context) {
-                                      return items.map((Item item) {
-                                        return Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Text(
-                                            item.category,
-                                          ),
-                                        );
-                                      }).toList();
-                                    },
-                                    items: items.map((Item item) {
-                                      return DropdownMenuItem<Item>(
-                                        value: item,
-                                        child: Row(
-                                          children: [
-                                            Icon(item.icon),
-                                            Text(item.category),
-                                          ],
+                                    labelText: "Tipo de Entrada",
+                                    selectedItemBuilder: (_) =>
+                                        items.map((DropDownMenuItem item) {
+                                      return Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                          item.category,
                                         ),
                                       );
                                     }).toList(),
-                                    onChanged: (Item? value) {
+                                    items: items.map((DropDownMenuItem item) {
+                                      return DropdownMenuItem(
+                                          value: item,
+                                          child: DropDownMenuItem(
+                                            category: item.category,
+                                            icon: item.icon,
+                                            color: item.color,
+                                          ));
+                                    }).toList(),
+                                    onChanged: (DropDownMenuItem? value) {
                                       setState(() {
                                         _value = value;
                                         print(_value!.category);
@@ -188,6 +183,10 @@ class _InPageState extends State<InPage> {
                                 });
                               },
                             ),
+                          ),
+                          InputForm(
+                            hintText: " ",
+                            labelText: "Nome da Entrada",
                           ),
                         ],
                       ),
