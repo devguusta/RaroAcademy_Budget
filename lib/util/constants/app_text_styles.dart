@@ -202,15 +202,33 @@ class AppTextStyles {
     fontSize: 14.0,
     letterSpacing: 0.4,
   );
+
   static const TextStyle kPaginationSignUpButton = TextStyle(
     fontFamily: 'Roboto',
     fontWeight: FontWeight.w400,
     fontSize: 14.0,
     letterSpacing: 0.15,
   );
+
   static const TextStyle kForwadSignUpButton = TextStyle(
     color: AppColors.kWhite,
     fontFamily: 'Roboto',
+    fontSize: 14.0,
+    letterSpacing: 0.4,
+  );
+
+  static const TextStyle kRecoverPassword = TextStyle(
+    fontFamily: 'Roboto',
+    color: AppColors.kPurple,
+    fontWeight: FontWeight.w500,
+    fontSize: 13.0,
+    letterSpacing: 0.46,
+  );
+
+  static const TextStyle kContinuePassword = TextStyle(
+    fontFamily: 'Roboto',
+    color: AppColors.kWhite,
+    fontWeight: FontWeight.w500,
     fontSize: 14.0,
     letterSpacing: 0.4,
   );

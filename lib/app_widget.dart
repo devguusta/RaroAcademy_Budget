@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:raro_academy_budget/modules/home-page/home_page.dart';
 import 'package:raro_academy_budget/modules/login-page/initial_login_page.dart';
+import 'package:raro_academy_budget/modules/login-page/password-page/password_page.dart';
 import 'package:raro_academy_budget/modules/signup-page/signup_page.dart';
 import 'package:raro_academy_budget/modules/splash-page/splash_page.dart';
 
@@ -17,7 +18,8 @@ class AppWidget extends StatelessWidget {
         SplashPagePrimary.id: (context) => const SplashPagePrimary(),
         InitialLoginPage.id: (context) => const InitialLoginPage(),
         HomePage.id: (context) => const HomePage(),
-        SignUpPage.id: (context) => const SignUpPage()
+        SignUpPage.id: (context) => const SignUpPage(),
+        PasswordPage.id: (context) => const PasswordPage(),
         // incluir a rota nomeada como static const
         // HomePage.id: (context) => HomePage(); incluir a rota nomeada como static const
         // Login.id: (context) => HomePage();

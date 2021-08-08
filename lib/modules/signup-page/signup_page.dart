@@ -7,7 +7,6 @@ import 'package:raro_academy_budget/modules/signup-page/signup-passwords/signup_
 import 'package:raro_academy_budget/modules/signup-page/signup-use-terms/signup_use_terms.dart';
 import 'package:raro_academy_budget/util/constants/app_colors.dart';
 import 'package:raro_academy_budget/util/constants/app_images.dart';
-import 'package:raro_academy_budget/util/constants/app_text_styles.dart';
 
 class SignUpPage extends StatefulWidget {
   static const String id = '/sign-up';

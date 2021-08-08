@@ -4,9 +4,7 @@ import 'package:raro_academy_budget/util/constants/app_colors.dart';
 import 'package:raro_academy_budget/util/constants/app_text_styles.dart';
 
 class CardDaybyDay extends StatefulWidget {
-  CardDaybyDay({
-    Key? key,
-  }) : super(key: key);
+  const CardDaybyDay({Key? key}) : super(key: key);
 
   @override
   _CardDaybyDayState createState() => _CardDaybyDayState();
@@ -17,7 +15,6 @@ class _CardDaybyDayState extends State<CardDaybyDay> {
   String dropdownValue = 'Agosto';
   String out = 'R\$ 5.000,00';
   String entradas = 'R\$ 8.0000';
-  
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +26,7 @@ class _CardDaybyDayState extends State<CardDaybyDay> {
         child: Container(
           width: size.width * 0.9,
           decoration: BoxDecoration(
-            boxShadow: [
+            boxShadow: const [
               BoxShadow(
                 color: Color.fromRGBO(0, 0, 0, 0.12),
                 // spreadRadius: 1,
@@ -42,7 +39,7 @@ class _CardDaybyDayState extends State<CardDaybyDay> {
                 blurRadius: 1,
               ),
             ],
-            color: Color.fromRGBO(253, 253, 253, 1),
+            color: const Color.fromRGBO(253, 253, 253, 1),
             borderRadius: BorderRadius.circular(7),
           ),
           child: Column(
@@ -57,28 +54,33 @@ class _CardDaybyDayState extends State<CardDaybyDay> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("Dia a dia", style: AppTextStyles.kTitleHomeMedium),
+                    const Text("Dia a dia",
+                        style: AppTextStyles.kTitleHomeMedium),
                     GestureDetector(
                       onTap: () {},
                       child: Container(
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           gradient: AppColors.kblueGradientAppBar,
                           borderRadius: BorderRadius.all(
                             Radius.circular(40.0),
                           ),
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 8.0, ),
+                          padding: const EdgeInsets.only(
+                            left: 8.0,
+                          ),
                           child: DropdownButton<String>(
-                            
                             menuMaxHeight: size.height * 0.3,
                             elevation: 8,
                             dropdownColor: AppColors.kPurple,
                             value: dropdownValue,
-                            underline: Container(height: 0,),
-                            icon:  Padding(
-                              padding: const EdgeInsets.only(right: 8.0),
-                              child: Icon(Icons.expand_more_outlined, color: Colors.white ),
+                            underline: Container(
+                              height: 0,
+                            ),
+                            icon: const Padding(
+                              padding: EdgeInsets.only(right: 8.0),
+                              child: Icon(Icons.expand_more_outlined,
+                                  color: Colors.white),
                             ),
                             iconSize: 18,
                             onChanged: (String? newValue) {
@@ -86,18 +88,27 @@ class _CardDaybyDayState extends State<CardDaybyDay> {
                                 dropdownValue = newValue!;
                               });
                             },
-                            items: <String>['Janeiro', 'Fevereiro', 'Março', 'Abril','Maio', 'Junho', 'Julho', 'Agosto', 
-                            'Setembro', 'Outubro', 'Novembro', 'Dezembro',
-                            ]
-                                .map<DropdownMenuItem<String>>((String value) {
+                            items: <String>[
+                              'Janeiro',
+                              'Fevereiro',
+                              'Março',
+                              'Abril',
+                              'Maio',
+                              'Junho',
+                              'Julho',
+                              'Agosto',
+                              'Setembro',
+                              'Outubro',
+                              'Novembro',
+                              'Dezembro',
+                            ].map<DropdownMenuItem<String>>((String value) {
                               return DropdownMenuItem<String>(
                                 value: value,
                                 child: Text(
                                   value,
                                   overflow: TextOverflow.ellipsis,
-                                   style: AppTextStyles.kNextButtonMedium,
-                                   
-                                    ),
+                                  style: AppTextStyles.kNextButtonMedium,
+                                ),
                               );
                             }).toList(),
                           ),
@@ -108,10 +119,9 @@ class _CardDaybyDayState extends State<CardDaybyDay> {
                 ),
               ),
               Row(
-                children: [
+                children: const [
                   Padding(
-                    padding:
-                        const EdgeInsets.only(left: 16.0, bottom: 16, top: 8),
+                    padding: EdgeInsets.only(left: 16.0, bottom: 16, top: 8),
                     child: Text("R\$ 3.000,00",
                         style: AppTextStyles.kSubTitleHomeMedium),
                   ),
@@ -119,17 +129,16 @@ class _CardDaybyDayState extends State<CardDaybyDay> {
               ),
               Row(
                 children: [
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(left: 16.0, bottom: 6, top: 16),
+                  const Padding(
+                    padding: EdgeInsets.only(left: 16.0, bottom: 6, top: 16),
                     child:
                         Text("Saídas", style: AppTextStyles.kTypeTransactions),
                   ),
-                  SizedBox(width: 65),
+                  const SizedBox(width: 65),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 6, top: 16),
-                    child: Text(out,
-                        style: AppTextStyles.kValueDayTransactions),
+                    child:
+                        Text(out, style: AppTextStyles.kValueDayTransactions),
                   ),
                 ],
               ),
@@ -142,8 +151,8 @@ class _CardDaybyDayState extends State<CardDaybyDay> {
                     height: 11,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(360),
-                      color: Color.fromRGBO(68, 194, 253, 1),
-                      boxShadow: [
+                      color: const Color.fromRGBO(68, 194, 253, 1),
+                      boxShadow: const [
                         BoxShadow(
                           color: Color.fromRGBO(255, 255, 255, 0.39),
                           blurRadius: 1,
@@ -157,13 +166,12 @@ class _CardDaybyDayState extends State<CardDaybyDay> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(left: 16.0, bottom: 6, top: 16),
+                  const Padding(
+                    padding: EdgeInsets.only(left: 16.0, bottom: 6, top: 16),
                     child: Text("Entradas",
                         style: AppTextStyles.kTypeTransactions),
                   ),
-                  SizedBox(width: 65),
+                  const SizedBox(width: 65),
                   Padding(
                     padding:
                         const EdgeInsets.only(bottom: 6, top: 16, right: 6),
@@ -184,8 +192,8 @@ class _CardDaybyDayState extends State<CardDaybyDay> {
                     height: 11,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(360),
-                      color: Color.fromRGBO(250, 199, 54, 1),
-                      boxShadow: [
+                      color: const Color.fromRGBO(250, 199, 54, 1),
+                      boxShadow: const [
                         BoxShadow(
                           color: Color.fromRGBO(255, 255, 255, 0.39),
                           blurRadius: 1,
