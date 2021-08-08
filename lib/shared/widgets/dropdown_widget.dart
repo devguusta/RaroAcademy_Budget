@@ -26,17 +26,27 @@ class _DropdownWidgetState extends State<DropdownWidget> {
   @override
   Widget build(BuildContext context) {
     print("widget atualizado");
-    return DropdownButtonFormField(
-      value: widget.value,
-      decoration: InputDecoration(
-        hintText: "Escolha",
-        labelText: widget.labelText,
-        labelStyle: AppTextStyles.kInputLabel,
-      ),
-      isExpanded: true,
-      selectedItemBuilder: widget.selectedItemBuilder,
-      items: widget.items,
-      onChanged: widget.onChanged,
+    return Flex(
+      direction: Axis.horizontal,
+      children: [
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 48.0),
+            child: DropdownButtonFormField(
+              value: widget.value,
+              decoration: InputDecoration(
+                hintText: "Escolha",
+                labelText: widget.labelText,
+                labelStyle: AppTextStyles.kInputLabel,
+              ),
+              isExpanded: true,
+              selectedItemBuilder: widget.selectedItemBuilder,
+              items: widget.items,
+              onChanged: widget.onChanged,
+            ),
+          ),
+        )
+      ],
     );
   }
 }
