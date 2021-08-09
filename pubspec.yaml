@@ -15,18 +15,16 @@ dependencies:
   google_fonts: ^2.1.0
   animated_card: ^2.0.0
   connectivity: ^3.0.6
-  flux_validator_dart: ^2.0.0
-  cpf_cnpj_validator: ^2.0.0
-  mask_text_input_formatter: ^2.0.0 
-  mobx: ^2.0.3
-  flutter_mobx: ^2.0.1
+  firebase_auth: ^3.0.1
+  cloud_firestore: ^2.4.0
+  firebase_core: ^1.4.0
+
   
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^1.0.0
-  build_runner: ^2.0.6
-  mobx_codegen: ^2.0.2
+
 
 flutter:
   uses-material-design: true
