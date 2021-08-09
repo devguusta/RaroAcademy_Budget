@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
 import 'package:raro_academy_budget/util/constants/app_colors.dart';
 
 class InputForm extends StatelessWidget {
@@ -8,6 +10,7 @@ class InputForm extends StatelessWidget {
   final ValueChanged<String>? onChanged;
   final TextEditingController? controller;
   final TextInputType? keyboardType;
+  final List<TextInputFormatter>? inputFormatters;
   final bool obscureText;
   final Widget? suffixIcon;
   const InputForm({
@@ -18,6 +21,7 @@ class InputForm extends StatelessWidget {
     this.onChanged,
     this.controller,
     this.keyboardType,
+    this.inputFormatters,
     this.obscureText = false,
     this.suffixIcon,
   }) : super(key: key);
@@ -27,12 +31,16 @@ class InputForm extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 48.0),
       child: TextFormField(
-        
+        onChanged: onChanged,
         obscureText: obscureText,
         keyboardType: keyboardType,
         validator: validator,
         decoration: InputDecoration(
-          
+          focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(
+              color : AppColors.kPurple,
+            ),
+          ),
           focusColor: AppColors.kPurple,
           suffixIcon: suffixIcon,
           hintText: hintText,

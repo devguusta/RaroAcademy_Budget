@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:raro_academy_budget/util/constants/app_colors.dart';
 import 'package:raro_academy_budget/util/constants/app_text_styles.dart';
 
@@ -6,12 +7,14 @@ class NextButtonWidget extends StatelessWidget {
   final String buttonText;
   final IconData? buttonIcon;
   final VoidCallback? onTap;
+  final IconData? prefixIcon;
 
   const NextButtonWidget({
     Key? key,
     this.buttonText = '',
     this.buttonIcon,
     this.onTap,
+    this.prefixIcon,
   }) : super(key: key);
 
   @override
@@ -34,6 +37,10 @@ class NextButtonWidget extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
+              Icon(
+                prefixIcon,
+                color: Colors.white,
+              ),
              const SizedBox(width: 12.0),
               Text(
                 buttonText.toUpperCase(),

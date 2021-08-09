@@ -1,4 +1,7 @@
+import 'package:animated_card/animated_card.dart';
 import 'package:flutter/material.dart';
+import 'package:raro_academy_budget/modules/home-page-filled/home_page.dart';
+import 'package:raro_academy_budget/modules/signup-page/signup_page.dart';
 import 'package:raro_academy_budget/shared/widgets/input_form_widget.dart';
 import 'package:raro_academy_budget/util/constants/app_colors.dart';
 import 'package:raro_academy_budget/util/constants/app_images.dart';
@@ -26,15 +29,24 @@ class _InitialLoginPageState extends State<InitialLoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
           children: [
-            const SizedBox(height: 72),
-            Padding(
-              padding: const EdgeInsets.only(left: 48.0),
-              child: Image.asset(AppImages.logoBudget),
+            SizedBox(height: size.height * 0.1),
+            Visibility(
+              visible: MediaQuery.of(context).viewInsets.bottom == 0,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 48.0),
+                child: AnimatedCard(
+                  direction: AnimatedCardDirection.top,
+                   duration: const Duration(milliseconds: 400),
+                  child: Image.asset(AppImages.logoBudget)),
+              ),
             ),
             const Padding(
               padding: EdgeInsets.only(left: 48.0, top: 16),
@@ -46,19 +58,22 @@ class _InitialLoginPageState extends State<InitialLoginPage> {
             Padding(
               padding: const EdgeInsets.only(left: 52.0, top: 8),
               child: Row(
-                children: const [
+                children:  [
                   Text(
                     "Novo usuário?",
                     style: AppTextStyles.kSecondaryTextLoginPage,
                   ),
-                  Text(
-                    " Crie uma conta",
-                    style: AppTextStyles.kSecondaryBoldTextLoginPage,
+                  GestureDetector(
+                    onTap: (){}, // navegar para signup
+                    child: Text(
+                      " Crie uma conta",
+                      style: AppTextStyles.kSecondaryBoldTextLoginPage,
+                    ),
                   ),
                 ],
               ),
             ),
-            const SizedBox(height: 46),
+            SizedBox(height: size.height * 0.05),
             Form(
               key: _formKey,
               child: Column(
@@ -85,7 +100,12 @@ class _InitialLoginPageState extends State<InitialLoginPage> {
                           ),
                         ),
                         onPressed: () {
-                          if (_formKey.currentState!.validate()) {}
+                          if (_formKey.currentState!.validate()) {
+                            Navigator.pushReplacementNamed(
+                            context,
+                            SignUpPage.id,
+                            );
+                          }
                         },
                         child: const Text(
                           "CONTINUAR",
@@ -94,7 +114,7 @@ class _InitialLoginPageState extends State<InitialLoginPage> {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 52),
+                  SizedBox(height: size.height * 0.06),
                   const Text(
                     "ou",
                     style: AppTextStyles.kSecondaryTextLoginPage,
@@ -102,49 +122,68 @@ class _InitialLoginPageState extends State<InitialLoginPage> {
                   const SizedBox(height: 8),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 48.0),
-                    child: ElevatedButton(
-                      style: TextButton.styleFrom(
-                        primary: AppColors.kTextButtonColor,
-                        backgroundColor: AppColors.kWhite,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
+                    child: Expanded(
+                      child: FittedBox(
+                        fit: BoxFit.fitWidth,
+                        child: ElevatedButton(
+                          style: TextButton.styleFrom(
+                            primary: AppColors.kTextButtonColor,
+                            backgroundColor: AppColors.kWhite,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                          ),
+                          onPressed: () {},
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(right: 8.0),
+                                child: Image.asset(AppImages.logoGoogle),
+                              ),
+                              const Text(
+                                "CONTINUAR COM O GOOGLE",
+                                style: AppTextStyles.kTextButtonGoogle,
+                              )
+                            ],
+                          ),
                         ),
-                      ),
-                      onPressed: () {},
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Image.asset(AppImages.logoGoogle),
-                          const Text(
-                            "CONTINUAR COM O GOOGLE",
-                            style: AppTextStyles.kTextButtonGoogle,
-                          )
-                        ],
                       ),
                     ),
                   ),
                   const SizedBox(height: 16),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 48.0),
-                    child: ElevatedButton(
-                      style: TextButton.styleFrom(
-                        primary: AppColors.kWhite,
-                        backgroundColor:
-                            AppColors.kBackgroundFacebookButtonColors,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
+                    child: Expanded(
+                      child: FittedBox(
+                        fit: BoxFit.fitWidth,
+                        child: ElevatedButton(
+                          style: TextButton.styleFrom(
+                            primary: AppColors.kWhite,
+                            backgroundColor:
+                                AppColors.kBackgroundFacebookButtonColors,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                          ),
+                          onPressed: () {},
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(right: 8.0),
+                                child: Image.asset(AppImages.logoFacebook),
+                              ),
+                             const Text(
+                               "CONTINUAR COM O FACEBOOK",
+                               style: AppTextStyles.kTextButtonFacebook,
+                               maxLines: 2,
+                               
+                             )
+                            ],
+                          ),
                         ),
-                      ),
-                      onPressed: () {},
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Image.asset(AppImages.logoFacebook),
-                          const Text(
-                            "CONTINUAR COM O FACEBOOK",
-                            style: AppTextStyles.kTextButtonFacebook,
-                          )
-                        ],
                       ),
                     ),
                   ),
