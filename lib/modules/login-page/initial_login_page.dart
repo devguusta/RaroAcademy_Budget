@@ -1,16 +1,18 @@
-import 'package:animated_card/animated_card.dart';
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 import 'package:raro_academy_budget/modules/home-page-filled/home_page.dart';
 import 'package:raro_academy_budget/modules/signup-page/signup_page.dart';
 import 'package:raro_academy_budget/shared/widgets/input_form_widget.dart';
 import 'package:raro_academy_budget/util/constants/app_colors.dart';
+=======
+import 'package:animated_card/animated_card.dart';
+import 'package:raro_academy_budget/modules/login-page/widgets/single_email_form_widget.dart';
+>>>>>>> 555635c3921e05da3437be21fc757524d48fc123
 import 'package:raro_academy_budget/util/constants/app_images.dart';
 import 'package:raro_academy_budget/util/constants/app_text_styles.dart';
-import 'package:raro_academy_budget/util/validators/text_validator.dart';
 
 class InitialLoginPage extends StatefulWidget {
   static const String id = '/initial-login';
-
   const InitialLoginPage({Key? key}) : super(key: key);
 
   @override
@@ -18,15 +20,6 @@ class InitialLoginPage extends StatefulWidget {
 }
 
 class _InitialLoginPageState extends State<InitialLoginPage> {
-  TextEditingController emailController = TextEditingController();
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
-  @override
-  void dispose() {
-    emailController.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -44,8 +37,9 @@ class _InitialLoginPageState extends State<InitialLoginPage> {
                 padding: const EdgeInsets.only(left: 48.0),
                 child: AnimatedCard(
                   direction: AnimatedCardDirection.top,
-                   duration: const Duration(milliseconds: 400),
-                  child: Image.asset(AppImages.logoBudget)),
+                  duration: const Duration(milliseconds: 400),
+                  child: Image.asset(AppImages.logoBudget),
+                ),
               ),
             ),
             const Padding(
@@ -58,14 +52,14 @@ class _InitialLoginPageState extends State<InitialLoginPage> {
             Padding(
               padding: const EdgeInsets.only(left: 52.0, top: 8),
               child: Row(
-                children:  [
-                  Text(
+                children: [
+                  const Text(
                     "Novo usuário?",
                     style: AppTextStyles.kSecondaryTextLoginPage,
                   ),
                   GestureDetector(
-                    onTap: (){}, // navegar para signup
-                    child: Text(
+                    onTap: () {}, // navegar para signup
+                    child: const Text(
                       " Crie uma conta",
                       style: AppTextStyles.kSecondaryBoldTextLoginPage,
                     ),
@@ -74,6 +68,7 @@ class _InitialLoginPageState extends State<InitialLoginPage> {
               ),
             ),
             SizedBox(height: size.height * 0.05),
+<<<<<<< HEAD
             Form(
               key: _formKey,
               child: Column(
@@ -190,6 +185,9 @@ class _InitialLoginPageState extends State<InitialLoginPage> {
                 ],
               ),
             ),
+=======
+            const SingleEmailFormWidget(),
+>>>>>>> 555635c3921e05da3437be21fc757524d48fc123
           ],
         ),
       ),
