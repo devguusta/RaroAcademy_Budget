@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:raro_academy_budget/modules/in-out-transactions-page/in_out_transactions_page.dart';
 
 import 'package:raro_academy_budget/util/constants/app_colors.dart';
 import 'package:raro_academy_budget/util/constants/app_text_styles.dart';
@@ -21,8 +22,10 @@ class _CardDaybyDayState extends State<CardDaybyDay> {
     Size size = MediaQuery.of(context).size;
     return SingleChildScrollView(
       child: InkWell(
-        onTap:
-            () {}, // adicionar a função que abre a tela de entradas/saidas/todos
+        onTap: () {
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (_) => InOutTransactionsPage()));
+        }, // adicionar a função que abre a tela de entradas/saidas/todos
         child: Container(
           width: size.width * 0.9,
           decoration: BoxDecoration(
