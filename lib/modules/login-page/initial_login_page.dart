@@ -16,56 +16,53 @@ class InitialLoginPage extends StatefulWidget {
 class _InitialLoginPageState extends State<InitialLoginPage> {
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            SizedBox(height: size.height * 0.1),
-            Visibility(
-              visible: MediaQuery.of(context).viewInsets.bottom == 0,
-              child: Padding(
-                padding: const EdgeInsets.only(left: 48.0),
-                child: AnimatedCard(
-                  direction: AnimatedCardDirection.top,
-                  duration: const Duration(milliseconds: 400),
-                  child: Image.asset(AppImages.logoBudget),
+    return SafeArea(
+      child: Scaffold(
+        body: Center(
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 48.0),
+                  child: AnimatedCard(
+                    direction: AnimatedCardDirection.top,
+                    duration: const Duration(milliseconds: 200),
+                    child: Image.asset(AppImages.logoBudget),
+                  ),
                 ),
-              ),
-            ),
-            const Padding(
-              padding: EdgeInsets.only(left: 48.0, top: 16),
-              child: Text(
-                "Vamos\ncomeçar!",
-                style: AppTextStyles.kPrimaryTextLoginPage,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 52.0, top: 8),
-              child: Row(
-                children: [
-                  const Text(
-                    "Novo usuário?",
-                    style: AppTextStyles.kSecondaryTextLoginPage,
+                const Padding(
+                  padding: EdgeInsets.only(left: 48.0, top: 16),
+                  child: Text(
+                    "Vamos\ncomeçar!",
+                    style: AppTextStyles.kPrimaryTextLoginPage,
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      print('crie uma conta / tela de signup');
-                    }, // navegar para signup
-                    child: const Text(
-                      " Crie uma conta",
-                      style: AppTextStyles.kSecondaryBoldTextLoginPage,
-                    ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 52.0, top: 8),
+                  child: Row(
+                    children: [
+                      const Text(
+                        "Novo usuário?",
+                        style: AppTextStyles.kSecondaryTextLoginPage,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          print('crie uma conta / tela de signup');
+                        }, // navegar para signup
+                        child: const Text(
+                          " Crie uma conta",
+                          style: AppTextStyles.kSecondaryBoldTextLoginPage,
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+                const SingleEmailFormWidget(),
+              ],
             ),
-            SizedBox(height: size.height * 0.05),
-            const SingleEmailFormWidget(),
-          ],
+          ),
         ),
       ),
     );

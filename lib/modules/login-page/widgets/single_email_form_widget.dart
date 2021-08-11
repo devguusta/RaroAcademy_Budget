@@ -42,7 +42,6 @@ class _SingleEmailFormWidgetState extends State<SingleEmailFormWidget> {
             keyboardType: TextInputType.emailAddress,
           ),
           GetStartedButtonWidget(formKey: _formKey),
-          SizedBox(height: MediaQuery.of(context).size.height * 0.06),
           const Text(
             "ou",
             style: AppTextStyles.kSecondaryTextLoginPage,

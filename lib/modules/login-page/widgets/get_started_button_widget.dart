@@ -20,7 +20,7 @@ class _GetStartedButtonWidgetState extends State<GetStartedButtonWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(right: 48.0),
+      padding: const EdgeInsets.only(right: 48.0, top: 8.0),
       child: Align(
         alignment: Alignment.centerRight,
         child: TextButton(
