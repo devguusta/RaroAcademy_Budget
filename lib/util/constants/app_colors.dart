@@ -9,7 +9,7 @@ class AppColors {
   static const Color kYellow = Color(0xFFFAC736);
   static const Color kWhite = Color(0xFFFFFFFF);
   static const Color kTextButtonColor = Color.fromRGBO(0, 0, 0, 0.58);
-  static const Color kContinueButton = Color.fromRGBO(0, 0, 0, 0.012);
+  static const Color kContinueButton = Color.fromRGBO(0, 0, 0, 0.12);
   static const Color kContinueTextButton = Color.fromRGBO(0, 0, 0, 0.26);
   static const Color kBackgroundFacebookButtonColors =
       Color.fromRGBO(58, 91, 150, 1);

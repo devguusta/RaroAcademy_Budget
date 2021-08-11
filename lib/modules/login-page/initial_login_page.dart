@@ -53,7 +53,7 @@ class _InitialLoginPageState extends State<InitialLoginPage> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      SignUpPage.id;
+                      print('crie uma conta / tela de signup');
                     }, // navegar para signup
                     child: const Text(
                       " Crie uma conta",
