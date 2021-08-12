@@ -77,6 +77,13 @@ class AppTextStyles {
     fontFamily: "Roboto",
   );
 
+  static const TextStyle kLoginNextButton = TextStyle(
+    color: AppColors.kWhite,
+    fontSize: 14,
+    fontWeight: FontWeight.w500,
+    fontFamily: "Roboto",
+  );
+
   static const TextStyle kTextButtonGoogle = TextStyle(
     color: AppColors.kTextButtonColor,
     fontSize: 13,
@@ -234,13 +241,12 @@ class AppTextStyles {
     letterSpacing: 0.4,
   );
   static const TextStyle kOnBoardingText = TextStyle(
-    color: AppColors.kCyan,
-    fontFamily: 'Roboto',
-    fontStyle: FontStyle.normal,
-    fontWeight: FontWeight.w700,
-    fontSize: 34,
-    letterSpacing: 0.25
-  );
+      color: AppColors.kCyan,
+      fontFamily: 'Roboto',
+      fontStyle: FontStyle.normal,
+      fontWeight: FontWeight.w700,
+      fontSize: 34,
+      letterSpacing: 0.25);
   static const TextStyle kTextTrasanctionHeader = TextStyle(
     color: AppColors.kWhite,
     fontSize: 26,
@@ -248,6 +254,3 @@ class AppTextStyles {
     fontFamily: "Roboto",
   );
 }
-
-
-  
