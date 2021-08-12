@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:raro_academy_budget/modules/signup-page/page-view/page_view_for.dart';
 import 'package:raro_academy_budget/modules/signup-page/page-view/page_view_onboarding.dart';
@@ -19,15 +18,16 @@ class SignUpPage extends StatefulWidget {
 enum SingingCharacter { yes, no }
 
 class _SignUpPageState extends State<SignUpPage> {
-  final formKey = GlobalKey<FormState>();
   PageController pageController = PageController();
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
-  TextEditingController _cpfController = TextEditingController();
-  TextEditingController _phoneController = TextEditingController();
-  TextEditingController _confirmpasswordController = TextEditingController();
-  TextEditingController _nameController = TextEditingController();
- 
+  final formKey = GlobalKey<FormState>();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _cpfController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _confirmpasswordController =
+      TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+
   SingingCharacter? character = SingingCharacter.no;
   bool stateRadio = true;
   int pageChanged = 0;
@@ -41,13 +41,14 @@ class _SignUpPageState extends State<SignUpPage> {
     super.initState();
   }
 
+  @override
   dispose() {
     _nameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
     _cpfController.dispose();
     _phoneController.dispose();
-   _confirmpasswordController.dispose();
+    _confirmpasswordController.dispose();
     pageController.dispose();
     super.dispose();
   }
@@ -63,59 +64,68 @@ class _SignUpPageState extends State<SignUpPage> {
             Flexible(
               child: Form(
                 key: formKey,
-                child: Container(
+                child: SizedBox(
                   height: size.height,
                   child: PageView(
                     scrollDirection: Axis.horizontal,
-                    physics: NeverScrollableScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                     pageSnapping: true,
                     onPageChanged: (index) {
-                      setState(() {
-                        pageChanged = index;
-                      });
+                      setState(
+                        () {
+                          pageChanged = index;
+                        },
+                      );
                     },
                     controller: pageController,
                     children: [
-                      Stack(children: [
-                        PageViewOne(
+                      Stack(
+                        children: [
+                          PageViewOne(
                             emailController: _emailController,
-                            nameController: _nameController),
-                        Align(
-                          alignment: Alignment.bottomCenter,
-                          child: SignUpFooter(
+                            nameController: _nameController,
+                          ),
+                          Align(
+                            alignment: Alignment.bottomCenter,
+                            child: SignUpFooter(
                               page: '1',
                               onPressed: () {
                                 if (formKey.currentState!.validate()) {
                                   pageController.nextPage(
-                                    duration: Duration(microseconds: 400),
+                                    duration: const Duration(microseconds: 400),
                                     curve: Curves.easeIn,
                                   );
                                 }
-                              }),
-                        ),
-                      ]),
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
                       Stack(
                         children: [
                           PageViewTwo(
-                              phoneController: _phoneController,
-                              cpfController: _cpfController),
+                            phoneController: _phoneController,
+                            cpfController: _cpfController,
+                          ),
                           Align(
                             alignment: Alignment.bottomCenter,
                             child: SignUpFooter(
-                                page: '2',
-                                onPressed: () {
-                                  if (formKey.currentState!.validate()) {
-                                    pageController.nextPage(
-                                      duration: Duration(microseconds: 400),
-                                      curve: Curves.easeIn,
-                                    );
-                                  }
-                                },
-                                onBack: () {
-                                  pageController.previousPage(
-                                      duration: Duration(microseconds: 400),
-                                      curve: Curves.easeIn);
-                                }),
+                              page: '2',
+                              onPressed: () {
+                                if (formKey.currentState!.validate()) {
+                                  pageController.nextPage(
+                                    duration: const Duration(microseconds: 400),
+                                    curve: Curves.easeIn,
+                                  );
+                                }
+                              },
+                              onBack: () {
+                                pageController.previousPage(
+                                  duration: const Duration(microseconds: 400),
+                                  curve: Curves.easeIn,
+                                );
+                              },
+                            ),
                           ),
                         ],
                       ),
@@ -124,55 +134,58 @@ class _SignUpPageState extends State<SignUpPage> {
                           SignUpUseTerms(
                             state: stateRadio,
                           ),
-                        
                           Align(
                             alignment: Alignment.bottomCenter,
                             child: SignUpFooter(
-                                page: '3',
-                                onPressed: () {
-                                  if (stateRadio == true) {
-                                    pageController.nextPage(
-                                      duration: Duration(microseconds: 400),
-                                      curve: Curves.easeIn,
-                                    );
-                                  }
-                                },
-                                onBack: () {
-                                  pageController.previousPage(
-                                      duration: Duration(microseconds: 400),
-                                      curve: Curves.easeIn);
-                                }),
+                              page: '3',
+                              onPressed: () {
+                                if (stateRadio == true) {
+                                  pageController.nextPage(
+                                    duration: const Duration(microseconds: 400),
+                                    curve: Curves.easeIn,
+                                  );
+                                }
+                              },
+                              onBack: () {
+                                pageController.previousPage(
+                                  duration: const Duration(microseconds: 400),
+                                  curve: Curves.easeIn,
+                                );
+                              },
+                            ),
                           ),
                         ],
                       ),
                       Stack(
                         children: [
                           PageViewFor(
-                              passwordController: _passwordController,
-                              confirmPasswordController:
-                                  _confirmpasswordController),
-                                  Align(
+                            passwordController: _passwordController,
+                            confirmPasswordController:
+                                _confirmpasswordController,
+                          ),
+                          Align(
                             alignment: Alignment.bottomCenter,
                             child: SignUpFooter(
-                                page: '4',
-                                onPressed: () {
-                                  if (formKey.currentState!.validate()) {
-                                    pageController.nextPage(
-                                      duration: Duration(microseconds: 400),
-                                      curve: Curves.easeIn,
-                                    );
-                                  }
-                                },
-                                onBack: () {
-                                  pageController.previousPage(
-                                      duration: Duration(microseconds: 400),
-                                      curve: Curves.easeIn);
-                                }),
+                              page: '4',
+                              onPressed: () {
+                                if (formKey.currentState!.validate()) {
+                                  pageController.nextPage(
+                                    duration: const Duration(microseconds: 400),
+                                    curve: Curves.easeIn,
+                                  );
+                                }
+                              },
+                              onBack: () {
+                                pageController.previousPage(
+                                  duration: const Duration(microseconds: 400),
+                                  curve: Curves.easeIn,
+                                );
+                              },
+                            ),
                           ),
                         ],
                       ),
-                      OnBoarding(),
-                      
+                      const OnBoarding(),
                     ],
                   ),
                 ),

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:raro_academy_budget/modules/login-page/initial_login_page.dart';
+import 'package:raro_academy_budget/modules/login-page/password-page/password_page.dart';
 import 'package:raro_academy_budget/modules/login-page/widgets/facebook_button_widget.dart';
 import 'package:raro_academy_budget/modules/login-page/widgets/google_button_widget.dart';
-import 'package:raro_academy_budget/modules/signup-page/signup_page.dart';
 import 'package:raro_academy_budget/shared/widgets/input_form_widget.dart';
 import 'package:raro_academy_budget/util/constants/app_text_styles.dart';
 import 'package:raro_academy_budget/util/validators/text_validator.dart';
@@ -17,7 +16,7 @@ class SingleEmailFormWidget extends StatefulWidget {
 }
 
 class _SingleEmailFormWidgetState extends State<SingleEmailFormWidget> {
-  TextEditingController _inputController = TextEditingController();
+  final TextEditingController _inputController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   bool _enabled = false;
@@ -30,13 +29,14 @@ class _SingleEmailFormWidgetState extends State<SingleEmailFormWidget> {
 
   @override
   Widget build(BuildContext context) {
-    print('inputform reiniciado');
     var _onPressed;
     if (_enabled) {
       _onPressed = () {
         _formKey.currentState!.validate();
-        Navigator.pushNamed(context, SignUpPage.id);
-        print('tap');
+        Navigator.pushNamed(
+          context,
+          PasswordPage.id,
+        );
       };
     }
 
@@ -51,28 +51,23 @@ class _SingleEmailFormWidgetState extends State<SingleEmailFormWidget> {
             onChanged: (value) {
               if (value.isNotEmpty) {
                 setState(() {
-                  print(value);
                   _enabled = true;
                 });
-              } else
-                setState(() {
-                  print(value);
-                  _enabled = false;
-                });
+              } else {
+                setState(
+                  () {
+                    _enabled = false;
+                  },
+                );
+              }
             },
             validator: (String? value) => Validators.validateEmail(value),
             keyboardType: TextInputType.emailAddress,
           ),
-          NextButtonWidget(
-            formKey: _formKey,
-            onPressed: _onPressed,
-          ),
-          const Text(
-            "ou",
-            style: AppTextStyles.kSecondaryTextLoginPage,
-          ),
-          GoogleButtonWidget(),
-          FacebookButtonWidget(),
+          NextButtonWidget(formKey: _formKey, onPressed: _onPressed),
+          const Text("ou", style: AppTextStyles.kSecondaryTextLoginPage),
+          const GoogleButtonWidget(),
+          const FacebookButtonWidget(),
         ],
       ),
     );
