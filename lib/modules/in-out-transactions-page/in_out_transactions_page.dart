@@ -240,7 +240,7 @@ class TransactionsCardWidget extends StatelessWidget {
           child: Column(
             children: [
               Expanded(
-                flex: 6,
+                flex: 7,
                 child: Padding(
                   padding:
                       const EdgeInsets.only(left: 16.0, top: 16.0, right: 16.0),
