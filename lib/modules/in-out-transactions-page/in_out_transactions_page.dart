@@ -219,7 +219,7 @@ class TransactionsCardWidget extends StatelessWidget {
     return Stack(children: [
       Container(
           margin: EdgeInsets.only(top: 16, left: 16, right: 16, bottom: 40),
-          height: 395,
+          height: double.maxFinite,
           decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(
@@ -288,8 +288,7 @@ class TransactionsCardWidget extends StatelessWidget {
       Visibility(
         visible: type == 2 ? false : true,
         child: Positioned(
-            // bottom: 34,
-            bottom: 26,
+            bottom: 18,
             left: (MediaQuery.of(context).size.width - 32) / 2,
             child: Container(
               height: 50,
