@@ -4,11 +4,13 @@ import 'package:raro_academy_budget/shared/widgets/drawer_widget.dart';
 import 'package:raro_academy_budget/shared/widgets/transaction_widget.dart';
 import 'package:raro_academy_budget/util/constants/app_colors.dart';
 import 'package:raro_academy_budget/util/constants/app_text_styles.dart';
+
 class InOutTransactionsPage extends StatefulWidget {
   const InOutTransactionsPage({Key? key}) : super(key: key);
   @override
   _InOutTransactionsPageState createState() => _InOutTransactionsPageState();
 }
+
 class _InOutTransactionsPageState extends State<InOutTransactionsPage> {
   String dropdownValue = 'Agosto';
   final pageController = PageController(initialPage: 0);
@@ -87,7 +89,7 @@ class _InOutTransactionsPageState extends State<InOutTransactionsPage> {
                         return DropdownMenuItem<String>(
                           value: value,
                           child: Text(
-                            value,
+                            value.toUpperCase(),
                             overflow: TextOverflow.ellipsis,
                             style: AppTextStyles.kNextButtonMedium,
                           ),
@@ -205,6 +207,7 @@ class _InOutTransactionsPageState extends State<InOutTransactionsPage> {
     );
   }
 }
+
 class TransactionsCardWidget extends StatelessWidget {
   const TransactionsCardWidget(
       {Key? key, required this.context, required this.type})
