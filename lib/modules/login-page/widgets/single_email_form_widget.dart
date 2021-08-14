@@ -33,6 +33,7 @@ class _SingleEmailFormWidgetState extends State<SingleEmailFormWidget> {
     if (_enabled) {
       _onPressed = () {
         _formKey.currentState!.validate();
+
         Navigator.pushNamed(
           context,
           PasswordPage.id,
