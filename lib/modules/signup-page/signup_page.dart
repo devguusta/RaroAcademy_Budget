@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:raro_academy_budget/modules/login-page/initial_login_page.dart';
 import 'package:raro_academy_budget/modules/signup-page/page-view/page_view_for.dart';
 import 'package:raro_academy_budget/modules/signup-page/page-view/page_view_onboarding.dart';
 import 'package:raro_academy_budget/modules/signup-page/page-view/page_view_one.dart';
@@ -82,8 +83,8 @@ class _SignUpPageState extends State<SignUpPage> {
                       Stack(
                         children: [
                           PageViewOne(
-                            emailController: _emailController,
                             nameController: _nameController,
+                            emailController: _emailController,
                           ),
                           Align(
                             alignment: Alignment.bottomCenter,
@@ -96,6 +97,12 @@ class _SignUpPageState extends State<SignUpPage> {
                                     curve: Curves.easeIn,
                                   );
                                 }
+                              },
+                              onBack: () {
+                                Navigator.pushNamed(
+                                  context,
+                                  InitialLoginPage.id,
+                                );
                               },
                             ),
                           ),

@@ -43,11 +43,13 @@ class _PageViewTwoState extends State<PageViewTwo> {
           padding: EdgeInsets.only(left: 48.0, top: 16.0),
           child: Text("Bem-vindo!", style: AppTextStyles.kPrimaryTextLoginPage),
         ),
-        Padding(
-          padding: const EdgeInsets.only(left: 48.0, right: 57.0),
+        const Padding(
+          padding: EdgeInsets.only(left: 48.0, right: 57.0),
           child: SizedBox(
-            child: Text('Mais Alguns dados.',
-                style: AppTextStyles.kSubTitleSignUpText),
+            child: Text(
+              'Mais Alguns dados.',
+              style: AppTextStyles.kSubTitleSignUpText,
+            ),
           ),
         ),
         SizedBox(height: size.height * 0.15),
@@ -56,24 +58,22 @@ class _PageViewTwoState extends State<PageViewTwo> {
           labelText: "Telefone",
           controller: widget.phoneController,
           onChanged: (value) {},
-          validator:(String? value) => Validators().validatePhone(value!),
+          validator: (String? value) => Validators().validatePhone(value!),
           keyboardType: TextInputType.number,
           // inputFormatters: [
           //   FilteringTextInputFormatter.digitsOnly,
           //   maskFormatter,
           // ],
-          
         ),
-          SizedBox(height: size.height * 0.05),
+        SizedBox(height: size.height * 0.05),
         InputForm(
           hintText: "Cpf",
           labelText: "Cpf",
           controller: widget.cpfController,
-          
           validator: (String? value) => Validators().cpfValidator(value!),
           // inputFormatters: [
           //   FilteringTextInputFormatter.digitsOnly,
-            
+
           // ],
         ),
       ],

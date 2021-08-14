@@ -8,62 +8,63 @@ class OnBoarding extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return SingleChildScrollView(
-        child: Stack(
+      child: Container(
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: const AssetImage("assets/images/sucessRegister.png"),
+            fit: BoxFit.cover,
+            colorFilter: ColorFilter.mode(
+              Colors.blue.shade300,
+              BlendMode.modulate,
+            ),
+          ),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.max,
           children: [
-            Image.asset(
-              "assets/images/sucessRegister.png",
-              fit: BoxFit.fill,
-            ),
-            // Image.asset(
-            //   "assets/images/blue1.png",
-            //   fit: BoxFit.fill,
-            // ),
-            Image.asset(
-              "assets/images/blue.png",
-              fit: BoxFit.fill,
-            ),
-            
-            Padding(
-              padding: const EdgeInsets.only(top: 32.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.max,
-                children: [ 
-                 
-                  Center(child: Image.asset("assets/images/iconBudgetLarge.png")),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 48.0),
-                      child: Text("Agora sim!\nVocê terá o\ncontrole\nfinanceiro nas\nsuas mãos!", style: AppTextStyles.kOnBoardingText),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 48.0, top: 24),
-                      child: ElevatedButton(
-                        style: TextButton.styleFrom(
-                          primary: Colors.white,
-                          backgroundColor: AppColors.kCyan,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(34),
-                          ),
-                          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-                        ),
-                        onPressed: (){
-                         Navigator.pushReplacementNamed(
-                            context,
-                            HomePage.id,
-                            );
-                        },
-                        child: Text("VAMOS LÁ!"),
-                      ),
-                    ),
-                ],
+            Center(
+              child: Image.asset(
+                "assets/images/iconBudgetLarge.png",
               ),
             ),
-          
+            const Padding(
+              padding: EdgeInsets.only(left: 48.0),
+              child: Text(
+                "Agora sim!\nVocê terá o\ncontrole\nfinanceiro nas\nsuas mãos!",
+                style: AppTextStyles.kOnBoardingText,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 48.0, top: 24),
+              child: ElevatedButton(
+                style: TextButton.styleFrom(
+                  primary: Colors.white,
+                  backgroundColor: AppColors.kCyan,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(34),
+                  ),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20.0,
+                    vertical: 12.5,
+                  ),
+                ),
+                onPressed: () {
+                  Navigator.pushReplacementNamed(
+                    context,
+                    HomePage.id,
+                  );
+                },
+                child: Text("Vamos lá!".toUpperCase()),
+              ),
+            ),
           ],
         ),
+      ),
     );
   }
 }

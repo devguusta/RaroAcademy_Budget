@@ -220,6 +220,7 @@ class AppTextStyles {
 
   static const TextStyle kForwadSignUpButton = TextStyle(
     color: AppColors.kWhite,
+    fontWeight: FontWeight.w500,
     fontFamily: 'Roboto',
     fontSize: 14.0,
     letterSpacing: 0.4,
@@ -260,5 +261,13 @@ class AppTextStyles {
     fontSize: 12,
     color: Color.fromRGBO(52, 48, 144, 1),
     letterSpacing: 0.15,
+  );
+
+  static const TextStyle kPasswordTextLogin = TextStyle(
+    fontFamily: 'Roboto',
+    fontWeight: FontWeight.w400,
+    fontSize: 16.0,
+    letterSpacing: 0.15,
+    color: Color.fromRGBO(0, 0, 0, 0.54),
   );
 }
