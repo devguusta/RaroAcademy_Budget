@@ -99,9 +99,6 @@ class _InOutTransactionsPageState extends State<InOutTransactionsPage> {
                   ),
                 ],
               ),
-              // SizedBox(
-              //   height: 21,
-              // ),
               Padding(
                 padding: const EdgeInsets.only(top: 27, bottom: 11),
                 child: Text(
@@ -224,7 +221,6 @@ class TransactionsCardWidget extends StatelessWidget {
             boxShadow: [
               BoxShadow(
                 color: Color.fromRGBO(0, 0, 0, 0.12),
-                // spreadRadius: 1,
                 blurRadius: 1,
                 offset: Offset(0, 1),
               ),
