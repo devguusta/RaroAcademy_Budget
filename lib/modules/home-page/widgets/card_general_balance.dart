@@ -15,13 +15,12 @@ class _CardGeneralBalanceState extends State<CardGeneralBalance> {
   bool balanceVisible = true;
   @override
   Widget build(BuildContext context) {
-      Size size = MediaQuery.of(context).size;
+    Size size = MediaQuery.of(context).size;
     return SingleChildScrollView(
-          child: Container(
-        
+      child: Container(
         width: size.width * 0.9,
         decoration: BoxDecoration(
-          boxShadow: [
+          boxShadow: const [
             BoxShadow(
               color: Color.fromRGBO(0, 0, 0, 0.12),
               // spreadRadius: 1,
@@ -34,7 +33,7 @@ class _CardGeneralBalanceState extends State<CardGeneralBalance> {
               blurRadius: 1,
             ),
           ],
-          color: Color.fromRGBO(253, 253, 253, 1),
+          color: const Color.fromRGBO(253, 253, 253, 1),
           borderRadius: BorderRadius.circular(7),
         ),
         child: Column(
@@ -49,13 +48,18 @@ class _CardGeneralBalanceState extends State<CardGeneralBalance> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("Saldo geral",
-                      style: AppTextStyles.kTitleHomeMedium),
-                  VisibleWidget(visible: balanceVisible, onPressed: (){
-                    setState(() {
-                      balanceVisible = !balanceVisible;
-                    });
-                  })
+                  const Text(
+                    "Saldo geral",
+                    style: AppTextStyles.kTitleHomeMedium,
+                  ),
+                  VisibleWidget(
+                    visible: balanceVisible,
+                    onPressed: () {
+                      setState(() {
+                        balanceVisible = !balanceVisible;
+                      });
+                    },
+                  )
                 ],
               ),
             ),
@@ -66,12 +70,12 @@ class _CardGeneralBalanceState extends State<CardGeneralBalance> {
                   left: 16.0,
                   bottom: 16,
                 ),
-                child: balanceVisible ?  Container()
-                    :  Text("R\$ 3.000,00",
-                    
-                    style: 
-                    AppTextStyles.kSubTitleHomeMedium) 
-                   
+                child: balanceVisible
+                    ? Container()
+                    : const Text(
+                        "R\$ 3.000,00",
+                        style: AppTextStyles.kSubTitleHomeMedium,
+                      ),
               ),
             ),
           ],

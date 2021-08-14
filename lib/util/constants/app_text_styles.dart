@@ -43,9 +43,11 @@ class AppTextStyles {
   );
 
   static const TextStyle kNextButtonMedium = TextStyle(
+    fontFamily: 'Roboto',
     color: AppColors.kWhite,
+    fontWeight: FontWeight.w500,
     fontSize: 14.0,
-    letterSpacing: -0.4,
+    letterSpacing: 0.4,
   );
 
   static const TextStyle kPrimaryTextLoginPage = TextStyle(
