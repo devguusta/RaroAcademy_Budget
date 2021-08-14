@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:raro_academy_budget/modules/transaction-in-page/transaction_in_page.dart';
+import 'package:raro_academy_budget/modules/transaction-out-page/transaction_out_page.dart';
 import 'package:raro_academy_budget/shared/widgets/drawer_widget.dart';
 import 'package:raro_academy_budget/shared/widgets/transaction_widget.dart';
 import 'package:raro_academy_budget/util/constants/app_colors.dart';
@@ -286,15 +288,26 @@ class TransactionsCardWidget extends StatelessWidget {
         child: Positioned(
             bottom: 18,
             left: (MediaQuery.of(context).size.width - 32) / 2,
-            child: Container(
-              height: 50,
-              width: 50,
-              decoration: BoxDecoration(
-                  gradient: AppColors.kBlueGradient, shape: BoxShape.circle),
-              child: Center(
-                child: Icon(
-                  Icons.add,
-                  color: Colors.white,
+            child: InkWell(
+              onTap: () {
+                if (type == 0) {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (_) => InPage()));
+                } else if (type == 1) {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (_) => OutPage()));
+                }
+              },
+              child: Container(
+                height: 50,
+                width: 50,
+                decoration: BoxDecoration(
+                    gradient: AppColors.kBlueGradient, shape: BoxShape.circle),
+                child: Center(
+                  child: Icon(
+                    Icons.add,
+                    color: Colors.white,
+                  ),
                 ),
               ),
             )),
