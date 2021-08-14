@@ -127,7 +127,7 @@ class DrawerWidget extends StatelessWidget {
                     ),
                     Center(
                       child: Padding(
-                        padding: const EdgeInsets.only(top: 20, bottom: 14),
+                        padding: const EdgeInsets.only(top: 20, bottom: 20),
                         child: InkWell(
                           onTap: () {},
                           child: Text(
