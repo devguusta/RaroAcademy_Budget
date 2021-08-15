@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:raro_academy_budget/modules/transaction-out-page/transaction_out_page_controller.dart';
+import 'package:raro_academy_budget/modules/transaction-out-page/widgets/transaction_out_input_widget.dart';
+import 'package:raro_academy_budget/modules/transaction-out-page/transaction_out_model.dart';
 import 'package:raro_academy_budget/shared/widgets/dropdown_item_widget.dart';
 import 'package:raro_academy_budget/shared/widgets/dropdown_widget.dart';
-import 'package:raro_academy_budget/shared/widgets/input_form_widget.dart';
 import 'package:raro_academy_budget/shared/widgets/button_widget.dart';
 import 'package:raro_academy_budget/shared/widgets/transaction_page_widget.dart';
 import 'package:raro_academy_budget/util/constants/app_colors.dart';
@@ -20,34 +22,45 @@ class OutPage extends StatefulWidget {
 class _OutPageState extends State<OutPage> {
   DateTime _dateTime = DateTime.now();
   DropDownMenuItem? _value;
+  TextEditingController _amountValue = TextEditingController();
 
   List<DropDownMenuItem> items = [
     const DropDownMenuItem(
-      category: 'Pix',
-      icon: AppIcons.kPix,
+      category: 'Refeição',
+      icon: AppIcons.kMeal,
+      color: AppColors.kYellow,
+    ),
+    const DropDownMenuItem(
+      category: 'Transporte',
+      icon: AppIcons.kTransport,
+      color: AppColors.kGreen,
+    ),
+    const DropDownMenuItem(
+      category: 'Viagem',
+      icon: AppIcons.kTravel,
+      color: AppColors.kPink,
+    ),
+    const DropDownMenuItem(
+      category: 'Educação',
+      icon: AppIcons.kEducation,
+      color: AppColors.kCyan,
+    ),
+    const DropDownMenuItem(
+      category: 'Pagamentos',
+      icon: AppIcons.kPayments,
       color: AppColors.kPurple,
     ),
     const DropDownMenuItem(
-      category: 'Dinheiro',
-      icon: AppIcons.kMoney,
-      color: AppColors.kPurple,
-    ),
-    const DropDownMenuItem(
-      category: 'Doc',
-      icon: AppIcons.kDoc,
-      color: AppColors.kPurple,
-    ),
-    const DropDownMenuItem(
-      category: 'Ted',
-      icon: AppIcons.kTed,
-      color: AppColors.kPurple,
-    ),
-    const DropDownMenuItem(
-      category: 'Boleto',
-      icon: AppIcons.kBoleto,
-      color: AppColors.kPurple,
+      category: 'Outros',
+      icon: AppIcons.kOthers,
+      color: AppColors.kLilac,
     ),
   ];
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    _amountValue.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,11 +69,23 @@ class _OutPageState extends State<OutPage> {
       button: ButtonWidget(
         buttonIcon: Icons.add,
         buttonText: "Inserir",
+        onTap: () {
+          TransactionOutController().addTransaction(
+            transaction: TransactionOutModel(
+              category: _value!.category,
+              date: _dateTime,
+              type: 'out',
+              value: double.parse(_amountValue.text),
+            ),
+          );
+          Navigator.pop(context);
+        },
       ),
       children: [
-        InputForm(
+        TransactionOutInputWidget(
           hintText: "Valor em R\$",
           labelText: "Valor em R\$",
+          controller: _amountValue,
         ),
         DropdownWidget(
           value: _value,
