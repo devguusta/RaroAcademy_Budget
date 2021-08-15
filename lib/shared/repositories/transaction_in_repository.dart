@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:raro_academy_budget/modules/transaction-in-page/transaction_in_model.dart';
+import 'package:raro_academy_budget/shared/models/transaction_in_model.dart';
 
 class TransactionInRepository {
   Future<TransactionInModel?> addTransaction(

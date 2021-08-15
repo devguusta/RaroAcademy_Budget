@@ -1,5 +1,5 @@
-import 'package:raro_academy_budget/modules/transaction-in-page/transaction_in_model.dart';
-import 'package:raro_academy_budget/modules/transaction-in-page/transaction_in_repository.dart';
+import 'package:raro_academy_budget/shared/models/transaction_in_model.dart';
+import 'package:raro_academy_budget/shared/repositories/transaction_in_repository.dart';
 
 class TransactionInPageController {
   final TransactionInRepository repository = TransactionInRepository();

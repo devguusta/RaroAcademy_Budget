@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
-import 'package:raro_academy_budget/modules/transaction-in-page/transaction_in_model.dart';
-import 'package:raro_academy_budget/modules/transaction-in-page/transaction_in_page_controller.dart';
+import 'package:raro_academy_budget/shared/models/transaction_in_model.dart';
+import 'package:raro_academy_budget/shared/controllers/transaction_in_page_controller.dart';
 import 'package:raro_academy_budget/modules/transaction-in-page/widgets/transaction_in_input_widget.dart';
 import 'package:raro_academy_budget/shared/widgets/dropdown_item_widget.dart';
 import 'package:raro_academy_budget/shared/widgets/dropdown_widget.dart';
