@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:raro_academy_budget/modules/login-page/login_controller.dart';
 import 'package:raro_academy_budget/modules/login-page/password-page/password_page.dart';
 import 'package:raro_academy_budget/modules/login-page/widgets/facebook_button_widget.dart';
 import 'package:raro_academy_budget/modules/login-page/widgets/google_button_widget.dart';
@@ -18,8 +19,11 @@ class SingleEmailFormWidget extends StatefulWidget {
 class _SingleEmailFormWidgetState extends State<SingleEmailFormWidget> {
   final TextEditingController _inputController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  LoginController loginController = LoginController();
+  String? email;
 
   bool _enabled = false;
+  bool result = true;
 
   @override
   void dispose() {
@@ -31,13 +35,17 @@ class _SingleEmailFormWidgetState extends State<SingleEmailFormWidget> {
   Widget build(BuildContext context) {
     var _onPressed;
     if (_enabled) {
-      _onPressed = () {
-        _formKey.currentState!.validate();
-
-        Navigator.pushNamed(
-          context,
-          PasswordPage.id,
-        );
+      _onPressed = () async {
+        result =
+            await loginController.containsEmail(email: _inputController.text);
+        print("result 1: $result");
+        setState(() {});
+        if (_formKey.currentState!.validate()) {
+          _formKey.currentState!.save();
+          print(_inputController.text);
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (_) => PasswordPage(email: _inputController.text)));
+        }
       };
     }
 
@@ -51,9 +59,11 @@ class _SingleEmailFormWidgetState extends State<SingleEmailFormWidget> {
             controller: _inputController,
             onChanged: (value) {
               if (value.isNotEmpty) {
-                setState(() {
-                  _enabled = true;
-                });
+                if (value.length == 1) {
+                  setState(() {
+                    _enabled = true;
+                  });
+                }
               } else {
                 setState(
                   () {
@@ -62,7 +72,8 @@ class _SingleEmailFormWidgetState extends State<SingleEmailFormWidget> {
                 );
               }
             },
-            validator: (String? value) => Validators.validateEmail(value),
+            validator: (String? value) =>
+                Validators.validateEmail(value, result: result),
             keyboardType: TextInputType.emailAddress,
           ),
           NextButtonWidget(formKey: _formKey, onPressed: _onPressed),

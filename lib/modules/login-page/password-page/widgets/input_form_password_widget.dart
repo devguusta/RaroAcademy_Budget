@@ -3,7 +3,9 @@ import 'package:raro_academy_budget/shared/widgets/input_form_widget.dart';
 import 'package:raro_academy_budget/util/validators/text_validator.dart';
 
 class InputFormPasswordWidget extends StatefulWidget {
-  const InputFormPasswordWidget({Key? key}) : super(key: key);
+  final String email;
+  const InputFormPasswordWidget({Key? key, required this.email})
+      : super(key: key);
 
   @override
   _InputFormPasswordWidgetState createState() =>
@@ -25,14 +27,13 @@ class _InputFormPasswordWidgetState extends State<InputFormPasswordWidget> {
           InputForm(
             hintText: "Insira seu e-mail",
             labelText: "E-mail",
-            controller: emailController,
-            onChanged: (value) {},
-            validator: (String? value) => Validators.validateEmail(value),
+            initialValue: widget.email,
+            enabled: false,
             keyboardType: TextInputType.emailAddress,
           ),
           const SizedBox(height: 50.0),
           InputForm(
-            hintText: 'Crie uma senha',
+            hintText: 'Senha',
             labelText: 'Senha',
             controller: passwordController,
             onChanged: (value) {},

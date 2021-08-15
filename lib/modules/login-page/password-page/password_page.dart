@@ -7,7 +7,8 @@ import 'package:raro_academy_budget/util/constants/app_text_styles.dart';
 
 class PasswordPage extends StatefulWidget {
   static const String id = '/password';
-  const PasswordPage({Key? key}) : super(key: key);
+  final String email;
+  PasswordPage({Key? key, required this.email}) : super(key: key);
 
   @override
   _PasswordPageState createState() => _PasswordPageState();
@@ -43,7 +44,7 @@ class _PasswordPageState extends State<PasswordPage> {
               ),
             ),
             const SizedBox(height: 100.0),
-            const InputFormPasswordWidget(),
+            InputFormPasswordWidget(email: widget.email),
             const SizedBox(height: 16.0),
             const FooterPasswordWidget(),
           ],

@@ -21,7 +21,7 @@ class AppWidget extends StatelessWidget {
         InitialLoginPage.id: (context) => const InitialLoginPage(),
         HomePage.id: (context) => const HomePage(),
         SignUpPage.id: (context) => const SignUpPage(),
-        PasswordPage.id: (context) => const PasswordPage(),
+        // PasswordPage.id: (context) => const PasswordPage(),
         // incluir a rota nomeada como static const
         InPage.id: (context) => const InPage(),
         OutPage.id: (context) => const OutPage(),
