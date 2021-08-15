@@ -25,4 +25,16 @@ class LoginRepository {
       throw e;
     }
   }
+
+  Future<bool> containsEmail(String email) async {
+    try {
+      final response = await FirebaseFirestore.instance
+          .collection("/users")
+          .where("email", isEqualTo: email)
+          .get();
+      return response.docs.length > 0;
+    } catch (e) {
+      throw e;
+    }
+  }
 }
