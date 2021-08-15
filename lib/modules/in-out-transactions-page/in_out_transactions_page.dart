@@ -1,14 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:raro_academy_budget/modules/transaction-in-page/transaction_in_page.dart';
+import 'package:raro_academy_budget/modules/transaction-out-page/transaction_out_page.dart';
 import 'package:raro_academy_budget/shared/widgets/drawer_widget.dart';
 import 'package:raro_academy_budget/shared/widgets/transaction_widget.dart';
 import 'package:raro_academy_budget/util/constants/app_colors.dart';
 import 'package:raro_academy_budget/util/constants/app_text_styles.dart';
+
 class InOutTransactionsPage extends StatefulWidget {
   const InOutTransactionsPage({Key? key}) : super(key: key);
   @override
   _InOutTransactionsPageState createState() => _InOutTransactionsPageState();
 }
+
 class _InOutTransactionsPageState extends State<InOutTransactionsPage> {
   String dropdownValue = 'Agosto';
   final pageController = PageController(initialPage: 0);
@@ -87,7 +91,7 @@ class _InOutTransactionsPageState extends State<InOutTransactionsPage> {
                         return DropdownMenuItem<String>(
                           value: value,
                           child: Text(
-                            value,
+                            value.toUpperCase(),
                             overflow: TextOverflow.ellipsis,
                             style: AppTextStyles.kNextButtonMedium,
                           ),
@@ -97,9 +101,6 @@ class _InOutTransactionsPageState extends State<InOutTransactionsPage> {
                   ),
                 ],
               ),
-              // SizedBox(
-              //   height: 21,
-              // ),
               Padding(
                 padding: const EdgeInsets.only(top: 27, bottom: 11),
                 child: Text(
@@ -205,6 +206,7 @@ class _InOutTransactionsPageState extends State<InOutTransactionsPage> {
     );
   }
 }
+
 class TransactionsCardWidget extends StatelessWidget {
   const TransactionsCardWidget(
       {Key? key, required this.context, required this.type})
@@ -216,12 +218,11 @@ class TransactionsCardWidget extends StatelessWidget {
     return Stack(children: [
       Container(
           margin: EdgeInsets.only(top: 16, left: 16, right: 16, bottom: 40),
-          height: 395,
+          height: double.maxFinite,
           decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(
                 color: Color.fromRGBO(0, 0, 0, 0.12),
-                // spreadRadius: 1,
                 blurRadius: 1,
                 offset: Offset(0, 1),
               ),
@@ -237,7 +238,7 @@ class TransactionsCardWidget extends StatelessWidget {
           child: Column(
             children: [
               Expanded(
-                flex: 6,
+                flex: 7,
                 child: Padding(
                   padding:
                       const EdgeInsets.only(left: 16.0, top: 16.0, right: 16.0),
@@ -285,18 +286,28 @@ class TransactionsCardWidget extends StatelessWidget {
       Visibility(
         visible: type == 2 ? false : true,
         child: Positioned(
-            // bottom: 34,
-            bottom: 26,
+            bottom: 18,
             left: (MediaQuery.of(context).size.width - 32) / 2,
-            child: Container(
-              height: 50,
-              width: 50,
-              decoration: BoxDecoration(
-                  gradient: AppColors.kBlueGradient, shape: BoxShape.circle),
-              child: Center(
-                child: Icon(
-                  Icons.add,
-                  color: Colors.white,
+            child: InkWell(
+              onTap: () {
+                if (type == 0) {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (_) => InPage()));
+                } else if (type == 1) {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (_) => OutPage()));
+                }
+              },
+              child: Container(
+                height: 50,
+                width: 50,
+                decoration: BoxDecoration(
+                    gradient: AppColors.kBlueGradient, shape: BoxShape.circle),
+                child: Center(
+                  child: Icon(
+                    Icons.add,
+                    color: Colors.white,
+                  ),
                 ),
               ),
             )),

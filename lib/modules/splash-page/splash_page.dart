@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:animated_card/animated_card.dart';
-import 'package:raro_academy_budget/modules/temp-page/home_page.dart';
+import 'package:raro_academy_budget/modules/login-page/initial_login_page.dart';
 import 'package:raro_academy_budget/util/constants/app_colors.dart';
 import 'package:raro_academy_budget/util/constants/app_images.dart';
 import 'package:raro_academy_budget/util/constants/app_text_styles.dart';
@@ -21,7 +21,7 @@ class _SplashPagePrimaryState extends State<SplashPagePrimary> {
       Future.delayed(const Duration(seconds: 2)).then(
         (value) => Navigator.pushReplacementNamed(
           context,
-          Home.id,
+          InitialLoginPage.id,
         ),
       );
     });
