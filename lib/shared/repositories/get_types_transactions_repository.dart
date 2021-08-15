@@ -9,7 +9,7 @@ class TypesTransactionsRepository {
     try {
       final response = await FirebaseFirestore.instance
           .collection("transaction")
-          .where("type", isEqualTo: 'in');
+          .where("type", isEqualTo: 'in').get();
       print(response);
     } catch (e) {
       throw e;
@@ -21,7 +21,7 @@ class TypesTransactionsRepository {
     try {
       final response = await FirebaseFirestore.instance
           .collection("transaction")
-          .where("type", isEqualTo: "out");
+          .where("type", isEqualTo: "out").get();
       print(response);
     } catch (e) {
       throw e;
