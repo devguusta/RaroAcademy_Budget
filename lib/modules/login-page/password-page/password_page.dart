@@ -111,10 +111,16 @@ class _PasswordPageState extends State<PasswordPage> {
                                     email: widget.email,
                                     password: passwordController.text);
                             print("user $userModel");
-                            Navigator.pushReplacementNamed(
-                              context,
-                              HomePage.id,
-                            );
+                            if (userModel != null) {
+                              Navigator.pushReplacementNamed(
+                                context,
+                                HomePage.id,
+                              );
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content: Text("Erro ao logar user!")));
+                            }
                           } catch (e) {
                             print(e);
                             ScaffoldMessenger.of(context).showSnackBar(
