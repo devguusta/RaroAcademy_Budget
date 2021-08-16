@@ -14,10 +14,14 @@ class LoginRepository {
           email: email, password: password);
       user = response.user;
       if (user != null) {
-        return await _db.collection('users').doc(user.uid).get().then((value) {
+        UserModel userModel =
+            await _db.collection('users').doc(user.uid).get().then((value) {
           return UserModel.fromMap(value.data()!);
         });
+        print("REPOSITORY: $userModel");
+        return userModel;
       } else {
+        print('Deu nulo');
         throw Exception();
       }
       // AuthController.instance.loginUser(user!);

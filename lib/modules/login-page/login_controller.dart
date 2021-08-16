@@ -4,9 +4,11 @@ import 'package:raro_academy_budget/shared/models/user_model.dart';
 class LoginController {
   LoginRepository repository = LoginRepository();
 
-  Future<UserModel> login(
+  Future<UserModel>? login(
       {required String email, required String password}) async {
-    return await repository.login(email: email, password: password);
+    UserModel user = await repository.login(email: email, password: password);
+    print("CONTROLLER: $user");
+    return user;
   }
 
   Future<bool> containsEmail({required String email}) async {

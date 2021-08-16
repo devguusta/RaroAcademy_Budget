@@ -35,6 +35,7 @@ class _InputFormPasswordWidgetState extends State<InputFormPasswordWidget> {
           InputForm(
             hintText: 'Senha',
             labelText: 'Senha',
+            obscureText: true,
             controller: passwordController,
             onChanged: (value) {},
             keyboardType: TextInputType.number,
