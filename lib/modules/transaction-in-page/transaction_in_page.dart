@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
+import 'package:raro_academy_budget/shared/models/transaction_in_model.dart';
+import 'package:raro_academy_budget/shared/controllers/transaction_in_page_controller.dart';
+import 'package:raro_academy_budget/modules/transaction-in-page/widgets/transaction_in_input_widget.dart';
 import 'package:raro_academy_budget/shared/widgets/dropdown_item_widget.dart';
 import 'package:raro_academy_budget/shared/widgets/dropdown_widget.dart';
 import 'package:raro_academy_budget/shared/widgets/input_form_widget.dart';
@@ -20,37 +24,34 @@ class InPage extends StatefulWidget {
 class _InPageState extends State<InPage> {
   DateTime _dateTime = DateTime.now();
   DropDownMenuItem? _value;
+  TextEditingController _amountValue = TextEditingController();
+  TextEditingController _amountDescription = TextEditingController();
 
   List<DropDownMenuItem> items = [
     const DropDownMenuItem(
-      category: 'Refeição',
-      icon: AppIcons.kMeal,
-      color: AppColors.kYellow,
-    ),
-    const DropDownMenuItem(
-      category: 'Transporte',
-      icon: AppIcons.kTransport,
-      color: AppColors.kGreen,
-    ),
-    const DropDownMenuItem(
-      category: 'Viagem',
-      icon: AppIcons.kTravel,
-      color: AppColors.kPink,
-    ),
-    const DropDownMenuItem(
-      category: 'Educação',
-      icon: AppIcons.kEducation,
-      color: AppColors.kCyan,
-    ),
-    const DropDownMenuItem(
-      category: 'Pagamentos',
-      icon: AppIcons.kPayments,
+      category: 'Pix',
+      icon: AppIcons.kPix,
       color: AppColors.kPurple,
     ),
     const DropDownMenuItem(
-      category: 'Outros',
-      icon: AppIcons.kOthers,
-      color: AppColors.kLilac,
+      category: 'Dinheiro',
+      icon: AppIcons.kMoney,
+      color: AppColors.kPurple,
+    ),
+    const DropDownMenuItem(
+      category: 'Doc',
+      icon: AppIcons.kDoc,
+      color: AppColors.kPurple,
+    ),
+    const DropDownMenuItem(
+      category: 'Ted',
+      icon: AppIcons.kTed,
+      color: AppColors.kPurple,
+    ),
+    const DropDownMenuItem(
+      category: 'Boleto',
+      icon: AppIcons.kBoleto,
+      color: AppColors.kPurple,
     ),
   ];
 
@@ -61,11 +62,26 @@ class _InPageState extends State<InPage> {
       button: ButtonWidget(
         buttonIcon: Icons.add,
         buttonText: "Inserir",
+        onTap: () {
+          TransactionInPageController().addTransaction(
+            transaction: TransactionInModel(
+                value: double.parse(_amountValue.text),
+                type: "in",
+                category: _value!.category,
+                description: _amountDescription.text,
+                date: _dateTime),
+          );
+          Navigator.pop(context);
+        },
       ),
       children: [
-        InputForm(
+        TransactionInInputWidget(
           hintText: "Valor em R\$",
           labelText: "Valor em R\$",
+          controller: _amountValue,
+          keyboardType: TextInputType.numberWithOptions(decimal: true),
+          inputFormat:
+              FilteringTextInputFormatter.allow(RegExp(r'^\d{1,3}\.?\d{0,2}')),
         ),
         DropdownWidget(
           value: _value,
@@ -114,9 +130,13 @@ class _InPageState extends State<InPage> {
             },
           ),
         ),
-        InputForm(
+        TransactionInInputWidget(
           hintText: " ",
           labelText: "Nome da Entrada",
+          controller: _amountDescription,
+          keyboardType: TextInputType.text,
+          inputFormat: FilteringTextInputFormatter.allow(
+              RegExp(r'[a-zA-ZzáàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ]+|\s')),
         ),
       ],
     );

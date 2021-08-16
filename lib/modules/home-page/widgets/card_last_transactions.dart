@@ -32,29 +32,41 @@ class LastTransactions extends StatelessWidget {
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: const [
+          children: [
             Padding(
-              padding: EdgeInsets.only(left: 16.0, top: 8),
-              child: Text(
-                "Últimas transações",
-                style: AppTextStyles.kTitleHomeMedium,
+              padding: const EdgeInsets.only(left: 16.0, top: 8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: const [
+                  Text(
+                    "Últimas transações",
+                    style: AppTextStyles.kTitleHomeMedium,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(right: 16.0),
+                    child: Icon(
+                      Icons.arrow_forward_ios,
+                      color: Color.fromRGBO(52, 48, 144, 1),
+                    ),
+                  )
+                ],
               ),
             ),
-            Padding(
+            const Padding(
               padding: EdgeInsets.only(left: 16.0, top: 8),
               child: Text(
                 "R\$ 398,30",
                 style: AppTextStyles.kSubTitleLastTransactions,
               ),
             ),
-            Padding(
+            const Padding(
               padding: EdgeInsets.only(left: 16.0, top: 8),
               child: Text(
                 "No momento",
                 style: AppTextStyles.kMoment,
               ),
             ),
-            Padding(
+            const Padding(
               padding: EdgeInsets.only(left: 16, top: 24.0),
               child: ListViewLastTransactions(),
             ),

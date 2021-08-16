@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:raro_academy_budget/modules/in-out-transactions-page/in_out_transactions_page.dart';
-
 import 'package:raro_academy_budget/util/constants/app_colors.dart';
 import 'package:raro_academy_budget/util/constants/app_text_styles.dart';
 
@@ -13,7 +12,7 @@ class CardDaybyDay extends StatefulWidget {
 
 class _CardDaybyDayState extends State<CardDaybyDay> {
   DateTime selectedDate = DateTime.now();
-  String dropdownValue = 'Agosto';
+  String dropdownValue = 'AGO';
   String out = 'R\$ 5.000,00';
   String entradas = 'R\$ 8.0000';
 
@@ -23,8 +22,11 @@ class _CardDaybyDayState extends State<CardDaybyDay> {
     return SingleChildScrollView(
       child: InkWell(
         onTap: () {
-          Navigator.of(context)
-              .push(MaterialPageRoute(builder: (_) => InOutTransactionsPage()));
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (_) => const InOutTransactionsPage(),
+            ),
+          );
         }, // adicionar a função que abre a tela de entradas/saidas/todos
         child: Container(
           width: size.width * 0.9,
@@ -57,15 +59,19 @@ class _CardDaybyDayState extends State<CardDaybyDay> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text("Dia a dia",
-                        style: AppTextStyles.kTitleHomeMedium),
+                    const Text(
+                      "Dia a dia",
+                      style: AppTextStyles.kTitleHomeMedium,
+                    ),
                     GestureDetector(
                       onTap: () {},
                       child: Container(
                         decoration: const BoxDecoration(
                           gradient: AppColors.kblueGradientAppBar,
                           borderRadius: BorderRadius.all(
-                            Radius.circular(40.0),
+                            Radius.circular(
+                              40.0,
+                            ),
                           ),
                         ),
                         child: Padding(
@@ -81,9 +87,11 @@ class _CardDaybyDayState extends State<CardDaybyDay> {
                               height: 0,
                             ),
                             icon: const Padding(
-                              padding: EdgeInsets.only(right: 8.0),
-                              child: Icon(Icons.expand_more_outlined,
-                                  color: Colors.white),
+                              padding: EdgeInsets.all(8.0),
+                              child: Icon(
+                                Icons.expand_more_outlined,
+                                color: Colors.white,
+                              ),
                             ),
                             iconSize: 18,
                             onChanged: (String? newValue) {
@@ -92,25 +100,28 @@ class _CardDaybyDayState extends State<CardDaybyDay> {
                               });
                             },
                             items: <String>[
-                              'Janeiro',
-                              'Fevereiro',
-                              'Março',
-                              'Abril',
-                              'Maio',
-                              'Junho',
-                              'Julho',
-                              'Agosto',
-                              'Setembro',
-                              'Outubro',
-                              'Novembro',
-                              'Dezembro',
+                              'JAN',
+                              'FEV',
+                              'MAR',
+                              'ABR',
+                              'MAI',
+                              'JUN',
+                              'JUL',
+                              'AGO',
+                              'SET',
+                              'OUT',
+                              'NOV',
+                              'DEZ',
                             ].map<DropdownMenuItem<String>>((String value) {
                               return DropdownMenuItem<String>(
                                 value: value,
-                                child: Text(
-                                  value,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: AppTextStyles.kNextButtonMedium,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 8.0),
+                                  child: Text(
+                                    value,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: AppTextStyles.kNextButtonMedium,
+                                  ),
                                 ),
                               );
                             }).toList(),
@@ -171,15 +182,22 @@ class _CardDaybyDayState extends State<CardDaybyDay> {
                 children: [
                   const Padding(
                     padding: EdgeInsets.only(left: 16.0, bottom: 6, top: 16),
-                    child: Text("Entradas",
-                        style: AppTextStyles.kTypeTransactions),
+                    child: Text(
+                      "Entradas",
+                      style: AppTextStyles.kTypeTransactions,
+                    ),
                   ),
                   const SizedBox(width: 65),
                   Padding(
-                    padding:
-                        const EdgeInsets.only(bottom: 6, top: 16, right: 6),
-                    child: Text(entradas,
-                        style: AppTextStyles.kValueDayTransactions),
+                    padding: const EdgeInsets.only(
+                      bottom: 6.0,
+                      top: 16.0,
+                      right: 18.0,
+                    ),
+                    child: Text(
+                      entradas,
+                      style: AppTextStyles.kValueDayTransactions,
+                    ),
                   ),
                 ],
               ),
@@ -191,7 +209,7 @@ class _CardDaybyDayState extends State<CardDaybyDay> {
                     bottom: 16,
                   ),
                   child: Container(
-                    width: size.width * 0.8,
+                    width: size.width * 0.82,
                     height: 11,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(360),
