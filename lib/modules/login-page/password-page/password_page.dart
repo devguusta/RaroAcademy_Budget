@@ -2,8 +2,6 @@ import 'package:animated_card/animated_card.dart';
 import 'package:flutter/material.dart';
 import 'package:raro_academy_budget/modules/home-page/home_page.dart';
 import 'package:raro_academy_budget/modules/login-page/login_controller.dart';
-import 'package:raro_academy_budget/modules/login-page/password-page/widgets/footer_password_widget.dart';
-import 'package:raro_academy_budget/modules/login-page/password-page/widgets/input_form_password_widget.dart';
 import 'package:raro_academy_budget/shared/models/user_model.dart';
 import 'package:raro_academy_budget/shared/widgets/input_form_widget.dart';
 import 'package:raro_academy_budget/util/constants/app_colors.dart';
