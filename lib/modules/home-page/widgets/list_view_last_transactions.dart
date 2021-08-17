@@ -26,11 +26,9 @@ class _ListViewLastTransactionsState extends State<ListViewLastTransactions> {
       children: [
         StreamBuilder<Object>(
           stream: FirebaseFirestore.instance
-          .collection("transaction").orderBy("date").snapshots(),
+          .collection("transaction").orderBy("date",descending: true).limit(3).snapshots(),
           builder: (context, AsyncSnapshot streamSnapshot) {
-           
-            if(streamSnapshot.connectionState == null) return Container(child: Center(child: CircularProgressIndicator()));
-            
+            if(streamSnapshot.connectionState == null) return Container(child: Center(child: CircularProgressIndicator()));     
             return ListView.builder(
               shrinkWrap: true,
               primary: false,

@@ -3,6 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:raro_academy_budget/modules/transaction-in-page/transaction_in_page.dart';
 import 'package:raro_academy_budget/modules/transaction-out-page/transaction_out_page.dart';
+import 'package:raro_academy_budget/shared/controllers/get_types_transactions_controller.dart';
+import 'package:raro_academy_budget/shared/models/transaction_in_model.dart';
 import 'package:raro_academy_budget/shared/widgets/drawer_widget.dart';
 import 'package:raro_academy_budget/shared/widgets/transaction_widget.dart';
 import 'package:raro_academy_budget/util/constants/app_colors.dart';
@@ -16,6 +18,8 @@ class InOutTransactionsPage extends StatefulWidget {
 }
 
 class _InOutTransactionsPageState extends State<InOutTransactionsPage> {
+  
+  
   String dropdownValue = 'Agosto';
   final pageController = PageController(initialPage: 0);
   var inTextStyle =
@@ -210,11 +214,13 @@ class _InOutTransactionsPageState extends State<InOutTransactionsPage> {
 }
 
 class TransactionsCardWidget extends StatelessWidget {
-  const TransactionsCardWidget(
+ 
+  TransactionsCardWidget(
       {Key? key, required this.context, required this.type})
       : super(key: key);
   final BuildContext context;
   final int type;
+  TypesTransactionsController controller = TypesTransactionsController();
   @override
   Widget build(BuildContext context) {
     return Stack(children: [
@@ -245,7 +251,8 @@ class TransactionsCardWidget extends StatelessWidget {
                   padding:
                       const EdgeInsets.only(left: 16.0, top: 16.0, right: 16.0),
                   child: StreamBuilder<Object>(
-                    stream: type == 0 ? FirebaseFirestore.instance
+                    stream: type == 0 ?                 
+                    FirebaseFirestore.instance
           .collection("transaction").where("type", isEqualTo:"in").snapshots()
           : type == 1 ? FirebaseFirestore.instance
           .collection("transaction").where("type", isEqualTo:"out").snapshots() :
