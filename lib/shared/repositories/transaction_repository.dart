@@ -34,7 +34,7 @@ class TransactionRepository {
           .where("type", isEqualTo: 'out')
           .orderBy("date", descending: true)
           .get();
-      print(response.docs.map((e) => e.data()));
+      return response.docs.map((e) => e.data()).toList();
     } catch (e) {
       throw e;
     }
@@ -47,7 +47,7 @@ class TransactionRepository {
           .where("type", isEqualTo: 'in')
           .orderBy("date", descending: true)
           .get();
-      print(response.docs.map((e) => e.data()));
+          return response.docs.map((e) => e.data()).toList();
     } catch (e) {
       throw e;
     }
@@ -59,7 +59,7 @@ class TransactionRepository {
           .collection("transaction")
           .orderBy("date", descending: true)
           .get();
-      print(response.docs.map((e) => e.data()));
+      return response.docs.map((e) => e.data()).toList();
     } catch (e) {
       throw e;
     }

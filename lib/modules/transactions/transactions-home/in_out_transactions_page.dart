@@ -254,26 +254,12 @@ class TransactionsCardWidget extends StatelessWidget {
                     future: type == 0 ? controller.getInTransaction()
                             : type == 1 ? controller.getOutTransaction()
                             : controller.getTransaction(),
-                            
-          //           type == 0 ?     
-          //           FirebaseFirestore.instance.collection("transaction").where("type", isEqualTo:"in").get()
-          // : type == 1 ? 
-           
-          // FirebaseFirestore.instance
-          // .collection("transaction").where("type", isEqualTo:"out").get()
-          // :
-          // FirebaseFirestore.instance
-          // .collection("transaction").orderBy("date").get(),
-
                     builder: (context,snapshot) {
-                      switch(snapshot.connectionState){
-                        case ConnectionState.waiting:
-                        case ConnectionState.none:
-                        {
-                          return Center(child: CircularProgressIndicator()
-                          );
-                        }
-                        case ConnectionState.done:
+                      if(!snapshot.hasData) {
+                         return Center(child: CircularProgressIndicator());
+                      } else if(snapshot.hasError) {
+                        return Text("Erro ao buscar os dados");
+                      } else if(snapshot.hasData){
                         final list = snapshot.data ?? [];
                         return list.length > 0?
                          ListView.builder(
@@ -297,7 +283,7 @@ class TransactionsCardWidget extends StatelessWidget {
                               : AppIcons.kOthers,
                               description: list[index]['category'],
                               date: list[index]['date'].toString(),
-                              value: (('${list[index]['value'].toString()}0 R\$'))),
+                              value: (('${list[index]['value'].toString()} R\$'))),
                         ),
                       ) : 
                       Center(
@@ -315,14 +301,10 @@ class TransactionsCardWidget extends StatelessWidget {
                             ],
                           ),
                         ));
-                        default: return Text('Default');
-                       
                       }
-                         
-                      
-
-                     
+                        return Container();
                     }
+                  
                   ),
                 ),
               ),
