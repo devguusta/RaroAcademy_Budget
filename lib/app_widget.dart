@@ -15,7 +15,7 @@ class AppWidget extends StatelessWidget {
     return MaterialApp(
       title: 'Budget',
       debugShowCheckedModeBanner: false,
-      initialRoute: HomePage.id,
+      initialRoute: SplashPagePrimary.id,
       routes: {
         SplashPagePrimary.id: (context) => const SplashPagePrimary(),
         InitialLoginPage.id: (context) => const InitialLoginPage(),
