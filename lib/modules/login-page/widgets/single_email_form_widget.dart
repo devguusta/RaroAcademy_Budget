@@ -43,6 +43,7 @@ class _SingleEmailFormWidgetState extends State<SingleEmailFormWidget> {
         if (_formKey.currentState!.validate()) {
           _formKey.currentState!.save();
           print(_inputController.text);
+
           Navigator.of(context).push(MaterialPageRoute(
               builder: (_) => PasswordPage(email: _inputController.text)));
         }

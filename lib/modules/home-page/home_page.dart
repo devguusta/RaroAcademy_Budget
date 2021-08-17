@@ -53,7 +53,7 @@ class _HomePageState extends State<HomePage> {
         appBar: AppBar(
           toolbarHeight: size.height * 0.12625,
           centerTitle: true,
-          title: Text("Olá, " + userManager.user!.name,
+          title: Text("Olá, " + userManager.user!.name.split(" ")[0],
               style: AppTextStyles.kAppBarName),
           flexibleSpace: Container(
             decoration: BoxDecoration(

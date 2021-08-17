@@ -9,14 +9,6 @@ part of 'user_manager.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$UserManager on _UserManagerBase, Store {
-  Computed<bool>? _$isLoggedInComputed;
-
-  @override
-  bool get isLoggedIn =>
-      (_$isLoggedInComputed ??= Computed<bool>(() => super.isLoggedIn,
-              name: '_UserManagerBase.isLoggedIn'))
-          .value;
-
   final _$userAtom = Atom(name: '_UserManagerBase.user');
 
   @override
@@ -32,11 +24,48 @@ mixin _$UserManager on _UserManagerBase, Store {
     });
   }
 
+  final _$initialAccessAtom = Atom(name: '_UserManagerBase.initialAccess');
+
+  @override
+  bool get initialAccess {
+    _$initialAccessAtom.reportRead();
+    return super.initialAccess;
+  }
+
+  @override
+  set initialAccess(bool value) {
+    _$initialAccessAtom.reportWrite(value, super.initialAccess, () {
+      super.initialAccess = value;
+    });
+  }
+
+  final _$isLoggedInAtom = Atom(name: '_UserManagerBase.isLoggedIn');
+
+  @override
+  bool? get isLoggedIn {
+    _$isLoggedInAtom.reportRead();
+    return super.isLoggedIn;
+  }
+
+  @override
+  set isLoggedIn(bool? value) {
+    _$isLoggedInAtom.reportWrite(value, super.isLoggedIn, () {
+      super.isLoggedIn = value;
+    });
+  }
+
+  final _$initAsyncAction = AsyncAction('_UserManagerBase.init');
+
+  @override
+  Future<void> init() {
+    return _$initAsyncAction.run(() => super.init());
+  }
+
   final _$_UserManagerBaseActionController =
       ActionController(name: '_UserManagerBase');
 
   @override
-  void setUser(UserModel value) {
+  void setUser(UserModel? value) {
     final _$actionInfo = _$_UserManagerBaseActionController.startAction(
         name: '_UserManagerBase.setUser');
     try {
@@ -50,6 +79,7 @@ mixin _$UserManager on _UserManagerBase, Store {
   String toString() {
     return '''
 user: ${user},
+initialAccess: ${initialAccess},
 isLoggedIn: ${isLoggedIn}
     ''';
   }
