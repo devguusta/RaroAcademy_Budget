@@ -1,15 +1,19 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:raro_academy_budget/shared/models/transaction_in_model.dart';
 import 'package:raro_academy_budget/shared/models/transaction_out_model.dart';
 
 
 class TypesTransactionsRepository {
-  Future<TransactionInModel?> getInTransaction(
-      {required TransactionInModel transaction}) async {
+  // final typesTransactions = FirebaseDatabase.instance.reference().child('transaction');
+  
+    Future<TransactionInModel?> getInTransaction({
+      required TransactionInModel transaction}) 
+    async {
     try {
       final response = await FirebaseFirestore.instance
           .collection("transaction")
-          .where("type", isEqualTo: 'in').get();
+          .where("type", isEqualTo: 'in').orderBy("date").snapshots();
       print(response);
     } catch (e) {
       throw e;
@@ -21,7 +25,7 @@ class TypesTransactionsRepository {
     try {
       final response = await FirebaseFirestore.instance
           .collection("transaction")
-          .where("type", isEqualTo: "out").get();
+          .where("type", isEqualTo: "out").orderBy("date").snapshots();
       print(response);
     } catch (e) {
       throw e;

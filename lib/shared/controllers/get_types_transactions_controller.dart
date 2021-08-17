@@ -8,7 +8,20 @@ class TypesTransactionsController {
   late TransactionInModel balanceIn;
   late TransactionOutModel balanceOut;
 
-  Future<TransactionInModel?> getInTransaction(
+  // Future<List<TransactionInModel>> getTransactionInList() async {
+  //   List<TransactionInModel> transactionServices = [];
+
+  //   return repository.getInTransaction().then((transaction){
+  //     transaction.forEach((k,v) {
+  //       transactionServices.add(TransactionInModel.fromMap(v));
+  //     });
+  //     return transactionServices;
+  //   }).catchError((err) {
+  //     print('Erro List transactionServices ${err.msg}');
+  //   });
+  // }
+
+   Future<TransactionInModel?> getInTransaction(
       {required TransactionInModel transaction}) async {
     try {
       return repository.getInTransaction(transaction: transaction);
@@ -16,6 +29,7 @@ class TypesTransactionsController {
       throw e;
     }
   }
+
 
   Future<TransactionOutModel?> getOutTransaction(
       {required TransactionOutModel transaction}) async {
