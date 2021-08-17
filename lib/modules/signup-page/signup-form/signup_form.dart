@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:raro_academy_budget/shared/widgets/input_form_widget.dart';
 
 class SignUpFormName extends StatefulWidget {
-  const SignUpFormName({Key? key}) : super(key: key);
+  SignUpFormName({
+    Key? key,
+  }) : super(key: key);
 
   @override
   createState() => _SignUpFormStateName();
@@ -118,7 +120,8 @@ class _SignUpFormStateCPF extends State<SignUpFormCPF> {
 }
 
 class SignUpFormPassword extends StatefulWidget {
-  const SignUpFormPassword({Key? key}) : super(key: key);
+  final bool enable;
+  SignUpFormPassword({Key? key, required this.enable}) : super(key: key);
 
   @override
   createState() => _SignUpFormStatePassword();
@@ -136,6 +139,7 @@ class _SignUpFormStatePassword extends State<SignUpFormPassword> {
           InputForm(
             hintText: 'Crie uma senha',
             labelText: 'Senha',
+            enabled: widget.enable,
             controller: passwordController,
             onChanged: (value) {},
             keyboardType: TextInputType.number,
@@ -147,7 +151,8 @@ class _SignUpFormStatePassword extends State<SignUpFormPassword> {
 }
 
 class SignUpFormRepeatPassword extends StatefulWidget {
-  const SignUpFormRepeatPassword({Key? key}) : super(key: key);
+  final bool enable;
+  SignUpFormRepeatPassword({Key? key, required this.enable}) : super(key: key);
 
   @override
   createState() => _SignUpFormStateRepeatPassword();
@@ -166,6 +171,7 @@ class _SignUpFormStateRepeatPassword extends State<SignUpFormRepeatPassword> {
             hintText: 'Confirme sua senha',
             labelText: 'Confirme sua senha',
             controller: repeatPasswordController,
+            enabled: widget.enable,
             onChanged: (value) {},
             keyboardType: TextInputType.number,
           ),

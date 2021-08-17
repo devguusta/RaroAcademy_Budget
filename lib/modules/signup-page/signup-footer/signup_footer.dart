@@ -5,14 +5,18 @@ import 'package:raro_academy_budget/util/constants/app_text_styles.dart';
 
 class SignUpFooter extends StatelessWidget {
   final String page;
+
   final VoidCallback? onPressed;
   final VoidCallback? onBack;
-  const SignUpFooter({
-    Key? key,
-    required this.page,
-    this.onPressed,
-    this.onBack,
-  }) : super(key: key);
+  SignUpFooter(
+      {Key? key,
+      required this.page,
+      this.onPressed,
+      this.onBack,
+      this.loading = false})
+      : super(key: key);
+
+  bool loading;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +34,7 @@ class SignUpFooter extends StatelessWidget {
                 child: SizedBox(
                   height: MediaQuery.of(context).size.height * 0.25,
                   child: GestureDetector(
-                    onTap: onBack,
+                    onTap: loading ? null : onBack,
                     child: Row(
                       children: [
                         const Icon(
@@ -57,7 +61,7 @@ class SignUpFooter extends StatelessWidget {
                 borderRadius: const BorderRadius.all(
                   Radius.circular(24.0),
                 ),
-                onTap: onPressed,
+                onTap: loading ? null : onPressed,
                 child: Container(
                   decoration: const BoxDecoration(
                     gradient: AppColors.kblueGradientAppBar,
@@ -67,22 +71,32 @@ class SignUpFooter extends StatelessWidget {
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(6.0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Text(
-                          "Continuar".toUpperCase(),
-                          style: AppTextStyles.kForwadSignUpButton,
-                        ),
-                        const SizedBox(width: 12.0),
-                        const SizedBox(width: 0.0),
-                        const Icon(
-                          Icons.arrow_forward,
-                          color: Colors.white,
-                        ),
-                      ],
-                    ),
+                    child: loading
+                        ? Container(
+                            height: 20,
+                            width: 20,
+                            child: Center(
+                              child: CircularProgressIndicator(
+                                color: Colors.white,
+                              ),
+                            ),
+                          )
+                        : Row(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Text(
+                                "Continuar".toUpperCase(),
+                                style: AppTextStyles.kForwadSignUpButton,
+                              ),
+                              const SizedBox(width: 12.0),
+                              const SizedBox(width: 0.0),
+                              const Icon(
+                                Icons.arrow_forward,
+                                color: Colors.white,
+                              ),
+                            ],
+                          ),
                   ),
                 ),
               ),

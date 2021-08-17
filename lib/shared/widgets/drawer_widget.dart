@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:raro_academy_budget/modules/login-page/initial_login_page.dart';
 import 'package:raro_academy_budget/modules/registry-edit-page/registry_edit_page.dart';
+import 'package:raro_academy_budget/shared/services/user_manager.dart';
 import 'package:raro_academy_budget/util/constants/app_colors.dart';
 import 'package:raro_academy_budget/util/constants/app_text_styles.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DrawerWidget extends StatelessWidget {
-  const DrawerWidget({Key? key}) : super(key: key);
+  DrawerWidget({Key? key}) : super(key: key);
+  final UserManager userManager = GetIt.I<UserManager>();
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +24,8 @@ class DrawerWidget extends StatelessWidget {
             ),
             child: Padding(
               padding: const EdgeInsets.only(left: 25, top: 45),
-              child: Text("Olá, José", style: AppTextStyles.kAppBarName),
+              child: Text("Olá, " + userManager.user!.name.split(" ")[0],
+                  style: AppTextStyles.kAppBarName),
             ),
           ),
           Expanded(
@@ -130,7 +135,11 @@ class DrawerWidget extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.only(top: 20, bottom: 20),
                         child: InkWell(
-                          onTap: () {
+                          onTap: () async {
+                            GetIt.I<UserManager>().setUser(null);
+                            SharedPreferences _prefs =
+                                await SharedPreferences.getInstance();
+                            _prefs.remove('user');
                             Navigator.of(context).pushAndRemoveUntil(
                                 MaterialPageRoute(
                                     builder: (_) => InitialLoginPage()),
