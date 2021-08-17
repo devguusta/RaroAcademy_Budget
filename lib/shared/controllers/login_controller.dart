@@ -1,5 +1,7 @@
+import 'package:get_it/get_it.dart';
 import 'package:raro_academy_budget/shared/repositories/login_repository.dart';
 import 'package:raro_academy_budget/shared/models/user_model.dart';
+import 'package:raro_academy_budget/shared/services/user_manager.dart';
 
 class LoginController {
   LoginRepository repository = LoginRepository();
@@ -9,7 +11,7 @@ class LoginController {
     UserModel user;
     try {
       user = await repository.login(email: email, password: password);
-
+      GetIt.I<UserManager>().setUser(user);
       return user;
     } catch (e) {
       return null;
@@ -31,6 +33,7 @@ class LoginController {
           email: email, password: password, name: name, phone: phone, cpf: cpf);
 
       if (userModel != null) {
+        GetIt.I<UserManager>().setUser(userModel);
         return true;
       } else {
         return false;
