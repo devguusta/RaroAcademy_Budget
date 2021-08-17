@@ -12,5 +12,5 @@ void main() async {
 }
 
 initLocator() {
-  GetIt.I.registerSingleton(UserManager);
+  GetIt.I.registerSingleton(UserManager());
 }

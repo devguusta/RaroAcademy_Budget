@@ -2,9 +2,11 @@ import 'dart:async';
 
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:raro_academy_budget/modules/home-page/widgets/card_day_by_day.dart';
 import 'package:raro_academy_budget/modules/home-page/widgets/card_general_balance.dart';
 import 'package:raro_academy_budget/modules/home-page/widgets/card_last_transactions.dart';
+import 'package:raro_academy_budget/shared/services/user_manager.dart';
 import 'package:raro_academy_budget/shared/widgets/drawer_widget.dart';
 import 'package:raro_academy_budget/shared/widgets/next_button_widget.dart';
 import 'package:raro_academy_budget/util/constants/app_colors.dart';
@@ -19,6 +21,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final UserManager userManager = GetIt.I<UserManager>();
   late StreamSubscription sub;
   late bool isInternet = true;
   @override
@@ -50,7 +53,8 @@ class _HomePageState extends State<HomePage> {
         appBar: AppBar(
           toolbarHeight: size.height * 0.12625,
           centerTitle: true,
-          title: Text("Olá,José", style: AppTextStyles.kAppBarName),
+          title: Text("Olá, " + userManager.user!.name,
+              style: AppTextStyles.kAppBarName),
           flexibleSpace: Container(
             decoration: BoxDecoration(
               gradient: AppColors.kblueGradientAppBar,

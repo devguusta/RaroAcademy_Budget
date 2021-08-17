@@ -14,6 +14,7 @@ class LoginController {
       GetIt.I<UserManager>().setUser(user);
       return user;
     } catch (e) {
+      print("Login E: $e");
       return null;
     }
   }
@@ -39,6 +40,7 @@ class LoginController {
         return false;
       }
     } catch (e) {
+      print("Cadastro E: $e");
       throw e;
     }
   }

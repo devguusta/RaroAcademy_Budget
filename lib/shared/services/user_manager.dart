@@ -10,4 +10,7 @@ abstract class _UserManagerBase with Store {
 
   @action
   void setUser(UserModel value) => user = value;
+
+  @computed
+  bool get isLoggedIn => user != null;
 }

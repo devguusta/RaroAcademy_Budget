@@ -53,8 +53,8 @@ class LoginRepository {
           email: email, password: password);
       user = response.user;
       if (user != null) {
-        UserModel userModel =
-            UserModel(email: email, name: name, phone: phone, cpf: cpf);
+        UserModel userModel = UserModel(
+            email: email, name: name, phone: phone, cpf: cpf, uid: user.uid);
         await _db.collection('users').doc(user.uid).set(userModel.toMap());
 
         return userModel;

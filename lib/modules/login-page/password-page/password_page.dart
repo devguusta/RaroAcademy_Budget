@@ -75,7 +75,7 @@ class _PasswordPageState extends State<PasswordPage> {
                         return 'A senha deve ter no mínimo 6 caracteres';
                       }
                     },
-                    keyboardType: TextInputType.number,
+                    keyboardType: TextInputType.text,
                   ),
                 ],
               ),
