@@ -18,10 +18,9 @@ class LoginRepository {
             await _db.collection('users').doc(user.uid).get().then((value) {
           return UserModel.fromMap(value.data()!);
         });
-        print("REPOSITORY: $userModel");
+
         return userModel;
       } else {
-        print('Deu nulo');
         throw Exception();
       }
       // AuthController.instance.loginUser(user!);
