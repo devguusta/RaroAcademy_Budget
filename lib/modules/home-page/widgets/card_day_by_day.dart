@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:raro_academy_budget/modules/in-out-transactions-page/in_out_transactions_page.dart';
+import 'package:raro_academy_budget/modules/transactions/transactions-home/in_out_transactions_page.dart';
 import 'package:raro_academy_budget/util/constants/app_colors.dart';
 import 'package:raro_academy_budget/util/constants/app_text_styles.dart';
 

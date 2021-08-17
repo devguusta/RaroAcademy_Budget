@@ -1,24 +1,24 @@
 import 'dart:convert';
 
-class TransactionInModel {
+class TransactionModel {
   final double value;
   final String type;
   final String category;
-  final String description;
+  final String? description;
   final DateTime date;
   final String? transactionId;
   final String? userId;
-  TransactionInModel({
+  TransactionModel({
     required this.value,
     required this.type,
     required this.category,
-    required this.description,
+    this.description,
     required this.date,
     this.transactionId,
     this.userId,
   });
 
-  TransactionInModel copyWith({
+  TransactionModel copyWith({
     double? value,
     String? type,
     String? category,
@@ -27,7 +27,7 @@ class TransactionInModel {
     String? transactionId,
     String? userId,
   }) {
-    return TransactionInModel(
+    return TransactionModel(
       value: value ?? this.value,
       type: type ?? this.type,
       category: category ?? this.category,
@@ -50,8 +50,8 @@ class TransactionInModel {
     };
   }
 
-  factory TransactionInModel.fromMap(Map<String, dynamic> map) {
-    return TransactionInModel(
+  factory TransactionModel.fromMap(Map<String, dynamic> map) {
+    return TransactionModel(
       value: map['value'],
       type: map['type'],
       category: map['category'],
@@ -64,19 +64,19 @@ class TransactionInModel {
 
   String toJson() => json.encode(toMap());
 
-  factory TransactionInModel.fromJson(String source) =>
-      TransactionInModel.fromMap(json.decode(source));
+  factory TransactionModel.fromJson(String source) =>
+      TransactionModel.fromMap(json.decode(source));
 
   @override
   String toString() {
-    return 'TransactionInModel(value: $value, type: $type, category: $category, description: $description, date: $date, transactionId: $transactionId, userId: $userId)';
+    return 'TransactionModel(value: $value, type: $type, category: $category, description: $description, date: $date, transactionId: $transactionId, userId: $userId)';
   }
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is TransactionInModel &&
+    return other is TransactionModel &&
         other.value == value &&
         other.type == type &&
         other.category == category &&

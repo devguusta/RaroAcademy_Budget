@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:raro_academy_budget/modules/transaction-in-page/transaction_in_page.dart';
-import 'package:raro_academy_budget/modules/transaction-out-page/transaction_out_page.dart';
+import 'package:raro_academy_budget/modules/transactions/transaction-in-page/transaction_in_page.dart';
+import 'package:raro_academy_budget/modules/transactions/transaction-out-page/transaction_out_page.dart';
 
-class Home extends StatelessWidget {
-  static const String id = '/home';
+class TempHome extends StatelessWidget {
+  static const String id = '/temp-home';
 
-  const Home({Key? key}) : super(key: key);
+  const TempHome({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
