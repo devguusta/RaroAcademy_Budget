@@ -1,8 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:raro_academy_budget/shared/controllers/get_types_transactions_controller.dart';
-import 'package:raro_academy_budget/shared/models/transaction_in_model.dart';
-import 'package:raro_academy_budget/shared/repositories/get_types_transactions_repository.dart';
 import 'package:raro_academy_budget/shared/widgets/transaction_widget.dart';
 import 'package:raro_academy_budget/util/constants/app_icons.dart';
 
@@ -17,8 +14,6 @@ class ListViewLastTransactions extends StatefulWidget {
 }
 
 class _ListViewLastTransactionsState extends State<ListViewLastTransactions> {
-  TypesTransactionsController typeController = TypesTransactionsController();
-  TypesTransactionsRepository repository = TypesTransactionsRepository();
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -63,3 +58,26 @@ class _ListViewLastTransactionsState extends State<ListViewLastTransactions> {
 //             );
 //           }
 //         ),
+
+
+// Future lastInTransactions({required TransactionModel transaction}) async {
+//     try {
+//       final response = await FirebaseFirestore.instance
+//           .collection("transaction")
+//           .orderBy("date")
+//           .get();
+//       return response.docs.map((doc) => TransactionModel(
+//             description: doc["description"],
+//             type: doc["type"],
+//             category: doc["category"],
+//             date: doc["date"],
+//             value: doc["value"],
+//             transactionId: doc["transactionId"],
+//             userId: doc["userId"],
+//           ));
+        
+//       print(response);
+//     } catch (e) {
+//       throw e;
+//     }
+//   }

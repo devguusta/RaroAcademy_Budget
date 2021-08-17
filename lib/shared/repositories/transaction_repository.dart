@@ -26,4 +26,57 @@ class TransactionRepository {
       throw e;
     }
   }
+
+  Future<List?> getOutTransaction() async {
+    try {
+      final response = await FirebaseFirestore.instance
+          .collection("transaction")
+          .where("type", isEqualTo: 'out')
+          .orderBy("date", descending: true)
+          .get();
+      print(response.docs.map((e) => e.data()));
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  Future<List?> getInTransaction() async {
+    try {
+      final response = await FirebaseFirestore.instance
+          .collection("transaction")
+          .where("type", isEqualTo: 'in')
+          .orderBy("date", descending: true)
+          .get();
+      print(response.docs.map((e) => e.data()));
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  Future<List?> getTransaction() async {
+    try {
+      final response = await FirebaseFirestore.instance
+          .collection("transaction")
+          .orderBy("date", descending: true)
+          .get();
+      print(response.docs.map((e) => e.data()));
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  //  Stream<List<TransactionModel?>> getInTransaction(
+  //    {  required TransactionModel? transaction})
+  //   async* {
+  //   try {
+  //     yield* FirebaseFirestore.instance
+  //         .collection("transaction")
+  //         .where("type", isEqualTo: 'in').orderBy("date",descending: true).snapshots()
+  //         .map((e) => e.docs.map((item) => TransactionModel?.fromMap(item.data())).toList());
+
+  //   } catch (e) {
+  //     throw e;
+  //   }
+  // }
+
 }

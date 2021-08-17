@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-
-import 'package:raro_academy_budget/shared/controllers/get_types_transactions_controller.dart';
-import 'package:raro_academy_budget/shared/models/transaction_in_model.dart';
 import 'package:raro_academy_budget/util/constants/app_text_styles.dart';
 
 class TransactionWidget extends StatefulWidget {
