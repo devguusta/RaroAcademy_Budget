@@ -6,6 +6,7 @@ import 'package:raro_academy_budget/modules/signup-page/page-view/page_view_one.
 import 'package:raro_academy_budget/modules/signup-page/page-view/page_view_two.dart';
 import 'package:raro_academy_budget/modules/signup-page/signup-footer/signup_footer.dart';
 import 'package:raro_academy_budget/modules/signup-page/page-view/signup_use_terms.dart';
+import 'package:raro_academy_budget/shared/controllers/login_controller.dart';
 
 class SignUpPage extends StatefulWidget {
   static const String id = '/sign-up';
@@ -53,6 +54,8 @@ class _SignUpPageState extends State<SignUpPage> {
     pageController.dispose();
     super.dispose();
   }
+
+  bool loading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -173,13 +176,46 @@ class _SignUpPageState extends State<SignUpPage> {
                           Align(
                             alignment: Alignment.bottomCenter,
                             child: SignUpFooter(
+                              loading: loading,
                               page: '4',
-                              onPressed: () {
+                              onPressed: () async {
                                 if (formKey.currentState!.validate()) {
-                                  pageController.nextPage(
-                                    duration: const Duration(microseconds: 400),
-                                    curve: Curves.easeIn,
-                                  );
+                                  setState(() {
+                                    loading = true;
+                                  });
+                                  try {
+                                    bool result = await LoginController()
+                                        .createAccount(
+                                            email: _emailController.text,
+                                            password: _passwordController.text,
+                                            name: _nameController.text,
+                                            phone: _phoneController.text,
+                                            cpf: _cpfController.text);
+
+                                    if (result) {
+                                      setState(() {
+                                        loading = false;
+                                      });
+                                      pageController.nextPage(
+                                        duration:
+                                            const Duration(microseconds: 400),
+                                        curve: Curves.easeIn,
+                                      );
+                                    } else {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(SnackBar(
+                                              content: Text(
+                                                  "Erro ao cadastrar, verifique sua conexão e tente novamente")));
+                                    }
+                                  } catch (e) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(
+                                            content: Text(
+                                                "Erro ao cadastrar, verifique sua conexão e tente novamente")));
+                                  }
+                                  setState(() {
+                                    loading = false;
+                                  });
                                 }
                               },
                               onBack: () {

@@ -10,6 +10,8 @@ class InputForm extends StatelessWidget {
   final TextInputType? keyboardType;
   final bool obscureText;
   final Widget? suffixIcon;
+  final String? initialValue;
+  final bool? enabled;
   const InputForm({
     Key? key,
     required this.hintText,
@@ -20,6 +22,8 @@ class InputForm extends StatelessWidget {
     this.keyboardType,
     this.obscureText = false,
     this.suffixIcon,
+    this.initialValue,
+    this.enabled,
   }) : super(key: key);
 
   @override
@@ -27,14 +31,17 @@ class InputForm extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 48.0),
       child: TextFormField(
+        initialValue: initialValue,
+        enabled: enabled,
         onChanged: onChanged,
         obscureText: obscureText,
         keyboardType: keyboardType,
         validator: validator,
+        controller: controller,
         decoration: InputDecoration(
           focusedBorder: UnderlineInputBorder(
             borderSide: BorderSide(
-              color : AppColors.kPurple,
+              color: AppColors.kPurple,
             ),
           ),
           focusColor: AppColors.kPurple,

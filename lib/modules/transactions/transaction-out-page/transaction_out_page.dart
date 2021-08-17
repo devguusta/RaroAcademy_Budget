@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:raro_academy_budget/shared/controllers/transaction_out_page_controller.dart';
-import 'package:raro_academy_budget/modules/transaction-out-page/widgets/transaction_out_input_widget.dart';
-import 'package:raro_academy_budget/shared/models/transaction_out_model.dart';
+import 'package:raro_academy_budget/modules/transactions/transaction-out-page/widgets/transaction_out_input_widget.dart';
+import 'package:raro_academy_budget/shared/controllers/transaction_controller.dart';
+import 'package:raro_academy_budget/shared/models/transaction_model.dart';
 import 'package:raro_academy_budget/shared/widgets/dropdown_item_widget.dart';
 import 'package:raro_academy_budget/shared/widgets/dropdown_widget.dart';
 import 'package:raro_academy_budget/shared/widgets/button_widget.dart';
@@ -70,8 +70,8 @@ class _OutPageState extends State<OutPage> {
         buttonIcon: Icons.add,
         buttonText: "Inserir",
         onTap: () {
-          TransactionOutController().addTransaction(
-            transaction: TransactionOutModel(
+          TransactionController().addTransaction(
+            transaction: TransactionModel(
               category: _value!.category,
               date: _dateTime,
               type: 'out',

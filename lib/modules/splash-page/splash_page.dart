@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:animated_card/animated_card.dart';
+import 'package:get_it/get_it.dart';
+import 'package:mobx/mobx.dart';
+import 'package:raro_academy_budget/modules/home-page/home_page.dart';
 import 'package:raro_academy_budget/modules/login-page/initial_login_page.dart';
+import 'package:raro_academy_budget/modules/signup-page/signup_page.dart';
+import 'package:raro_academy_budget/shared/services/user_manager.dart';
 import 'package:raro_academy_budget/util/constants/app_colors.dart';
 import 'package:raro_academy_budget/util/constants/app_images.dart';
 import 'package:raro_academy_budget/util/constants/app_text_styles.dart';
@@ -15,17 +20,32 @@ class SplashPagePrimary extends StatefulWidget {
 }
 
 class _SplashPagePrimaryState extends State<SplashPagePrimary> {
+  UserManager userManager = GetIt.I<UserManager>();
+  ReactionDisposer? disposer;
   @override
   void initState() {
     WidgetsFlutterBinding.ensureInitialized().addPostFrameCallback((timeStamp) {
-      Future.delayed(const Duration(seconds: 2)).then(
-        (value) => Navigator.pushReplacementNamed(
-          context,
-          InitialLoginPage.id,
-        ),
-      );
+      Future.delayed(const Duration(seconds: 2)).then((value) {
+        userManager.init();
+      });
+      // Navigator.pushReplacementNamed(context, InitialLoginPage.id));
+      disposer = autorun((_) {
+        print(userManager.isLoggedIn);
+        if (userManager.isLoggedIn!) {
+          Navigator.pushReplacementNamed(context, HomePage.id);
+        } else {
+          Navigator.pushReplacementNamed(context, InitialLoginPage.id);
+        }
+      });
     });
+
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    disposer!();
+    super.dispose();
   }
 
   @override
