@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:raro_academy_budget/modules/login-page/initial_login_page.dart';
 import 'package:raro_academy_budget/modules/registry-edit-page/registry_edit_page.dart';
 import 'package:raro_academy_budget/util/constants/app_colors.dart';
 import 'package:raro_academy_budget/util/constants/app_text_styles.dart';
@@ -129,7 +130,12 @@ class DrawerWidget extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.only(top: 20, bottom: 20),
                         child: InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.of(context).pushAndRemoveUntil(
+                                MaterialPageRoute(
+                                    builder: (_) => InitialLoginPage()),
+                                (route) => false);
+                          },
                           child: Text(
                             'Sair',
                             style: TextStyle(

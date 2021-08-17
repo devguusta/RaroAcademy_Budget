@@ -1,5 +1,6 @@
 
 import 'package:raro_academy_budget/shared/models/transaction_in_model.dart';
+import 'package:raro_academy_budget/shared/models/transaction_model.dart';
 import 'package:raro_academy_budget/shared/models/transaction_out_model.dart';
 import 'package:raro_academy_budget/shared/repositories/get_types_transactions_repository.dart';
 
@@ -10,8 +11,8 @@ class TypesTransactionsController {
 
 
 
-  Stream<List<TransactionInModel?>> getInTransaction(
-      {required TransactionInModel transaction}) async* {
+  Stream<List<TransactionModel?>> getInTransaction(
+      {required TransactionModel? transaction}) async* {
     try {
       yield* repository.getInTransaction(transaction: transaction);
     } catch (e) {
