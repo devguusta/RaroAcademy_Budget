@@ -40,4 +40,30 @@ class LoginRepository {
       throw e;
     }
   }
+
+  Future<UserModel>? createAccount(
+      {required String email,
+      required String password,
+      required name,
+      required phone,
+      required cpf}) async {
+    try {
+      User? user;
+      final response = await _auth.createUserWithEmailAndPassword(
+          email: email, password: password);
+      user = response.user;
+      if (user != null) {
+        UserModel userModel =
+            UserModel(email: email, name: name, phone: phone, cpf: cpf);
+        await _db.collection('users').doc(user.uid).set(userModel.toMap());
+
+        return userModel;
+      } else {
+        throw Exception();
+      }
+      // AuthController.instance.loginUser(user!);
+    } catch (e) {
+      throw e;
+    }
+  }
 }

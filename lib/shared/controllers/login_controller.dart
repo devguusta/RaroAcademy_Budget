@@ -19,4 +19,24 @@ class LoginController {
   Future<bool> containsEmail({required String email}) async {
     return await repository.containsEmail(email);
   }
+
+  Future<bool> createAccount(
+      {required String email,
+      required String password,
+      required name,
+      required phone,
+      required cpf}) async {
+    try {
+      UserModel? userModel = await repository.createAccount(
+          email: email, password: password, name: name, phone: phone, cpf: cpf);
+
+      if (userModel != null) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      throw e;
+    }
+  }
 }

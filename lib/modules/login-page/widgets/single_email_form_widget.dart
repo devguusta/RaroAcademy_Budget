@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:raro_academy_budget/modules/login-page/login_controller.dart';
+import 'package:raro_academy_budget/shared/controllers/login_controller.dart';
 import 'package:raro_academy_budget/modules/login-page/password-page/password_page.dart';
 import 'package:raro_academy_budget/modules/login-page/widgets/facebook_button_widget.dart';
 import 'package:raro_academy_budget/modules/login-page/widgets/google_button_widget.dart';
