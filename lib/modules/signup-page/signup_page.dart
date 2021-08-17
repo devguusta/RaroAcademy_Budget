@@ -55,6 +55,8 @@ class _SignUpPageState extends State<SignUpPage> {
     super.dispose();
   }
 
+  bool loading = false;
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -174,9 +176,13 @@ class _SignUpPageState extends State<SignUpPage> {
                           Align(
                             alignment: Alignment.bottomCenter,
                             child: SignUpFooter(
+                              loading: loading,
                               page: '4',
                               onPressed: () async {
                                 if (formKey.currentState!.validate()) {
+                                  setState(() {
+                                    loading = true;
+                                  });
                                   try {
                                     bool result = await LoginController()
                                         .createAccount(
@@ -187,6 +193,9 @@ class _SignUpPageState extends State<SignUpPage> {
                                             cpf: _cpfController.text);
 
                                     if (result) {
+                                      setState(() {
+                                        loading = false;
+                                      });
                                       pageController.nextPage(
                                         duration:
                                             const Duration(microseconds: 400),
@@ -204,6 +213,9 @@ class _SignUpPageState extends State<SignUpPage> {
                                             content: Text(
                                                 "Erro ao cadastrar, verifique sua conexão e tente novamente")));
                                   }
+                                  setState(() {
+                                    loading = false;
+                                  });
                                 }
                               },
                               onBack: () {
