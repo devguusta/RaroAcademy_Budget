@@ -8,6 +8,7 @@ class TransactionWidget extends StatefulWidget {
   final String value;
   final IconData icon;
   final Color color;
+  final TextStyle textStyle;
   
   const TransactionWidget({
     Key? key,
@@ -16,6 +17,7 @@ class TransactionWidget extends StatefulWidget {
     required this.value,
     required this.icon,
     required this.color,
+    required this.textStyle,
   }) : super(key: key);
 
   @override
@@ -90,7 +92,7 @@ class _TransactionWidgetState extends State<TransactionWidget> {
                 padding: EdgeInsets.only(bottom: 8.0, right: 16.0),
                 child: Text(
                   widget.value,
-                  style: AppTextStyles.kValueLastTransictions,
+                  style: widget.textStyle,
                 ),
               ),
             ],

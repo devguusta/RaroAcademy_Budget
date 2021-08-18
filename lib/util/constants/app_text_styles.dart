@@ -272,4 +272,19 @@ class AppTextStyles {
     letterSpacing: 0.15,
     color: Color.fromRGBO(0, 0, 0, 0.54),
   );
+
+  static const TextStyle kTextTransactions = TextStyle(
+    fontFamily: 'Roboto',
+    fontWeight: FontWeight.w400,
+    fontSize: 16.0,
+    letterSpacing: 0.15,
+    color: AppColors.kPurple,
+  );
+  static const TextStyle kLastTransaction = TextStyle(
+    fontFamily: 'Roboto',
+    fontSize: 16,
+    fontWeight: FontWeight.w400,
+    letterSpacing: 0.15,
+    color: Color.fromRGBO(0, 0, 0, 0.87),
+  );
 }

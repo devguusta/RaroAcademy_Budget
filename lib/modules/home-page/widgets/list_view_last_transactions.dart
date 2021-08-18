@@ -5,6 +5,7 @@ import 'package:raro_academy_budget/shared/models/transaction_model.dart';
 import 'package:raro_academy_budget/shared/widgets/transaction_widget.dart';
 import 'package:raro_academy_budget/util/constants/app_colors.dart';
 import 'package:raro_academy_budget/util/constants/app_icons.dart';
+import 'package:raro_academy_budget/util/constants/app_text_styles.dart';
 
 class ListViewLastTransactions extends StatefulWidget {
   const ListViewLastTransactions({
@@ -42,6 +43,7 @@ class _ListViewLastTransactionsState extends State<ListViewLastTransactions> {
                           date:
                               DateFormat("dd/MM/yyyy").format(list[index].date),
                           value: list[index].value.toStringAsFixed(2).replaceAll(".", ","),
+                          textStyle: AppTextStyles.kLastTransaction,
                            color: list[index].category =='Refeição' ?
                                         AppColors.kYellow :
                                         list[index].category == 'Viagem'?

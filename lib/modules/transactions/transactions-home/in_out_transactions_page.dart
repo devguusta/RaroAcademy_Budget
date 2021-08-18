@@ -346,7 +346,11 @@ class _TransactionsCardWidgetState extends State<TransactionsCardWidget> {
                                               date: DateFormat("dd/MM/yyyy")
                                                   .format(list[index].date),
                                               value:
-                                                  (('R\$ ${list[index].value.toStringAsFixed(2).replaceAll(".", ",")}'))),
+                                                  (
+                                                    ('R\$ ${list[index].value.toStringAsFixed(2).replaceAll(".", ",")}')
+                                                    ),
+                                                    textStyle: AppTextStyles.kTextTransactions,
+                                                    ),
                                         ),
                                       ),
                                   ),
