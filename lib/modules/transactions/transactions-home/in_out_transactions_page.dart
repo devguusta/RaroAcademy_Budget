@@ -246,8 +246,8 @@ class TransactionsCardWidget extends StatelessWidget {
                 child: Padding(
                   padding:
                       const EdgeInsets.only(left: 16.0, top: 16.0, right: 16.0),
-                  child: FutureBuilder<List<TransactionModel>>(
-                      future: type == 0
+                  child: StreamBuilder<List<TransactionModel>>(
+                      stream: type == 0
                           ? controller.getInTransaction()
                           : type == 1
                               ? controller.getOutTransaction()

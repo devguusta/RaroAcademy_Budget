@@ -22,8 +22,8 @@ class _ListViewLastTransactionsState extends State<ListViewLastTransactions> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        FutureBuilder<List<TransactionModel>>(
-            future: controller.getTransaction(),
+        StreamBuilder<List<TransactionModel>>(
+            stream: controller.getLastTransaction(),
             builder: (context, snapshot) {
               if (!snapshot.hasData) {
                 return Center(child: CircularProgressIndicator());
@@ -35,7 +35,7 @@ class _ListViewLastTransactionsState extends State<ListViewLastTransactions> {
                     ? ListView.builder(
                         shrinkWrap: true,
                         primary: false,
-                        itemCount: 3,
+                        itemCount: list.length < 3 ? list.length : 3,
                         itemBuilder: (_, index) => TransactionWidget(
                           description: list[index].category,
                           date:
@@ -80,11 +80,13 @@ class _ListViewLastTransactionsState extends State<ListViewLastTransactions> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Text(
-                                'Parece que você ainda não realizou nenhuma transação!',
-                                style: TextStyle(
-                                    color: Colors.blueAccent, fontSize: 16),
-                                textAlign: TextAlign.center)
+                            Center(
+                              child: Text(
+                                  'Parece que você ainda não realizou nenhuma transação!',
+                                  style: TextStyle(
+                                      color: Colors.blueAccent, fontSize: 16),
+                                  textAlign: TextAlign.center),
+                            )
                           ],
                         ),
                       ));
