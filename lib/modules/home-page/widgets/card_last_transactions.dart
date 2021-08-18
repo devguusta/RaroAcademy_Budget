@@ -73,7 +73,7 @@ class LastTransactions extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(left: 16.0, top: 8),
                   child: Text(
-                    'R\$ ${totalValueLastTransactions}'
+                    'R\$ ${totalValueLastTransactions.toStringAsFixed(2).replaceAll(".", ",")}'
                     ,
                     style: AppTextStyles.kSubTitleLastTransactions,
                   ),

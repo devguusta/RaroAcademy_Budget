@@ -279,86 +279,123 @@ class _TransactionsCardWidgetState extends State<TransactionsCardWidget> {
                           });
                           print("Value $totalValue");
                           return list.length > 0
-                              ? ListView.builder(
-                                  shrinkWrap: true,
-                                  primary: false,
-                                  itemCount: list.length,
-                                  itemBuilder: (_, index) => Container(
-                                    padding: EdgeInsets.only(bottom: 20),
-                                    child: TransactionWidget(
-                                        color: list[index].category =='Refeição' ?
-                                        AppColors.kYellow :
-                                        list[index].category == 'Viagem'?
-                                        AppColors.kPink :
-                                        list[index].category == 'Educação' ?
-                                        AppColors.kCyan :
-                                        list[index].category == 'Transporte'?
-                                        AppColors.kGreen :
-                                        list[index].category == 'Pagamentos'?
-                                        AppColors.kPurple :
-                                        list[index].category == 'Outros'?
-                                        AppColors.kLilac :
-                                        Color.fromRGBO(52,48,144,1),
-                                        icon: list[index].category == 'Pix'
-                                            ? AppIcons.kPix
-                                            : list[index].category == 'Ted'
-                                                ? AppIcons.kTed
-                                                : list[index].category ==
-                                                        'Boleto'
-                                                    ? AppIcons.kBoleto
-                                                    : list[index].category ==
-                                                            'Dinheiro'
-                                                        ? AppIcons.kMoney
-                                                        : list[index]
-                                                                    .category ==
-                                                                'Doc'
-                                                            ? AppIcons.kDoc
-                                                            : list[index]
-                                                                        .category ==
-                                                                    'Transporte'
-                                                                ? AppIcons
-                                                                    .kTransport
-                                                                : list[index]
-                                                                            .category ==
-                                                                        'Viagem'
-                                                                    ? AppIcons
-                                                                        .kTravel
-                                                                    : list[index]
-                                                                                .category ==
-                                                                            'Educação'
-                                                                        ? AppIcons
-                                                                            .kEducation
-                                                                        : list[index].category ==
-                                                                                'Refeição'
-                                                                            ? AppIcons
-                                                                                .kMeal
-                                                                            : list[index].category ==
-                                                                                    'Pagamentos'
-                                                                                ? AppIcons
-                                                                                    .kPayments
-                                                                                : AppIcons
-                                                                                    .kOthers,
-                                        description: list[index].category,
-                                        date: DateFormat("dd/MM/yyyy")
-                                            .format(list[index].date),
-                                        value:
-                                            (('${list[index].value.toString()} R\$'))),
+                              ? Column(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    child: ListView.builder(
+                                        shrinkWrap: true,
+                                        primary: false,
+                                        itemCount: list.length,
+                                        itemBuilder: (_, index) => Container(
+                                          padding: EdgeInsets.only(bottom: 20),
+                                          child: TransactionWidget(
+                                              color: list[index].category =='Refeição' ?
+                                              AppColors.kYellow :
+                                              list[index].category == 'Viagem'?
+                                              AppColors.kPink :
+                                              list[index].category == 'Educação' ?
+                                              AppColors.kCyan :
+                                              list[index].category == 'Transporte'?
+                                              AppColors.kGreen :
+                                              list[index].category == 'Pagamentos'?
+                                              AppColors.kPurple :
+                                              list[index].category == 'Outros'?
+                                              AppColors.kLilac :
+                                              Color.fromRGBO(52,48,144,1),
+                                              icon: list[index].category == 'Pix'
+                                                  ? AppIcons.kPix
+                                                  : list[index].category == 'Ted'
+                                                      ? AppIcons.kTed
+                                                      : list[index].category ==
+                                                              'Boleto'
+                                                          ? AppIcons.kBoleto
+                                                          : list[index].category ==
+                                                                  'Dinheiro'
+                                                              ? AppIcons.kMoney
+                                                              : list[index]
+                                                                          .category ==
+                                                                      'Doc'
+                                                                  ? AppIcons.kDoc
+                                                                  : list[index]
+                                                                              .category ==
+                                                                          'Transporte'
+                                                                      ? AppIcons
+                                                                          .kTransport
+                                                                      : list[index]
+                                                                                  .category ==
+                                                                              'Viagem'
+                                                                          ? AppIcons
+                                                                              .kTravel
+                                                                          : list[index]
+                                                                                      .category ==
+                                                                                  'Educação'
+                                                                              ? AppIcons
+                                                                                  .kEducation
+                                                                              : list[index].category ==
+                                                                                      'Refeição'
+                                                                                  ? AppIcons
+                                                                                      .kMeal
+                                                                                  : list[index].category ==
+                                                                                          'Pagamentos'
+                                                                                      ? AppIcons
+                                                                                          .kPayments
+                                                                                      : AppIcons
+                                                                                          .kOthers,
+                                              description: list[index].category,
+                                              date: DateFormat("dd/MM/yyyy")
+                                                  .format(list[index].date),
+                                              value:
+                                                  (('R\$ ${list[index].value.toStringAsFixed(2).replaceAll(".", ",")}'))),
+                                        ),
+                                      ),
                                   ),
-                                )
+                                          //                       Divider(
+                                          //   thickness: 1,
+                                          // ),
+                                          Container(
+                                              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16,),
+                                              child: Row(
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                children: [
+                                                  Text(
+                                                    widget.type == 0
+                                                        ? "Total entradas"
+                                                        : widget.type == 1
+                                ? "Total saídas"
+                                : "Total",
+                                                    style: AppTextStyles.kInputTextMedium.copyWith(
+                                                        color: Color.fromRGBO(52, 48, 144, 1)),
+                                                  ),
+                                                  Text(
+                                                    "R\$ ${totalValue.toStringAsFixed(2).replaceAll(".", ",")}",
+                                                    style: AppTextStyles.kSubtitle3Medium.copyWith(
+                                                        color: widget.type == 0
+                                ? Color.fromRGBO(88, 179, 104, 1)
+                                : Color.fromRGBO(244, 67, 54, 1)),
+                                                  ),
+                                                ],
+                                              ),
+                                              ),
+                                ],
+                              )
                               : Center(
                                   child: Container(
-                                  padding: EdgeInsets.symmetric(horizontal: 16),
+                                  padding: EdgeInsets.symmetric(horizontal: 16, ),
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     children: [
-                                      Text(
-                                          'Parece que você ainda não realizou nenhuma transação!',
-                                          style: TextStyle(
-                                              color: Colors.blueAccent,
-                                              fontSize: 16),
-                                          textAlign: TextAlign.center),
+                                      Padding(
+                                        padding: const EdgeInsets.only(bottom: 8.0),
+                                        child: Text(
+                                            'Parece não possui nenhuma transação nesse mês!',
+                                            style: TextStyle(
+                                                color: Colors.blueAccent,
+                                                fontSize: 16),
+                                            textAlign: TextAlign.center),
+                                      ),
 
                                     ],
                                   ),
@@ -369,36 +406,7 @@ class _TransactionsCardWidgetState extends State<TransactionsCardWidget> {
                       }),
                 ),
               ),
-               Divider(
-                thickness: 1,
-              ),
-              Expanded(
-                  flex: 1,
-                  child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 16),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            widget.type == 0
-                                ? "Total entradas"
-                                : widget.type == 1
-                                    ? "Total saídas"
-                                    : "Total",
-                            style: AppTextStyles.kInputTextMedium.copyWith(
-                                color: Color.fromRGBO(52, 48, 144, 1)),
-                          ),
-                          Text(
-                            "${totalValue} R\$",
-                            style: AppTextStyles.kSubtitle3Medium.copyWith(
-                                color: widget.type == 0
-                                    ? Color.fromRGBO(88, 179, 104, 1)
-                                    : Color.fromRGBO(244, 67, 54, 1)),
-                          ),
-                        ],
-                      ),
-                      ),
-                      ),
+               
              
             ],
           ),
