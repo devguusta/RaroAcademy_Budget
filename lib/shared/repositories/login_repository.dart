@@ -1,9 +1,6 @@
-import 'dart:convert';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:raro_academy_budget/shared/models/user_model.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginRepository {
   FirebaseAuth _auth = FirebaseAuth.instance;

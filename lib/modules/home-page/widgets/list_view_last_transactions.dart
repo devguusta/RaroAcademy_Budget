@@ -1,6 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:raro_academy_budget/shared/controllers/transaction_controller.dart';
+import 'package:raro_academy_budget/shared/models/transaction_model.dart';
 import 'package:raro_academy_budget/shared/widgets/transaction_widget.dart';
 import 'package:raro_academy_budget/util/constants/app_icons.dart';
 
@@ -21,56 +22,75 @@ class _ListViewLastTransactionsState extends State<ListViewLastTransactions> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        FutureBuilder<List?>(
-          future: controller.getTransaction(),
-          builder: (context, snapshot) {
-            if(!snapshot.hasData) {
-              return Center(child: CircularProgressIndicator());
-            } else if(snapshot.hasError) {
-               return Text("Erro ao buscar os dados");
-            } else if(snapshot.hasData) {
-              final list = snapshot.data ?? [];
-              return list.length > 0 ?
-              ListView.builder(
-              shrinkWrap: true,
-              primary: false,
-              itemCount: 3,
-              itemBuilder: (_, index) => TransactionWidget(
-                  description:list[index]['category'],
-                  date: list[index]['date'].toString(), 
-                  value: list[index]['value'].toString(),
-                  icon: list[index]['category'] == 'Pix' ? AppIcons.kPix
-                              : list[index]['category'] == 'Ted' ? AppIcons.kTed
-                              : list[index]['category'] == 'Boleto' ? AppIcons.kBoleto
-                              : list[index]['category'] == 'Dinheiro' ? AppIcons.kMoney
-                              : list[index]['category'] == 'Doc' ? AppIcons.kDoc
-                              : list[index]['category'] == 'Transporte' ? AppIcons.kTransport
-                              : list[index]['category'] == 'Viagem' ? AppIcons.kTravel
-                              : list[index]['category'] == 'Educação' ? AppIcons.kEducation
-                              : list[index]['category'] == 'Refeição' ? AppIcons.kMeal
-                              : list[index]['category'] == 'Pagamentos' ? AppIcons.kPayments        
-                              : AppIcons.kOthers,
-                  ),
-            ) :
-             Center(
-                          child: Container(
-                          padding: EdgeInsets.symmetric(horizontal: 16),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(
-                                  'Parece que você ainda não realizou nenhuma transação!',
-                                  style: TextStyle(
-                                      color: Colors.blueAccent, fontSize: 16),
-                                  textAlign: TextAlign.center)
-                            ],
-                          ),
-                        ));
-            }     
-             return Container();
-          }
-        ),
+        FutureBuilder<List<TransactionModel>>(
+            future: controller.getTransaction(),
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                return Center(child: CircularProgressIndicator());
+              } else if (snapshot.hasError) {
+                return Text("Erro ao buscar os dados");
+              } else if (snapshot.hasData) {
+                final list = snapshot.data ?? [];
+                return list.length > 0
+                    ? ListView.builder(
+                        shrinkWrap: true,
+                        primary: false,
+                        itemCount: 3,
+                        itemBuilder: (_, index) => TransactionWidget(
+                          description: list[index].category,
+                          date:
+                              DateFormat("dd/MM/yyyy").format(list[index].date),
+                          value: list[index].value.toString(),
+                          icon: list[index].category == 'Pix'
+                              ? AppIcons.kPix
+                              : list[index].category == 'Ted'
+                                  ? AppIcons.kTed
+                                  : list[index].category == 'Boleto'
+                                      ? AppIcons.kBoleto
+                                      : list[index].category == 'Dinheiro'
+                                          ? AppIcons.kMoney
+                                          : list[index].category == 'Doc'
+                                              ? AppIcons.kDoc
+                                              : list[index].category ==
+                                                      'Transporte'
+                                                  ? AppIcons.kTransport
+                                                  : list[index].category ==
+                                                          'Viagem'
+                                                      ? AppIcons.kTravel
+                                                      : list[index].category ==
+                                                              'Educação'
+                                                          ? AppIcons.kEducation
+                                                          : list[index]
+                                                                      .category ==
+                                                                  'Refeição'
+                                                              ? AppIcons.kMeal
+                                                              : list[index]
+                                                                          .category ==
+                                                                      'Pagamentos'
+                                                                  ? AppIcons
+                                                                      .kPayments
+                                                                  : AppIcons
+                                                                      .kOthers,
+                        ),
+                      )
+                    : Center(
+                        child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 16),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                                'Parece que você ainda não realizou nenhuma transação!',
+                                style: TextStyle(
+                                    color: Colors.blueAccent, fontSize: 16),
+                                textAlign: TextAlign.center)
+                          ],
+                        ),
+                      ));
+              }
+              return Container();
+            }),
       ],
     );
   }
