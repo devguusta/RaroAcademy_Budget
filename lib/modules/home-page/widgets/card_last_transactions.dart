@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:raro_academy_budget/modules/home-page/widgets/list_view_last_transactions.dart';
+import 'package:raro_academy_budget/shared/controllers/transaction_controller.dart';
+import 'package:raro_academy_budget/shared/models/transaction_model.dart';
 import 'package:raro_academy_budget/util/constants/app_text_styles.dart';
 
 class LastTransactions extends StatelessWidget {
   const LastTransactions({
     Key? key,
   }) : super(key: key);
+   
 
   @override
   Widget build(BuildContext context) {
+    TransactionController controller = TransactionController();
+    double totalValueLastTransactions = 0;
     Size size = MediaQuery.of(context).size;
     return SingleChildScrollView(
       child: Container(
@@ -30,47 +35,66 @@ class LastTransactions extends StatelessWidget {
           color: const Color.fromRGBO(253, 253, 253, 1),
           borderRadius: BorderRadius.circular(7),
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 16.0, top: 8),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  Text(
-                    "Últimas transações",
-                    style: AppTextStyles.kTitleHomeMedium,
+        child: StreamBuilder<List<TransactionModel>>(
+          stream: controller.getLastTransaction(),
+          builder: (context, snapshot) {
+            if(!snapshot.hasData) {
+              return Center(child: CircularProgressIndicator());
+            } else if(snapshot.hasError) {
+              return Text("Erro ao buscar os dados no firebase");
+            } else if(snapshot.hasData) {
+              final list = snapshot.data ?? [];
+              list.forEach((transaction) async {      
+                   totalValueLastTransactions += transaction.value;
+                    print(totalValueLastTransactions);
+                          });
+              return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 16.0, top: 8),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: const [
+                      Text(
+                        "Últimas transações",
+                        style: AppTextStyles.kTitleHomeMedium,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(right: 16.0),
+                        child: Icon(
+                          Icons.arrow_forward_ios,
+                          color: Color.fromRGBO(52, 48, 144, 1),
+                        ),
+                      )
+                    ],
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(right: 16.0),
-                    child: Icon(
-                      Icons.arrow_forward_ios,
-                      color: Color.fromRGBO(52, 48, 144, 1),
-                    ),
-                  )
-                ],
-              ),
-            ),
-            const Padding(
-              padding: EdgeInsets.only(left: 16.0, top: 8),
-              child: Text(
-                "R\$ 398,30",
-                style: AppTextStyles.kSubTitleLastTransactions,
-              ),
-            ),
-            const Padding(
-              padding: EdgeInsets.only(left: 16.0, top: 8),
-              child: Text(
-                "No momento",
-                style: AppTextStyles.kMoment,
-              ),
-            ),
-            const Padding(
-              padding: EdgeInsets.only(left: 16, top: 24.0),
-              child: ListViewLastTransactions(),
-            ),
-          ],
+                ),
+                Padding(
+                  padding: EdgeInsets.only(left: 16.0, top: 8),
+                  child: Text(
+                    'R\$ ${totalValueLastTransactions}'
+                    ,
+                    style: AppTextStyles.kSubTitleLastTransactions,
+                  ),
+                ),
+                const Padding(
+                  padding: EdgeInsets.only(left: 16.0, top: 8),
+                  child: Text(
+                    "No momento",
+                    style: AppTextStyles.kMoment,
+                  ),
+                ),
+                const Padding(
+                  padding: EdgeInsets.only(left: 16, top: 24.0),
+                  child: ListViewLastTransactions(),
+                ),
+              ],
+            );
+            }
+            return Container();
+            
+          }
         ),
       ),
     );

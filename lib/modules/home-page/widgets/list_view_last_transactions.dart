@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:raro_academy_budget/shared/controllers/transaction_controller.dart';
 import 'package:raro_academy_budget/shared/models/transaction_model.dart';
 import 'package:raro_academy_budget/shared/widgets/transaction_widget.dart';
+import 'package:raro_academy_budget/util/constants/app_colors.dart';
 import 'package:raro_academy_budget/util/constants/app_icons.dart';
 
 class ListViewLastTransactions extends StatefulWidget {
@@ -41,6 +42,19 @@ class _ListViewLastTransactionsState extends State<ListViewLastTransactions> {
                           date:
                               DateFormat("dd/MM/yyyy").format(list[index].date),
                           value: list[index].value.toString(),
+                           color: list[index].category =='Refeição' ?
+                                        AppColors.kYellow :
+                                        list[index].category == 'Viagem'?
+                                        AppColors.kPink :
+                                        list[index].category == 'Educação' ?
+                                        AppColors.kCyan :
+                                        list[index].category == 'Transporte'?
+                                        AppColors.kGreen :
+                                        list[index].category == 'Pagamentos'?
+                                        AppColors.kPurple :
+                                        list[index].category == 'Outros'?
+                                        AppColors.kLilac :
+                                        Color.fromRGBO(52,48,144,1),
                           icon: list[index].category == 'Pix'
                               ? AppIcons.kPix
                               : list[index].category == 'Ted'

@@ -10,6 +10,7 @@ import 'package:raro_academy_budget/shared/widgets/transaction_widget.dart';
 import 'package:raro_academy_budget/util/constants/app_colors.dart';
 import 'package:raro_academy_budget/util/constants/app_icons.dart';
 import 'package:raro_academy_budget/util/constants/app_text_styles.dart';
+import 'package:raro_academy_budget/util/extensions.dart';
 
 class InOutTransactionsPage extends StatefulWidget {
   const InOutTransactionsPage({Key? key}) : super(key: key);
@@ -211,12 +212,23 @@ class _InOutTransactionsPageState extends State<InOutTransactionsPage> {
   }
 }
 
-class TransactionsCardWidget extends StatelessWidget {
+class TransactionsCardWidget extends StatefulWidget {
   TransactionsCardWidget({Key? key, required this.context, required this.type})
       : super(key: key);
   final BuildContext context;
   final int type;
+
+  @override
+  _TransactionsCardWidgetState createState() => _TransactionsCardWidgetState();
+}
+
+class _TransactionsCardWidgetState extends State<TransactionsCardWidget> {
   TransactionController controller = TransactionController();
+
+  double totalValue = 0.0;
+  var list = [];
+  bool wait = false;
+  @override
   @override
   Widget build(BuildContext context) {
     return Stack(children: [
@@ -247,9 +259,9 @@ class TransactionsCardWidget extends StatelessWidget {
                   padding:
                       const EdgeInsets.only(left: 16.0, top: 16.0, right: 16.0),
                   child: StreamBuilder<List<TransactionModel>>(
-                      stream: type == 0
+                      stream: widget.type == 0
                           ? controller.getInTransaction()
-                          : type == 1
+                          : widget.type == 1
                               ? controller.getOutTransaction()
                               : controller.getTransaction(),
                       builder: (context, snapshot) {
@@ -258,7 +270,14 @@ class TransactionsCardWidget extends StatelessWidget {
                         } else if (snapshot.hasError) {
                           return Text("Erro ao buscar os dados");
                         } else if (snapshot.hasData) {
-                          final list = snapshot.data ?? [];
+                          list = snapshot.data ?? [];
+
+                          list.forEach((transaction) async {
+                            wait = true;
+                            totalValue += transaction.value;
+                            wait = false;
+                          });
+                          print("Value $totalValue");
                           return list.length > 0
                               ? ListView.builder(
                                   shrinkWrap: true,
@@ -267,6 +286,19 @@ class TransactionsCardWidget extends StatelessWidget {
                                   itemBuilder: (_, index) => Container(
                                     padding: EdgeInsets.only(bottom: 20),
                                     child: TransactionWidget(
+                                        color: list[index].category =='Refeição' ?
+                                        AppColors.kYellow :
+                                        list[index].category == 'Viagem'?
+                                        AppColors.kPink :
+                                        list[index].category == 'Educação' ?
+                                        AppColors.kCyan :
+                                        list[index].category == 'Transporte'?
+                                        AppColors.kGreen :
+                                        list[index].category == 'Pagamentos'?
+                                        AppColors.kPurple :
+                                        list[index].category == 'Outros'?
+                                        AppColors.kLilac :
+                                        Color.fromRGBO(52,48,144,1),
                                         icon: list[index].category == 'Pix'
                                             ? AppIcons.kPix
                                             : list[index].category == 'Ted'
@@ -326,16 +358,18 @@ class TransactionsCardWidget extends StatelessWidget {
                                           style: TextStyle(
                                               color: Colors.blueAccent,
                                               fontSize: 16),
-                                          textAlign: TextAlign.center)
+                                          textAlign: TextAlign.center),
+
                                     ],
                                   ),
-                                ));
+                                ),
+                                );
                         }
                         return Container();
                       }),
                 ),
               ),
-              Divider(
+               Divider(
                 thickness: 1,
               ),
               Expanded(
@@ -346,36 +380,40 @@ class TransactionsCardWidget extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            type == 0
+                            widget.type == 0
                                 ? "Total entradas"
-                                : type == 1
+                                : widget.type == 1
                                     ? "Total saídas"
                                     : "Total",
                             style: AppTextStyles.kInputTextMedium.copyWith(
                                 color: Color.fromRGBO(52, 48, 144, 1)),
                           ),
                           Text(
-                            "-R\$ 250,00",
+                            "${totalValue} R\$",
                             style: AppTextStyles.kSubtitle3Medium.copyWith(
-                                color: type == 0
+                                color: widget.type == 0
                                     ? Color.fromRGBO(88, 179, 104, 1)
                                     : Color.fromRGBO(244, 67, 54, 1)),
-                          )
+                          ),
                         ],
-                      )))
+                      ),
+                      ),
+                      ),
+             
             ],
-          )),
+          ),
+          ),
       Visibility(
-        visible: type == 2 ? false : true,
+        visible: widget.type == 2 ? false : true,
         child: Positioned(
             bottom: 18,
             left: (MediaQuery.of(context).size.width - 32) / 2,
             child: InkWell(
               onTap: () {
-                if (type == 0) {
+                if (widget.type == 0) {
                   Navigator.of(context)
                       .push(MaterialPageRoute(builder: (_) => InPage()));
-                } else if (type == 1) {
+                } else if (widget.type == 1) {
                   Navigator.of(context)
                       .push(MaterialPageRoute(builder: (_) => OutPage()));
                 }

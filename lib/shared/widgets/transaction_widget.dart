@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:raro_academy_budget/util/constants/app_text_styles.dart';
 
 class TransactionWidget extends StatefulWidget {
@@ -6,6 +7,7 @@ class TransactionWidget extends StatefulWidget {
   final String date;
   final String value;
   final IconData icon;
+  final Color color;
   
   const TransactionWidget({
     Key? key,
@@ -13,6 +15,7 @@ class TransactionWidget extends StatefulWidget {
     required this.date,
     required this.value,
     required this.icon,
+    required this.color,
   }) : super(key: key);
 
   @override
@@ -40,7 +43,7 @@ class _TransactionWidgetState extends State<TransactionWidget> {
               width: 40,
               height: 40,
               decoration: BoxDecoration(
-                color: const Color.fromRGBO(255, 180, 0, 1),
+                color: widget.color,
                 borderRadius: BorderRadius.circular(40),
               ),
               child: Icon(

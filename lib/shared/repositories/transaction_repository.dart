@@ -50,7 +50,7 @@ class TransactionRepository {
       return FirebaseFirestore.instance
           .collection("transaction")
           .where("type", isEqualTo: 'in')
-          .where("userId", isEqualTo: userManager.user!.uid)
+          .where("userId", isEqualTo: userManager.user!.uid).where("field")
           .orderBy("date", descending: true)
           .snapshots().map((e) => 
           e.docs.map((item) => TransactionModel.fromMap(item.data())).toList());
