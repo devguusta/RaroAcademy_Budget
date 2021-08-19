@@ -6,12 +6,11 @@ import 'package:raro_academy_budget/util/constants/app_colors.dart';
 import 'package:raro_academy_budget/util/constants/app_shadows.dart';
 import 'package:get_it/get_it.dart';
 import 'package:raro_academy_budget/shared/services/user_manager.dart';
+import 'package:raro_academy_budget/util/constants/app_text_styles.dart';
 
 class RegistryEditPage extends StatefulWidget {
   static const String id = '/in';
-
   const RegistryEditPage({Key? key}) : super(key: key);
-
   @override
   _RegistryEditPageState createState() => _RegistryEditPageState();
 }
@@ -23,9 +22,15 @@ class _RegistryEditPageState extends State<RegistryEditPage> {
   TextEditingController phone = TextEditingController();
   TextEditingController email = TextEditingController();
   TextEditingController cpf = TextEditingController();
+  String nameEditing = '';
+  String phoneEditing = '';
+  String cpfEditing = '';
 
   @override
   Widget build(BuildContext context) {
+    nameEditing = userManager.user!.name;
+    phoneEditing = userManager.user!.phone;
+    cpfEditing = userManager.user!.cpf;
     return Scaffold(
       appBar: PreferredSize(
         child: const Header(),
@@ -57,8 +62,7 @@ class _RegistryEditPageState extends State<RegistryEditPage> {
                       InputForm(
                         hintText: "Nome",
                         labelText: "Nome",
-                        initialValue: userManager.user!.name.split(" ")[0],
-                        // controller: name,
+                        controller: name,
                         validator: (value) {
                           if (value!.isEmpty) {
                             return 'Favor preencher o campo vazio.';
@@ -70,8 +74,7 @@ class _RegistryEditPageState extends State<RegistryEditPage> {
                       InputForm(
                         hintText: "CPF",
                         labelText: "CPF",
-                        initialValue: userManager.user!.cpf.split(" ")[0],
-                        // controller: cpf,
+                        controller: cpf,
                         validator: (value) {
                           if (value!.isEmpty) {
                             return 'Favor preencher o campo vazio.';
@@ -81,10 +84,10 @@ class _RegistryEditPageState extends State<RegistryEditPage> {
                       ),
                       const SizedBox(height: 22),
                       InputForm(
+                        enabled: false,
                         hintText: "Email",
                         labelText: "Email",
-                        initialValue: userManager.user!.email.split(" ")[0],
-                        // controller: email,
+                        initialValue: userManager.user!.email,
                         validator: (value) {
                           if (value!.isEmpty) {
                             return 'Favor preencher o campo vazio.';
@@ -96,8 +99,7 @@ class _RegistryEditPageState extends State<RegistryEditPage> {
                       InputForm(
                         hintText: "Celular",
                         labelText: "Celular",
-                        initialValue: userManager.user!.phone.split(" ")[0],
-                        // controller: phone,
+                        controller: phone,
                         validator: (value) {
                           if (value!.isEmpty) {
                             return 'Favor preencher o campo vazio.';
@@ -121,22 +123,22 @@ class _RegistryEditPageState extends State<RegistryEditPage> {
                   if (form.currentState!.validate()) {
                     await FirebaseFirestore.instance
                         .collection('users')
-                        .doc()
-                        .set({
+                        .doc(userManager.user!.uid)
+                        .update({
                       'name': name.text,
-                      'email': email.text,
                       'phone': phone.text,
                       'cpf': cpf.text,
                     });
+                    userManager.setUser(
+                      userManager.user!.copyWith(name: name.text),
+                    );
                     Navigator.of(context).pop();
                   }
                 },
                 child: Container(
                   decoration: const BoxDecoration(
                     gradient: AppColors.kBlueGradient,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(20),
-                    ),
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
                   ),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
@@ -145,12 +147,7 @@ class _RegistryEditPageState extends State<RegistryEditPage> {
                     ),
                     child: Text(
                       'Salvar alterações'.toUpperCase(),
-                      style: const TextStyle(
-                        color: AppColors.kWhite,
-                        fontSize: 15,
-                        fontFamily: 'Roboto',
-                        letterSpacing: 0.46,
-                      ),
+                      style: AppTextStyles.kSaveData,
                     ),
                   ),
                 ),
