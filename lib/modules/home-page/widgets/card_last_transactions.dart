@@ -14,6 +14,9 @@ class LastTransactions extends StatelessWidget {
   Widget build(BuildContext context) {
     TransactionController controller = TransactionController();
     double totalValueLastTransactions = 0;
+    double totalValueInLastTransactions = 0;
+    double totalValueOutLastTransactions = 0;
+    var list = [];
     Size size = MediaQuery.of(context).size;
     return SingleChildScrollView(
       child: Container(
@@ -43,12 +46,18 @@ class LastTransactions extends StatelessWidget {
             } else if(snapshot.hasError) {
               return Text("Erro ao buscar os dados no firebase");
             } else if(snapshot.hasData) {
-              final list = snapshot.data ?? [];
-              totalValueLastTransactions = 0;
-              list.forEach((transaction) async {      
-                   totalValueLastTransactions += transaction.value;
-                    print(totalValueLastTransactions);
-                          });
+              list = snapshot.data ?? [];
+                     totalValueLastTransactions = 0;
+                     totalValueInLastTransactions = 0;
+                     totalValueOutLastTransactions = 0;
+                     list.forEach((transaction) async {
+                       if(transaction.type == 'out'){
+                         totalValueOutLastTransactions += transaction.value ?? 0;
+                       } else if(transaction.type =='in'){
+                         totalValueInLastTransactions += transaction.value ?? 0;
+                       }
+                       totalValueLastTransactions = totalValueInLastTransactions - totalValueOutLastTransactions;
+                     });
               return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
