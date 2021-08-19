@@ -8,8 +8,10 @@ class TransactionPageWidget extends StatelessWidget {
   final String? pageTitle;
   final List<Widget>? children;
   final ButtonWidget? button;
+  final int? type;
 
   const TransactionPageWidget({
+    this.type,
     this.pageTitle,
     this.children,
     this.button,

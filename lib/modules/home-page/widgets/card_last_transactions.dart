@@ -8,7 +8,6 @@ class LastTransactions extends StatelessWidget {
   const LastTransactions({
     Key? key,
   }) : super(key: key);
-   
 
   @override
   Widget build(BuildContext context) {
@@ -39,75 +38,70 @@ class LastTransactions extends StatelessWidget {
           borderRadius: BorderRadius.circular(7),
         ),
         child: StreamBuilder<List<TransactionModel>>(
-          stream: controller.getLastTransaction(),
-          builder: (context, snapshot) {
-            if(!snapshot.hasData) {
-              return Center(child: CircularProgressIndicator());
-            } else if(snapshot.hasError) {
-              return Text("Erro ao buscar os dados no firebase");
-            } else if(snapshot.hasData) {
-              list = snapshot.data ?? [];
-                     totalValueLastTransactions = 0;
-                     totalValueInLastTransactions = 0;
-                     totalValueOutLastTransactions = 0;
-                     list.forEach((transaction) async {
-                       if(transaction.type == 'out'){
-                         totalValueOutLastTransactions += transaction.value ?? 1;
-                       } else if(transaction.type =='in'){
-                         totalValueInLastTransactions += transaction.value ?? 1;
-                       } else{
-                         totalValueInLastTransactions = 0;
-                       }               
-                       totalValueLastTransactions = totalValueInLastTransactions - totalValueOutLastTransactions;
-                     });
-              return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 16.0, top: 8),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
-                      Text(
-                        "Últimas transações",
-                        style: AppTextStyles.kTitleHomeMedium,
+            stream: controller.getLastTransaction(),
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                return Center(child: CircularProgressIndicator());
+              } else if (snapshot.hasError) {
+                return Text("Erro ao buscar os dados no firebase");
+              } else if (snapshot.hasData) {
+                list = snapshot.data ?? [];
+                totalValueLastTransactions = 0;
+                totalValueInLastTransactions = 0;
+                totalValueOutLastTransactions = 0;
+                list.forEach((transaction) async {
+                  if (transaction.type == 'out') {
+                    totalValueOutLastTransactions += transaction.value ?? 1;
+                  } else if (transaction.type == 'in') {
+                    totalValueInLastTransactions += transaction.value ?? 1;
+                  } else {
+                    totalValueInLastTransactions = 0;
+                  }
+                  totalValueLastTransactions = totalValueInLastTransactions -
+                      totalValueOutLastTransactions;
+                });
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 16.0, top: 8),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: const [
+                          Text(
+                            "Últimas transações",
+                            style: AppTextStyles.kTitleHomeMedium,
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(right: 16.0),
+                            child: Icon(
+                              Icons.arrow_forward_ios,
+                              color: Color.fromRGBO(52, 48, 144, 1),
+                            ),
+                          )
+                        ],
                       ),
-                      Padding(
-                        padding: EdgeInsets.only(right: 16.0),
-                        child: Icon(
-                          Icons.arrow_forward_ios,
-                          color: Color.fromRGBO(52, 48, 144, 1),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(left: 16.0, top: 8),
-                  child: Text(
-                    'R\$ ${totalValueLastTransactions.toStringAsFixed(2).replaceAll(".", ",")}'
-                    ,
-                    style: AppTextStyles.kSubTitleLastTransactions,
-                  ),
-                ),
-                const Padding(
-                  padding: EdgeInsets.only(left: 16.0, top: 8),
-                  child: Text(
-                    "No momento",
-                    style: AppTextStyles.kMoment,
-                  ),
-                ),
-                const Padding(
-                  padding: EdgeInsets.only(left: 16, top: 24.0),
-                  child: ListViewLastTransactions(),
-                ),
-              ],
-            );
-            }
-            return Container();
-            
-          }
-        ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 16.0, top: 8),
+                      child: Text(
+                        'R\$ ${totalValueLastTransactions.toStringAsFixed(2).replaceAll(".", ",")}',
+                        style: AppTextStyles.kSubTitleLastTransactions,
+                      ),
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.only(left: 16.0, top: 8),
+                      child: Text(
+                        "No momento",
+                        style: AppTextStyles.kMoment,
+                      ),
+                    ),
+                    ListViewLastTransactions(),
+                  ],
+                );
+              }
+              return Container();
+            }),
       ),
     );
   }

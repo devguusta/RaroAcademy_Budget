@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:raro_academy_budget/modules/transactions/transaction-update/transaction_update_page.dart';
 import 'package:raro_academy_budget/shared/controllers/transaction_controller.dart';
 import 'package:raro_academy_budget/shared/models/transaction_model.dart';
 import 'package:raro_academy_budget/shared/widgets/transaction_widget.dart';
@@ -37,6 +38,9 @@ class _ListViewLastTransactionsState extends State<ListViewLastTransactions> {
                         primary: false,
                         itemCount: list.length < 3 ? list.length : 3,
                         itemBuilder: (_, index) => TransactionWidget(
+                          onTap: () {
+                            Navigator.pushNamed(context, UpdatePage.id);
+                          },
                           type: list[index].type,
                           description: list[index].type == 'in'
                               ? list[index].description!

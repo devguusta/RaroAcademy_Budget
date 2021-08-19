@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:raro_academy_budget/modules/transactions/transaction-in-page/transaction_in_page.dart';
 import 'package:raro_academy_budget/modules/transactions/transaction-out-page/transaction_out_page.dart';
+import 'package:raro_academy_budget/modules/transactions/transaction-update/transaction_update_page.dart';
 import 'package:raro_academy_budget/shared/controllers/transaction_controller.dart';
 import 'package:raro_academy_budget/shared/models/transaction_model.dart';
 import 'package:raro_academy_budget/shared/widgets/transaction_widget.dart';
@@ -27,7 +28,7 @@ class _TransactionsCardWidgetState extends State<TransactionsCardWidget> {
   double totalValue = 0;
   var list = [];
   bool wait = false;
-  @override
+
   @override
   Widget build(BuildContext context) {
     return Stack(children: [
@@ -95,9 +96,13 @@ class _TransactionsCardWidgetState extends State<TransactionsCardWidget> {
                                       itemCount: list.length,
                                       itemBuilder: (_, index) =>
                                           TransactionWidget(
+                                        onTap: () {
+                                          Navigator.pushNamed(
+                                              context, UpdatePage.id);
+                                        },
                                         type: list[index].type,
                                         category: list[index].category,
-                                        description: widget.type == 0
+                                        description: list[index].type == 'in'
                                             ? list[index].description
                                             : list[index].category,
                                         date: DateFormat("dd/MM/yyyy")
@@ -109,9 +114,10 @@ class _TransactionsCardWidgetState extends State<TransactionsCardWidget> {
                                       ),
                                     ),
                                   ),
-                                  //                       Divider(
-                                  //   thickness: 1,
-                                  // ),
+                                  Divider(
+                                    height: 1,
+                                    thickness: 1,
+                                  ),
                                   Container(
                                     padding: EdgeInsets.symmetric(
                                       horizontal: 16,
@@ -186,38 +192,40 @@ class _TransactionsCardWidgetState extends State<TransactionsCardWidget> {
                     }),
               ),
             ),
-          ],
+            ],
+          ),
         ),
-      ),
-      Visibility(
-        visible: widget.type == 2 ? false : true,
-        child: Positioned(
-            bottom: 18,
-            left: (MediaQuery.of(context).size.width - 32) / 2,
-            child: InkWell(
-              onTap: () {
-                if (widget.type == 0) {
-                  Navigator.of(context)
-                      .push(MaterialPageRoute(builder: (_) => InPage()));
-                } else if (widget.type == 1) {
-                  Navigator.of(context)
-                      .push(MaterialPageRoute(builder: (_) => OutPage()));
-                }
-              },
-              child: Container(
-                height: 50,
-                width: 50,
-                decoration: BoxDecoration(
-                    gradient: AppColors.kBlueGradient, shape: BoxShape.circle),
-                child: Center(
-                  child: Icon(
-                    Icons.add,
-                    color: Colors.white,
+        Visibility(
+          visible: widget.type == 2 ? false : true,
+          child: Positioned(
+              bottom: 18,
+              left: (MediaQuery.of(context).size.width - 32) / 2,
+              child: InkWell(
+                onTap: () {
+                  if (widget.type == 0) {
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (_) => InPage()));
+                  } else if (widget.type == 1) {
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (_) => OutPage()));
+                  }
+                },
+                child: Container(
+                  height: 50,
+                  width: 50,
+                  decoration: BoxDecoration(
+                      gradient: AppColors.kBlueGradient,
+                      shape: BoxShape.circle),
+                  child: Center(
+                    child: Icon(
+                      Icons.add,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
-              ),
-            )),
-      )
-    ]);
+              )),
+        )
+      ],
+    );
   }
 }
