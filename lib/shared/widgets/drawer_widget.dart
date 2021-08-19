@@ -19,7 +19,7 @@ class DrawerWidget extends StatelessWidget {
           Container(
             height: 107,
             width: 308,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               gradient: AppColors.kblueGradientAppBar,
             ),
             child: Padding(
@@ -29,138 +29,169 @@ class DrawerWidget extends StatelessWidget {
             ),
           ),
           Expanded(
-              child: Container(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Wrap(
-                  children: [
-                    Container(
-                      width: 308,
-                      padding: EdgeInsets.only(left: 27, top: 14, bottom: 21),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('Perfil', style: AppTextStyles.kLabelItemDrawer),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          InkWell(
-                              onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => RegistryEditPage()));
-                              },
-                              child: Text('Cadastro',
-                                  style: AppTextStyles.kInputTextMedium))
-                        ],
-                      ),
+              child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Wrap(
+                children: [
+                  Container(
+                    width: 308,
+                    padding: const EdgeInsets.only(
+                      left: 27,
+                      top: 14,
+                      bottom: 21,
                     ),
-                    Divider(
-                      height: 1,
-                      thickness: 1,
-                      color: Color.fromRGBO(224, 224, 224, 1),
-                    ),
-                    Container(
-                      width: 308,
-                      padding: EdgeInsets.only(left: 27, top: 14, bottom: 21),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('Conta', style: AppTextStyles.kLabelItemDrawer),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          InkWell(
-                              onTap: () {},
-                              child: Text('Gerenciar cartões',
-                                  style: AppTextStyles.kInputTextMedium)),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          InkWell(
-                              onTap: () {},
-                              child: Text('Investimentos',
-                                  style: AppTextStyles.kInputTextMedium))
-                        ],
-                      ),
-                    ),
-                    Divider(
-                      thickness: 1,
-                      color: Color.fromRGBO(224, 224, 224, 1),
-                    ),
-                    Container(
-                      width: 308,
-                      padding: EdgeInsets.only(left: 27, top: 14, bottom: 21),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('Segurança',
-                              style: AppTextStyles.kLabelItemDrawer),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          InkWell(
-                              onTap: () {},
-                              child: Text('Alterar Senha',
-                                  style: AppTextStyles.kInputTextMedium))
-                        ],
-                      ),
-                    ),
-                    Divider(
-                      thickness: 1,
-                      color: Color.fromRGBO(224, 224, 224, 1),
-                    ),
-                    Container(
-                      width: 308,
-                      padding: EdgeInsets.only(left: 27, top: 14, bottom: 21),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          InkWell(
-                              onTap: () {},
-                              child: Text('Ajuda',
-                                  style: AppTextStyles.kInputTextMedium))
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                Wrap(
-                  children: [
-                    Divider(
-                      thickness: 1,
-                    ),
-                    Center(
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 20, bottom: 20),
-                        child: InkWell(
-                          onTap: () async {
-                            GetIt.I<UserManager>().setUser(null);
-                            SharedPreferences _prefs =
-                                await SharedPreferences.getInstance();
-                            _prefs.remove('user');
-                            Navigator.of(context).pushAndRemoveUntil(
-                                MaterialPageRoute(
-                                    builder: (_) => InitialLoginPage()),
-                                (route) => false);
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Perfil',
+                          style: AppTextStyles.kLabelItemDrawer,
+                        ),
+                        const SizedBox(height: 10),
+                        InkWell(
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => const RegistryEditPage(),
+                              ),
+                            );
                           },
-                          child: Text(
-                            'Sair',
-                            style: TextStyle(
-                                fontFamily: 'Roboto',
-                                fontWeight: FontWeight.w400,
-                                fontSize: 16,
-                                letterSpacing: 0.15,
-                                color: Color.fromRGBO(58, 91, 150, 1)),
+                          child: const Text('Cadastro',
+                              style: AppTextStyles.kInputTextMedium),
+                        )
+                      ],
+                    ),
+                  ),
+                  const Divider(
+                    height: 1,
+                    thickness: 1,
+                    color: Color.fromRGBO(224, 224, 224, 1),
+                  ),
+                  Container(
+                    width: 308,
+                    padding: const EdgeInsets.only(
+                      left: 27,
+                      top: 14,
+                      bottom: 21,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Conta',
+                          style: AppTextStyles.kLabelItemDrawer,
+                        ),
+                        const SizedBox(height: 15),
+                        InkWell(
+                          onTap: () {},
+                          child: const Text(
+                            'Gerenciar cartões',
+                            style: AppTextStyles.kInputTextMedium,
+                          ),
+                        ),
+                        const SizedBox(height: 15),
+                        InkWell(
+                          onTap: () {},
+                          child: const Text(
+                            'Investimentos',
+                            style: AppTextStyles.kInputTextMedium,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  const Divider(
+                    thickness: 1,
+                    color: Color.fromRGBO(224, 224, 224, 1),
+                  ),
+                  Container(
+                    width: 308,
+                    padding: const EdgeInsets.only(
+                      left: 27,
+                      top: 14,
+                      bottom: 21,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Segurança',
+                          style: AppTextStyles.kLabelItemDrawer,
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        InkWell(
+                          onTap: () {},
+                          child: const Text(
+                            'Alterar Senha',
+                            style: AppTextStyles.kInputTextMedium,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const Divider(
+                    thickness: 1,
+                    color: Color.fromRGBO(224, 224, 224, 1),
+                  ),
+                  Container(
+                    width: 308,
+                    padding: const EdgeInsets.only(
+                      left: 27,
+                      top: 14,
+                      bottom: 21,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        InkWell(
+                          onTap: () {},
+                          child: const Text(
+                            'Ajuda',
+                            style: AppTextStyles.kInputTextMedium,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              Wrap(
+                children: [
+                  const Divider(thickness: 1),
+                  Center(
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 20, bottom: 20),
+                      child: InkWell(
+                        onTap: () async {
+                          GetIt.I<UserManager>().setUser(null);
+                          SharedPreferences _prefs =
+                              await SharedPreferences.getInstance();
+                          _prefs.remove('user');
+                          Navigator.of(context).pushAndRemoveUntil(
+                              MaterialPageRoute(
+                                  builder: (_) => const InitialLoginPage()),
+                              (route) => false);
+                        },
+                        child: const Text(
+                          'Sair',
+                          style: TextStyle(
+                            fontFamily: 'Roboto',
+                            fontWeight: FontWeight.w400,
+                            fontSize: 16,
+                            letterSpacing: 0.15,
+                            color: Color.fromRGBO(58, 91, 150, 1),
                           ),
                         ),
                       ),
-                    )
-                  ],
-                )
-              ],
-            ),
+                    ),
+                  )
+                ],
+              )
+            ],
           ))
         ],
       ),

@@ -20,29 +20,26 @@ class NextButtonWidget extends StatefulWidget {
 class _NextButtonWidgetState extends State<NextButtonWidget> {
   @override
   Widget build(BuildContext context) {
-    print('botão reiniciado');
     return Padding(
       padding: const EdgeInsets.only(right: 48.0, top: 8.0),
       child: Align(
         alignment: Alignment.centerRight,
         child: MaterialButton(
-            padding: EdgeInsets.all(0.0),
-            shape: RoundedRectangleBorder(
+            padding: const EdgeInsets.all(0.0),
+            shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(20))),
-            disabledColor: Color.fromRGBO(0, 0, 0, 0.12),
+            disabledColor: const Color.fromRGBO(0, 0, 0, 0.12),
             onPressed: widget.onPressed,
             child: Ink(
               decoration: BoxDecoration(
                   gradient:
                       widget.onPressed != null ? AppColors.kBlueGradient : null,
-                  borderRadius: BorderRadius.all(Radius.circular(20))),
-              child: Container(
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: const Text(
-                    "CONTINUAR",
-                    style: AppTextStyles.kLoginNextButton,
-                  ),
+                  borderRadius: const BorderRadius.all(Radius.circular(20))),
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Text(
+                  "Continuar".toUpperCase(),
+                  style: AppTextStyles.kLoginNextButton,
                 ),
               ),
             )),

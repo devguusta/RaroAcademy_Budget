@@ -273,6 +273,13 @@ class AppTextStyles {
     color: Color.fromRGBO(0, 0, 0, 0.54),
   );
 
+  static const TextStyle kSaveData = TextStyle(
+    color: AppColors.kWhite,
+    fontSize: 15,
+    fontFamily: 'Roboto',
+    letterSpacing: 0.46,
+  );
+
   static const TextStyle kTextTransactions = TextStyle(
     fontFamily: 'Roboto',
     fontWeight: FontWeight.w400,
