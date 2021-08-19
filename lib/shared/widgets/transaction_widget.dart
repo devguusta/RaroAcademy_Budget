@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:raro_academy_budget/modules/transactions/widgets/transaction_icon_widget.dart';
 
+import 'package:raro_academy_budget/modules/transactions/widgets/transaction_icon_widget.dart';
 import 'package:raro_academy_budget/util/constants/app_text_styles.dart';
 
 class TransactionWidget extends StatefulWidget {
@@ -10,6 +10,7 @@ class TransactionWidget extends StatefulWidget {
   final String value;
   final TextStyle textStyle;
   final String category;
+  
 
   const TransactionWidget({
     Key? key,
@@ -19,6 +20,7 @@ class TransactionWidget extends StatefulWidget {
     required this.value,
     required this.textStyle,
     required this.category,
+    
   }) : super(key: key);
 
   @override
@@ -74,20 +76,22 @@ class _TransactionWidgetState extends State<TransactionWidget> {
               // SizedBox(width: size.width * 0.25),
             ],
           ),
-          FittedBox(
-            fit: BoxFit.fitWidth,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(bottom: 8.0, right: 16.0),
-                  child: Text(
-                    widget.value,
-                    style: widget.textStyle,
+          Flexible(
+            child: FittedBox(
+              fit: BoxFit.fitWidth,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 8.0, right: 16.0),
+                    child: Text(
+                      widget.value,
+                      style: widget.textStyle,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ],

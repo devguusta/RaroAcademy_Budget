@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:raro_academy_budget/modules/transactions/widgets/transaction_card_widget.dart';
+import 'package:raro_academy_budget/shared/controllers/transaction_controller.dart';
+import 'package:raro_academy_budget/shared/models/transaction_model.dart';
 import 'package:raro_academy_budget/shared/widgets/drawer_widget.dart';
 import 'package:raro_academy_budget/util/constants/app_colors.dart';
 import 'package:raro_academy_budget/util/constants/app_text_styles.dart';
@@ -13,7 +15,13 @@ class InOutTransactionsPage extends StatefulWidget {
 
 class _InOutTransactionsPageState extends State<InOutTransactionsPage> {
   String dropdownValue = 'Agosto';
+   TransactionController controller = TransactionController();
   final pageController = PageController(initialPage: 0);
+  double totalValueOut = 0;
+  double totalValueIn = 0;
+  double balanceTransaction = 0.0;
+  var list = [];
+
   var inTextStyle =
       AppTextStyles.kInputTextMedium.copyWith(color: Colors.white);
   var outTextStyle = AppTextStyles.kInputTextMedium
@@ -100,12 +108,38 @@ class _InOutTransactionsPageState extends State<InOutTransactionsPage> {
                   ),
                 ],
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 27, bottom: 11),
-                child: Text(
-                  'R\$ 1.104,53',
-                  style: AppTextStyles.kTextTrasanctionHeader,
-                ),
+              StreamBuilder<List<TransactionModel>>(
+                stream: controller.getTransaction(),
+                builder: (context, snapshot) {
+                  if(!snapshot.hasData) {
+                    return Center(child:CircularProgressIndicator());
+                  } else if(snapshot.hasError){
+                    return Text("Erro ao buscar os dados");
+                  } else if(snapshot.hasData){
+                    list = snapshot.data ?? [];
+                     balanceTransaction = 0;
+                     totalValueOut = 0;
+                     totalValueIn = 0;
+                     list.forEach((transaction) async {
+                          if (transaction.type == 'out') {
+                            totalValueOut += transaction.value ?? 0;
+                          } else if (transaction.type == 'in') {
+                            totalValueIn += transaction.value ?? 0;
+                          }
+                          balanceTransaction = totalValueIn - totalValueOut;
+                     });
+                    return Padding(
+                    padding: const EdgeInsets.only(top: 27, bottom: 11),
+                    child: Text(
+                      "R\$ ${balanceTransaction.toStringAsFixed(2).replaceAll(".", ",")}",
+                      style: AppTextStyles.kTextTrasanctionHeader,
+                    ),
+                  );
+                  } else {
+                    return Container();
+                  }
+                  
+                }
               ),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 20),

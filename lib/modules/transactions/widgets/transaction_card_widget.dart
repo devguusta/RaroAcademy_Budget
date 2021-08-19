@@ -21,13 +21,15 @@ class TransactionsCardWidget extends StatefulWidget {
 class _TransactionsCardWidgetState extends State<TransactionsCardWidget> {
   TransactionController controller = TransactionController();
 
-  double totalValue = 0.0;
+  double totalValueOut = 0;
+  double totalValueIn = 0;
+  double balanceTransaction = 0.0;
+  double totalValue = 0;
   var list = [];
   bool wait = false;
   @override
   @override
   Widget build(BuildContext context) {
-    print('widget reiniciado');
     return Stack(children: [
       Container(
         margin: EdgeInsets.only(top: 16, left: 16, right: 16, bottom: 40),
@@ -68,15 +70,19 @@ class _TransactionsCardWidgetState extends State<TransactionsCardWidget> {
                         return Text("Erro ao buscar os dados");
                       } else if (snapshot.hasData) {
                         list = snapshot.data ?? [];
+                        balanceTransaction = 0;
+                        totalValueOut = 0;
+                        totalValueIn = 0;
                         totalValue = 0;
                         list.forEach((transaction) async {
-                          wait = true;
+                          if (transaction.type == 'out') {
+                            totalValueOut += transaction.value ?? 0;
+                          } else if (transaction.type == 'in') {
+                            totalValueIn += transaction.value ?? 0;
+                          }
+                          balanceTransaction = totalValueIn - totalValueOut;
                           totalValue += transaction.value;
-                          print("Total value: $totalValue");
-
-                          wait = false;
                         });
-
                         return list.length > 0
                             ? Column(
                                 mainAxisAlignment:
@@ -127,14 +133,24 @@ class _TransactionsCardWidgetState extends State<TransactionsCardWidget> {
                                                       52, 48, 144, 1)),
                                         ),
                                         Text(
-                                          "R\$ ${totalValue.toStringAsFixed(2).replaceAll(".", ",")}",
+                                          widget.type == 2
+                                              ? "R\$ ${balanceTransaction.toStringAsFixed(2).replaceAll(".", ",")}"
+                                              : "R\$ ${totalValue.toStringAsFixed(2).replaceAll(".", ",")}",
                                           style: AppTextStyles.kSubtitle3Medium
                                               .copyWith(
-                                                  color: widget.type == 0
-                                                      ? Color.fromRGBO(
-                                                          88, 179, 104, 1)
-                                                      : Color.fromRGBO(
-                                                          244, 67, 54, 1)),
+                                            color: widget.type == 0
+                                                ? Color.fromRGBO(
+                                                    88, 179, 104, 1)
+                                                : widget.type == 1
+                                                    ? Color.fromRGBO(
+                                                        244, 67, 54, 1)
+                                                    : totalValueIn >
+                                                            totalValueOut
+                                                        ? Color.fromRGBO(
+                                                            88, 179, 104, 1)
+                                                        : Color.fromRGBO(
+                                                            244, 67, 54, 1),
+                                          ),
                                         ),
                                       ],
                                     ),
