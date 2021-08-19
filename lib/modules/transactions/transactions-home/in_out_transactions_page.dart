@@ -10,6 +10,7 @@ import 'package:raro_academy_budget/shared/widgets/transaction_widget.dart';
 import 'package:raro_academy_budget/util/constants/app_colors.dart';
 import 'package:raro_academy_budget/util/constants/app_icons.dart';
 import 'package:raro_academy_budget/util/constants/app_text_styles.dart';
+import 'package:raro_academy_budget/util/extensions.dart';
 
 class InOutTransactionsPage extends StatefulWidget {
   const InOutTransactionsPage({Key? key}) : super(key: key);
@@ -211,12 +212,23 @@ class _InOutTransactionsPageState extends State<InOutTransactionsPage> {
   }
 }
 
-class TransactionsCardWidget extends StatelessWidget {
+class TransactionsCardWidget extends StatefulWidget {
   TransactionsCardWidget({Key? key, required this.context, required this.type})
       : super(key: key);
   final BuildContext context;
   final int type;
+
+  @override
+  _TransactionsCardWidgetState createState() => _TransactionsCardWidgetState();
+}
+
+class _TransactionsCardWidgetState extends State<TransactionsCardWidget> {
   TransactionController controller = TransactionController();
+
+  double totalValue = 0.0;
+  var list = [];
+  bool wait = false;
+  @override
   @override
   Widget build(BuildContext context) {
     return Stack(children: [
@@ -246,10 +258,10 @@ class TransactionsCardWidget extends StatelessWidget {
                 child: Padding(
                   padding:
                       const EdgeInsets.only(left: 16.0, top: 16.0, right: 16.0),
-                  child: FutureBuilder<List<TransactionModel>>(
-                      future: type == 0
+                  child: StreamBuilder<List<TransactionModel>>(
+                      stream: widget.type == 0
                           ? controller.getInTransaction()
-                          : type == 1
+                          : widget.type == 1
                               ? controller.getOutTransaction()
                               : controller.getTransaction(),
                       builder: (context, snapshot) {
@@ -258,124 +270,113 @@ class TransactionsCardWidget extends StatelessWidget {
                         } else if (snapshot.hasError) {
                           return Text("Erro ao buscar os dados");
                         } else if (snapshot.hasData) {
-                          final list = snapshot.data ?? [];
+                          list = snapshot.data ?? [];
+                          totalValue = 0;
+                          list.forEach((transaction) async {
+                            wait = true;
+                               totalValue += transaction.value;
+                                print("Total value: $totalValue");
+                               
+                            wait = false;
+                          });
+                         
                           return list.length > 0
-                              ? ListView.builder(
-                                  shrinkWrap: true,
-                                  primary: false,
-                                  itemCount: list.length,
-                                  itemBuilder: (_, index) => Container(
-                                    padding: EdgeInsets.only(bottom: 20),
-                                    child: TransactionWidget(
-                                        icon: list[index].category == 'Pix'
-                                            ? AppIcons.kPix
-                                            : list[index].category == 'Ted'
-                                                ? AppIcons.kTed
-                                                : list[index].category ==
-                                                        'Boleto'
-                                                    ? AppIcons.kBoleto
-                                                    : list[index].category ==
-                                                            'Dinheiro'
-                                                        ? AppIcons.kMoney
-                                                        : list[index]
-                                                                    .category ==
-                                                                'Doc'
-                                                            ? AppIcons.kDoc
-                                                            : list[index]
-                                                                        .category ==
-                                                                    'Transporte'
-                                                                ? AppIcons
-                                                                    .kTransport
-                                                                : list[index]
-                                                                            .category ==
-                                                                        'Viagem'
-                                                                    ? AppIcons
-                                                                        .kTravel
-                                                                    : list[index]
-                                                                                .category ==
-                                                                            'Educação'
-                                                                        ? AppIcons
-                                                                            .kEducation
-                                                                        : list[index].category ==
-                                                                                'Refeição'
-                                                                            ? AppIcons
-                                                                                .kMeal
-                                                                            : list[index].category ==
-                                                                                    'Pagamentos'
-                                                                                ? AppIcons
-                                                                                    .kPayments
-                                                                                : AppIcons
-                                                                                    .kOthers,
-                                        description: list[index].category,
-                                        date: DateFormat("dd/MM/yyyy")
-                                            .format(list[index].date),
-                                        value:
-                                            (('${list[index].value.toString()} R\$'))),
+                              ? Column(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    child: ListView.builder(
+                                        shrinkWrap: true,
+                                        primary: false,
+                                        itemCount: list.length,
+                                        itemBuilder: (_, index) => Container(
+                                          padding: EdgeInsets.only(bottom: 20),
+                                          child: TransactionWidget(
+                                              category: list[index].category,   
+                                              description: list[index].category,
+                                              date: DateFormat("dd/MM/yyyy")
+                                                  .format(list[index].date),
+                                              value:
+                                                  (
+                                                    ('R\$ ${list[index].value.toStringAsFixed(2).replaceAll(".", ",")}')
+                                                    ),
+                                                    textStyle: AppTextStyles.kTextTransactions,
+                                                    ),
+                                        ),
+                                      ),
                                   ),
-                                )
+                                          //                       Divider(
+                                          //   thickness: 1,
+                                          // ),
+                                          Container(
+                                              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16,),
+                                              child: Row(
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                children: [
+                                                  Text(
+                                                    widget.type == 0
+                                                        ? "Total entradas"
+                                                        : widget.type == 1
+                                ? "Total saídas"
+                                : "Total",
+                                                    style: AppTextStyles.kInputTextMedium.copyWith(
+                                                        color: Color.fromRGBO(52, 48, 144, 1)),
+                                                  ),
+                                                  Text(
+                                                    "R\$ ${totalValue.toStringAsFixed(2).replaceAll(".", ",")}",
+                                                    style: AppTextStyles.kSubtitle3Medium.copyWith(
+                                                        color: widget.type == 0
+                                ? Color.fromRGBO(88, 179, 104, 1)
+                                : Color.fromRGBO(244, 67, 54, 1)),
+                                                  ),
+                                                ],
+                                              ),
+                                              ),
+                                ],
+                              )
                               : Center(
                                   child: Container(
-                                  padding: EdgeInsets.symmetric(horizontal: 16),
+                                  padding: EdgeInsets.symmetric(horizontal: 16, ),
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     children: [
-                                      Text(
-                                          'Parece que você ainda não realizou nenhuma transação!',
-                                          style: TextStyle(
-                                              color: Colors.blueAccent,
-                                              fontSize: 16),
-                                          textAlign: TextAlign.center)
+                                      Padding(
+                                        padding: const EdgeInsets.only(bottom: 8.0),
+                                        child: Text(
+                                            'Parece não possui nenhuma transação nesse mês!',
+                                            style: TextStyle(
+                                                color: Colors.blueAccent,
+                                                fontSize: 16),
+                                            textAlign: TextAlign.center),
+                                      ),
+
                                     ],
                                   ),
-                                ));
+                                ),
+                                );
                         }
                         return Container();
                       }),
                 ),
               ),
-              Divider(
-                thickness: 1,
-              ),
-              Expanded(
-                  flex: 1,
-                  child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 16),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            type == 0
-                                ? "Total entradas"
-                                : type == 1
-                                    ? "Total saídas"
-                                    : "Total",
-                            style: AppTextStyles.kInputTextMedium.copyWith(
-                                color: Color.fromRGBO(52, 48, 144, 1)),
-                          ),
-                          Text(
-                            "-R\$ 250,00",
-                            style: AppTextStyles.kSubtitle3Medium.copyWith(
-                                color: type == 0
-                                    ? Color.fromRGBO(88, 179, 104, 1)
-                                    : Color.fromRGBO(244, 67, 54, 1)),
-                          )
-                        ],
-                      )))
+               
+             
             ],
-          )),
+          ),
+          ),
       Visibility(
-        visible: type == 2 ? false : true,
+        visible: widget.type == 2 ? false : true,
         child: Positioned(
             bottom: 18,
             left: (MediaQuery.of(context).size.width - 32) / 2,
             child: InkWell(
               onTap: () {
-                if (type == 0) {
+                if (widget.type == 0) {
                   Navigator.of(context)
                       .push(MaterialPageRoute(builder: (_) => InPage()));
-                } else if (type == 1) {
+                } else if (widget.type == 1) {
                   Navigator.of(context)
                       .push(MaterialPageRoute(builder: (_) => OutPage()));
                 }

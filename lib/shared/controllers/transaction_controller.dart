@@ -22,7 +22,7 @@ class TransactionController {
     }
   }
 
-  Future<List<TransactionModel>> getOutTransaction() async {
+  Stream<List<TransactionModel>> getOutTransaction() {
     try {
       return repository.getOutTransaction();
     } catch (e) {
@@ -30,7 +30,7 @@ class TransactionController {
     }
   }
 
-  Future<List<TransactionModel>> getInTransaction() async {
+  Stream<List<TransactionModel>> getInTransaction()  {
     try {
       return repository.getInTransaction();
     } catch (e) {
@@ -38,9 +38,16 @@ class TransactionController {
     }
   }
 
-  Future<List<TransactionModel>> getTransaction() async {
+  Stream<List<TransactionModel>> getTransaction()  {
     try {
       return repository.getTransaction();
+    } catch (e) {
+      throw e;
+    }
+  }
+  Stream<List<TransactionModel>> getLastTransaction() {
+    try{
+      return repository.getLastTransaction();
     } catch (e) {
       throw e;
     }
