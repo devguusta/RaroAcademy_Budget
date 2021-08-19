@@ -52,10 +52,12 @@ class LastTransactions extends StatelessWidget {
                      totalValueOutLastTransactions = 0;
                      list.forEach((transaction) async {
                        if(transaction.type == 'out'){
-                         totalValueOutLastTransactions += transaction.value ?? 0;
+                         totalValueOutLastTransactions += transaction.value ?? 1;
                        } else if(transaction.type =='in'){
-                         totalValueInLastTransactions += transaction.value ?? 0;
-                       }
+                         totalValueInLastTransactions += transaction.value ?? 1;
+                       } else{
+                         totalValueInLastTransactions = 0;
+                       }               
                        totalValueLastTransactions = totalValueInLastTransactions - totalValueOutLastTransactions;
                      });
               return Column(

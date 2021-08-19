@@ -54,13 +54,14 @@ class _CardGeneralBalanceState extends State<CardGeneralBalance> {
               list = snapshot.data ?? [];
                   totalValue = 0;
                   totalValueOut = 0;
-                  totalValueIn = 0;              
+                  totalValueIn = 0;    
+                        
                   list.forEach((transaction)async {
                     if(transaction.type == 'out') {
                        totalValueOut += transaction.value;
                     } else if(transaction.type == 'in') {
                        totalValueIn += transaction.value;
-                    } 
+                    }   
                     totalValue = totalValueIn - totalValueOut; 
                   });    
                   return Column(

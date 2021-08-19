@@ -20,6 +20,7 @@ class _CardDaybyDayState extends State<CardDaybyDay> {
   double totalValueOut = 0;
   double totalValueIn = 0;
   double balanceTransaction = 0.0;
+  double balanceTotal = 0;
   var list = [];
   
   @override
@@ -64,13 +65,15 @@ class _CardDaybyDayState extends State<CardDaybyDay> {
                   list = snapshot.data ?? [];
                   balanceTransaction = 0;
                   totalValueOut = 0;
-                  totalValueIn = 0;            
+                  totalValueIn = 0;
+                  balanceTotal = 0;        
                   list.forEach((transaction)async {
                     if(transaction.type == 'out') {
                        totalValueOut += transaction.value ?? 0;
                     } else if(transaction.type == 'in') {
                        totalValueIn += transaction.value ?? 0;
                     }
+                   balanceTotal = transaction.value;
                    balanceTransaction = totalValueIn - totalValueOut;
                  
                   });
