@@ -44,6 +44,7 @@ class LastTransactions extends StatelessWidget {
               return Text("Erro ao buscar os dados no firebase");
             } else if(snapshot.hasData) {
               final list = snapshot.data ?? [];
+              totalValueLastTransactions = 0;
               list.forEach((transaction) async {      
                    totalValueLastTransactions += transaction.value;
                     print(totalValueLastTransactions);
