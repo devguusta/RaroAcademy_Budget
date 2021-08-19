@@ -39,10 +39,8 @@ class InputForm extends StatelessWidget {
         validator: validator,
         controller: controller,
         decoration: InputDecoration(
-          focusedBorder: UnderlineInputBorder(
-            borderSide: BorderSide(
-              color: AppColors.kPurple,
-            ),
+          focusedBorder: const UnderlineInputBorder(
+            borderSide: BorderSide(color: AppColors.kPurple),
           ),
           focusColor: AppColors.kPurple,
           suffixIcon: suffixIcon,

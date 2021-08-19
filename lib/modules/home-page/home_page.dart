@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -56,7 +55,7 @@ class _HomePageState extends State<HomePage> {
           title: Text("Olá, " + userManager.user!.name.split(" ")[0],
               style: AppTextStyles.kAppBarName),
           flexibleSpace: Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               gradient: AppColors.kblueGradientAppBar,
             ),
           ),
@@ -64,17 +63,17 @@ class _HomePageState extends State<HomePage> {
         body: SingleChildScrollView(
           child: isInternet
               ? Column(
-                  children: [
+                  children: const [
                     Padding(
-                      padding: const EdgeInsets.all(16),
+                      padding: EdgeInsets.all(16),
                       child: CardGeneralBalance(),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      padding: EdgeInsets.symmetric(horizontal: 16),
                       child: CardDaybyDay(),
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(16.0),
+                      padding: EdgeInsets.all(16.0),
                       child: LastTransactions(),
                     ),
                   ],
@@ -83,7 +82,7 @@ class _HomePageState extends State<HomePage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(height: size.height * 0.25),
-                    Center(
+                    const Center(
                         child: Text(
                       "Erro na\nconexão",
                       style: AppTextStyles.kNoConnection,

@@ -33,19 +33,19 @@ class _SingleEmailFormWidgetState extends State<SingleEmailFormWidget> {
 
   @override
   Widget build(BuildContext context) {
-    var _onPressed;
+    dynamic _onPressed;
     if (_enabled) {
       _onPressed = () async {
         result =
             await loginController.containsEmail(email: _inputController.text);
-        print("result 1: $result");
         setState(() {});
         if (_formKey.currentState!.validate()) {
           _formKey.currentState!.save();
-          print(_inputController.text);
-
-          Navigator.of(context).push(MaterialPageRoute(
-              builder: (_) => PasswordPage(email: _inputController.text)));
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (_) => PasswordPage(email: _inputController.text),
+            ),
+          );
         }
       };
     }
@@ -61,16 +61,10 @@ class _SingleEmailFormWidgetState extends State<SingleEmailFormWidget> {
             onChanged: (value) {
               if (value.isNotEmpty) {
                 if (value.length == 1) {
-                  setState(() {
-                    _enabled = true;
-                  });
+                  setState(() => _enabled = true);
                 }
               } else {
-                setState(
-                  () {
-                    _enabled = false;
-                  },
-                );
+                setState(() => _enabled = false);
               }
             },
             validator: (String? value) =>

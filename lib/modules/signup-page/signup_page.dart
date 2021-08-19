@@ -180,9 +180,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               page: '4',
                               onPressed: () async {
                                 if (formKey.currentState!.validate()) {
-                                  setState(() {
-                                    loading = true;
-                                  });
+                                  setState(() => loading = true);
                                   try {
                                     bool result = await LoginController()
                                         .createAccount(
@@ -193,29 +191,33 @@ class _SignUpPageState extends State<SignUpPage> {
                                             cpf: _cpfController.text);
 
                                     if (result) {
-                                      setState(() {
-                                        loading = false;
-                                      });
+                                      setState(() => loading = false);
                                       pageController.nextPage(
-                                        duration:
-                                            const Duration(microseconds: 400),
+                                        duration: const Duration(
+                                          microseconds: 400,
+                                        ),
                                         curve: Curves.easeIn,
                                       );
                                     } else {
                                       ScaffoldMessenger.of(context)
-                                          .showSnackBar(SnackBar(
-                                              content: Text(
-                                                  "Erro ao cadastrar, verifique sua conexão e tente novamente")));
+                                          .showSnackBar(
+                                        const SnackBar(
+                                          content: Text(
+                                            "Erro ao cadastrar, verifique sua conexão e tente novamente",
+                                          ),
+                                        ),
+                                      );
                                     }
                                   } catch (e) {
                                     ScaffoldMessenger.of(context).showSnackBar(
-                                        SnackBar(
-                                            content: Text(
-                                                "Erro ao cadastrar, verifique sua conexão e tente novamente")));
+                                      const SnackBar(
+                                        content: Text(
+                                          "Erro ao cadastrar, verifique sua conexão e tente novamente",
+                                        ),
+                                      ),
+                                    );
                                   }
-                                  setState(() {
-                                    loading = false;
-                                  });
+                                  setState(() => loading = false);
                                 }
                               },
                               onBack: () {
