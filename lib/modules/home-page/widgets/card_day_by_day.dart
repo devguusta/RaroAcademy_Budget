@@ -194,10 +194,12 @@ class _CardDaybyDayState extends State<CardDaybyDay> {
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 16.0),
+                          padding: const EdgeInsets.only(left: 16.0, right: 16),
                           child: (totalValueOut != 0 && totalValueIn != 0 ) ?
                           Container(
-                            width: (totalValueOut/totalValueIn) * 100 ,
+                            width: totalValueOut > totalValueIn ?
+                            size.width :
+                            (totalValueOut/totalValueIn) * 100 ,
                             height: 11,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(360),
@@ -244,10 +246,13 @@ class _CardDaybyDayState extends State<CardDaybyDay> {
                           padding: const EdgeInsets.only(
                             left: 16.0,
                             bottom: 16,
+                            right: 16
                           ),
                           child: (totalValueOut != 0 && totalValueIn != 0 ) ?
                           Container(
-                            width: (totalValueIn/totalValueOut) * 100,
+                            width: totalValueIn > totalValueOut ?
+                            size.width :
+                            (totalValueIn/totalValueOut) * 100,
                             height: 11,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(360),
