@@ -34,15 +34,8 @@ class _HomePageState extends State<HomePage> {
         });
       });
     });
-
     super.initState();
   }
-
-  // void checkInternet() async {
-  //   if ((await Connectivity().checkConnectivity()) == ConnectivityResult.none) {
-  //     isInternet = false;
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
