@@ -3,8 +3,6 @@ import 'package:intl/intl.dart';
 import 'package:raro_academy_budget/shared/controllers/transaction_controller.dart';
 import 'package:raro_academy_budget/shared/models/transaction_model.dart';
 import 'package:raro_academy_budget/shared/widgets/transaction_widget.dart';
-import 'package:raro_academy_budget/util/constants/app_colors.dart';
-import 'package:raro_academy_budget/util/constants/app_icons.dart';
 import 'package:raro_academy_budget/util/constants/app_text_styles.dart';
 
 class ListViewLastTransactions extends StatefulWidget {
@@ -39,17 +37,23 @@ class _ListViewLastTransactionsState extends State<ListViewLastTransactions> {
                         primary: false,
                         itemCount: list.length < 3 ? list.length : 3,
                         itemBuilder: (_, index) => TransactionWidget(
-                          description: list[index].category,
+                          type: list[index].type,
+                          description: list[index].type == 'in'
+                              ? list[index].description!
+                              : list[index].category,
                           category: list[index].category,
                           date:
                               DateFormat("dd/MM/yyyy").format(list[index].date),
-                          value: 'R\$ ${list[index].value.toStringAsFixed(2).replaceAll(".", ",")}',
+                          value:
+                              'R\$ ${list[index].value.toStringAsFixed(2).replaceAll(".", ",")}',
                           textStyle: AppTextStyles.kLastTransaction,
                         ),
                       )
                     : Center(
                         child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 16,),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 16,
+                        ),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
