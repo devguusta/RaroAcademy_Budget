@@ -1,10 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:raro_academy_budget/modules/transaction-in-page/transaction_in_page.dart';
-import 'package:raro_academy_budget/modules/transaction-out-page/transaction_out_page.dart';
+import 'package:intl/intl.dart';
+import 'package:raro_academy_budget/modules/transactions/transaction-in-page/transaction_in_page.dart';
+import 'package:raro_academy_budget/modules/transactions/transaction-out-page/transaction_out_page.dart';
+import 'package:raro_academy_budget/shared/controllers/transaction_controller.dart';
+import 'package:raro_academy_budget/shared/models/transaction_model.dart';
 import 'package:raro_academy_budget/shared/widgets/drawer_widget.dart';
 import 'package:raro_academy_budget/shared/widgets/transaction_widget.dart';
 import 'package:raro_academy_budget/util/constants/app_colors.dart';
+import 'package:raro_academy_budget/util/constants/app_icons.dart';
 import 'package:raro_academy_budget/util/constants/app_text_styles.dart';
 
 class InOutTransactionsPage extends StatefulWidget {
@@ -208,11 +212,11 @@ class _InOutTransactionsPageState extends State<InOutTransactionsPage> {
 }
 
 class TransactionsCardWidget extends StatelessWidget {
-  const TransactionsCardWidget(
-      {Key? key, required this.context, required this.type})
+  TransactionsCardWidget({Key? key, required this.context, required this.type})
       : super(key: key);
   final BuildContext context;
   final int type;
+  TransactionController controller = TransactionController();
   @override
   Widget build(BuildContext context) {
     return Stack(children: [
@@ -242,15 +246,93 @@ class TransactionsCardWidget extends StatelessWidget {
                 child: Padding(
                   padding:
                       const EdgeInsets.only(left: 16.0, top: 16.0, right: 16.0),
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    primary: false,
-                    itemCount: 10,
-                    itemBuilder: (_, index) => Container(
-                      padding: EdgeInsets.only(bottom: 20),
-                      child: TransactionWidget(),
-                    ),
-                  ),
+                  child: FutureBuilder<List<TransactionModel>>(
+                      future: type == 0
+                          ? controller.getInTransaction()
+                          : type == 1
+                              ? controller.getOutTransaction()
+                              : controller.getTransaction(),
+                      builder: (context, snapshot) {
+                        if (!snapshot.hasData) {
+                          return Center(child: CircularProgressIndicator());
+                        } else if (snapshot.hasError) {
+                          return Text("Erro ao buscar os dados");
+                        } else if (snapshot.hasData) {
+                          final list = snapshot.data ?? [];
+                          return list.length > 0
+                              ? ListView.builder(
+                                  shrinkWrap: true,
+                                  primary: false,
+                                  itemCount: list.length,
+                                  itemBuilder: (_, index) => Container(
+                                    padding: EdgeInsets.only(bottom: 20),
+                                    child: TransactionWidget(
+                                        icon: list[index].category == 'Pix'
+                                            ? AppIcons.kPix
+                                            : list[index].category == 'Ted'
+                                                ? AppIcons.kTed
+                                                : list[index].category ==
+                                                        'Boleto'
+                                                    ? AppIcons.kBoleto
+                                                    : list[index].category ==
+                                                            'Dinheiro'
+                                                        ? AppIcons.kMoney
+                                                        : list[index]
+                                                                    .category ==
+                                                                'Doc'
+                                                            ? AppIcons.kDoc
+                                                            : list[index]
+                                                                        .category ==
+                                                                    'Transporte'
+                                                                ? AppIcons
+                                                                    .kTransport
+                                                                : list[index]
+                                                                            .category ==
+                                                                        'Viagem'
+                                                                    ? AppIcons
+                                                                        .kTravel
+                                                                    : list[index]
+                                                                                .category ==
+                                                                            'Educação'
+                                                                        ? AppIcons
+                                                                            .kEducation
+                                                                        : list[index].category ==
+                                                                                'Refeição'
+                                                                            ? AppIcons
+                                                                                .kMeal
+                                                                            : list[index].category ==
+                                                                                    'Pagamentos'
+                                                                                ? AppIcons
+                                                                                    .kPayments
+                                                                                : AppIcons
+                                                                                    .kOthers,
+                                        description: list[index].category,
+                                        date: DateFormat("dd/MM/yyyy")
+                                            .format(list[index].date),
+                                        value:
+                                            (('${list[index].value.toString()} R\$'))),
+                                  ),
+                                )
+                              : Center(
+                                  child: Container(
+                                  padding: EdgeInsets.symmetric(horizontal: 16),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                          'Parece que você ainda não realizou nenhuma transação!',
+                                          style: TextStyle(
+                                              color: Colors.blueAccent,
+                                              fontSize: 16),
+                                          textAlign: TextAlign.center)
+                                    ],
+                                  ),
+                                ));
+                        }
+                        return Container();
+                      }),
                 ),
               ),
               Divider(

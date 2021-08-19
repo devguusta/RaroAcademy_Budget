@@ -5,6 +5,7 @@ import 'package:get_it/get_it.dart';
 import 'package:raro_academy_budget/modules/home-page/widgets/card_day_by_day.dart';
 import 'package:raro_academy_budget/modules/home-page/widgets/card_general_balance.dart';
 import 'package:raro_academy_budget/modules/home-page/widgets/card_last_transactions.dart';
+import 'package:raro_academy_budget/shared/repositories/transaction_repository.dart';
 import 'package:raro_academy_budget/shared/services/user_manager.dart';
 import 'package:raro_academy_budget/shared/widgets/drawer_widget.dart';
 import 'package:raro_academy_budget/shared/widgets/next_button_widget.dart';
@@ -23,6 +24,7 @@ class _HomePageState extends State<HomePage> {
   final UserManager userManager = GetIt.I<UserManager>();
   late StreamSubscription sub;
   late bool isInternet = true;
+  TransactionRepository repository = TransactionRepository();
   @override
   void initState() {
     Future.delayed(const Duration(seconds: 1), () {
@@ -100,7 +102,11 @@ class _HomePageState extends State<HomePage> {
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: isInternet
             ? NextButtonWidget(
-                onTap: () {},
+                onTap: () {
+                 
+                  // Navigator.pushNamed(context, InPage.id);
+                  
+                },
                 prefixIcon: Icons.add,
                 buttonText: "Novo Controle",
               )

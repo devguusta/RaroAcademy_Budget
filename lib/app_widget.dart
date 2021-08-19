@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:raro_academy_budget/modules/home-page/home_page.dart';
 import 'package:raro_academy_budget/modules/login-page/initial_login_page.dart';
-// import 'package:raro_academy_budget/modules/login-page/password-page/password_page.dart';
 import 'package:raro_academy_budget/modules/signup-page/signup_page.dart';
 import 'package:raro_academy_budget/modules/splash-page/splash_page.dart';
-import 'package:raro_academy_budget/modules/transaction-in-page/transaction_in_page.dart';
-import 'package:raro_academy_budget/modules/transaction-out-page/transaction_out_page.dart';
+import 'package:raro_academy_budget/modules/transactions/transaction-in-page/transaction_in_page.dart';
+import 'package:raro_academy_budget/modules/transactions/transaction-out-page/transaction_out_page.dart';
+
 
 class AppWidget extends StatelessWidget {
   const AppWidget({Key? key}) : super(key: key);

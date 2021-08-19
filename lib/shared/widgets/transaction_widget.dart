@@ -1,11 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:raro_academy_budget/util/constants/app_text_styles.dart';
 
-class TransactionWidget extends StatelessWidget {
-  const TransactionWidget({Key? key}) : super(key: key);
+class TransactionWidget extends StatefulWidget {
+  final String description;
+  final String date;
+  final String value;
+  final IconData icon;
+  
+  const TransactionWidget({
+    Key? key,
+    required this.description,
+    required this.date,
+    required this.value,
+    required this.icon,
+  }) : super(key: key);
 
   @override
+  _TransactionWidgetState createState() => _TransactionWidgetState();
+  
+}
+
+class _TransactionWidgetState extends State<TransactionWidget> {
+  
+ 
+ 
+  @override
   Widget build(BuildContext context) {
+    
+
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       mainAxisSize: MainAxisSize.max,
@@ -20,8 +43,8 @@ class TransactionWidget extends StatelessWidget {
                 color: const Color.fromRGBO(255, 180, 0, 1),
                 borderRadius: BorderRadius.circular(40),
               ),
-              child: const Icon(
-                Icons.fastfood,
+              child: Icon(
+                widget.icon,
                 color: Colors.white,
               ),
             ),
@@ -31,20 +54,20 @@ class TransactionWidget extends StatelessWidget {
                 bottom: 8,
               ),
               child: Column(
-                children: const [
+                children: [
                   Padding(
                     padding: EdgeInsets.only(
                       top: 8.0,
                     ),
                     child: Text(
-                      "Refeição",
+                      widget.description,
                       style: AppTextStyles.kTitleListLastTransictions,
                     ),
                   ),
                   Padding(
                     padding: EdgeInsets.only(left: 16.0),
                     child: Text(
-                      "02/08/2021",
+                      widget.date,
                       style: AppTextStyles.kDateLastTransictions,
                     ),
                   ),
@@ -59,11 +82,11 @@ class TransactionWidget extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             mainAxisSize: MainAxisSize.min,
-            children: const [
+            children: [
               Padding(
                 padding: EdgeInsets.only(bottom: 8.0, right: 16.0),
                 child: Text(
-                  "-R\$ 25,00",
+                  widget.value,
                   style: AppTextStyles.kValueLastTransictions,
                 ),
               ),

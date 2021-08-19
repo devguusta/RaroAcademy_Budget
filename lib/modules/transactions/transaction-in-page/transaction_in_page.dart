@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
-import 'package:raro_academy_budget/shared/models/transaction_in_model.dart';
-import 'package:raro_academy_budget/shared/controllers/transaction_in_page_controller.dart';
-import 'package:raro_academy_budget/modules/transaction-in-page/widgets/transaction_in_input_widget.dart';
+import 'package:raro_academy_budget/modules/transactions/transaction-in-page/widgets/transaction_in_input_widget.dart';
+import 'package:raro_academy_budget/shared/controllers/transaction_controller.dart';
+import 'package:raro_academy_budget/shared/models/transaction_model.dart';
 import 'package:raro_academy_budget/shared/widgets/dropdown_item_widget.dart';
 import 'package:raro_academy_budget/shared/widgets/dropdown_widget.dart';
-import 'package:raro_academy_budget/shared/widgets/input_form_widget.dart';
 import 'package:raro_academy_budget/shared/widgets/button_widget.dart';
 import 'package:raro_academy_budget/shared/widgets/transaction_page_widget.dart';
 import 'package:raro_academy_budget/util/constants/app_colors.dart';
@@ -63,13 +62,14 @@ class _InPageState extends State<InPage> {
         buttonIcon: Icons.add,
         buttonText: "Inserir",
         onTap: () {
-          TransactionInPageController().addTransaction(
-            transaction: TransactionInModel(
-                value: double.parse(_amountValue.text),
-                type: "in",
-                category: _value!.category,
-                description: _amountDescription.text,
-                date: _dateTime),
+          TransactionController().addTransaction(
+            transaction: TransactionModel(
+              value: double.parse(_amountValue.text),
+              type: "in",
+              category: _value!.category,
+              description: _amountDescription.text,
+              date: _dateTime,
+            ),
           );
           Navigator.pop(context);
         },

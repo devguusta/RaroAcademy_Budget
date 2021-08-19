@@ -1,10 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:animated_card/animated_card.dart';
+import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mobx/mobx.dart';
 import 'package:raro_academy_budget/modules/home-page/home_page.dart';
 import 'package:raro_academy_budget/modules/login-page/initial_login_page.dart';
-import 'package:raro_academy_budget/modules/signup-page/signup_page.dart';
 import 'package:raro_academy_budget/shared/services/user_manager.dart';
 import 'package:raro_academy_budget/util/constants/app_colors.dart';
 import 'package:raro_academy_budget/util/constants/app_images.dart';
