@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:raro_academy_budget/modules/transactions/transaction-in-page/transaction_in_page.dart';
 import 'package:raro_academy_budget/modules/transactions/transaction-out-page/transaction_out_page.dart';
+import 'package:raro_academy_budget/modules/transactions/transaction-update/transaction_update_page.dart';
 import 'package:raro_academy_budget/shared/controllers/transaction_controller.dart';
 import 'package:raro_academy_budget/shared/models/transaction_model.dart';
 import 'package:raro_academy_budget/shared/widgets/transaction_widget.dart';
@@ -24,37 +25,35 @@ class _TransactionsCardWidgetState extends State<TransactionsCardWidget> {
   double totalValue = 0.0;
   var list = [];
   bool wait = false;
-  @override
+
   @override
   Widget build(BuildContext context) {
     print('widget reiniciado');
-    return Stack(children: [
-      Container(
-        margin: EdgeInsets.only(top: 16, left: 16, right: 16, bottom: 40),
-        height: double.maxFinite,
-        decoration: BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-              color: Color.fromRGBO(0, 0, 0, 0.12),
-              blurRadius: 1,
-              offset: Offset(0, 1),
-            ),
-            BoxShadow(
-              color: Color.fromRGBO(0, 0, 0, 0.14),
-              offset: Offset(0, 3),
-              blurRadius: 1,
-            ),
-          ],
-          color: Color.fromRGBO(253, 253, 253, 1),
-          borderRadius: BorderRadius.circular(7),
-        ),
-        child: Column(
-          children: [
-            Expanded(
-              flex: 7,
-              child: Padding(
-                padding:
-                    const EdgeInsets.only(left: 16.0, top: 16.0, right: 16.0),
+    return Stack(
+      children: [
+        Container(
+          margin: EdgeInsets.only(top: 16, left: 16, right: 16, bottom: 40),
+          height: double.maxFinite,
+          decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                color: Color.fromRGBO(0, 0, 0, 0.12),
+                blurRadius: 1,
+                offset: Offset(0, 1),
+              ),
+              BoxShadow(
+                color: Color.fromRGBO(0, 0, 0, 0.14),
+                offset: Offset(0, 3),
+                blurRadius: 1,
+              ),
+            ],
+            color: Color.fromRGBO(253, 253, 253, 1),
+            borderRadius: BorderRadius.circular(7),
+          ),
+          child: Column(
+            children: [
+              Expanded(
+                flex: 7,
                 child: StreamBuilder<List<TransactionModel>>(
                     stream: widget.type == 0
                         ? controller.getInTransaction()
@@ -89,9 +88,13 @@ class _TransactionsCardWidgetState extends State<TransactionsCardWidget> {
                                       itemCount: list.length,
                                       itemBuilder: (_, index) =>
                                           TransactionWidget(
+                                        onTap: () {
+                                          Navigator.pushNamed(
+                                              context, UpdatePage.id);
+                                        },
                                         type: list[index].type,
                                         category: list[index].category,
-                                        description: widget.type == 0
+                                        description: list[index].type == 'in'
                                             ? list[index].description
                                             : list[index].category,
                                         date: DateFormat("dd/MM/yyyy")
@@ -103,9 +106,10 @@ class _TransactionsCardWidgetState extends State<TransactionsCardWidget> {
                                       ),
                                     ),
                                   ),
-                                  //                       Divider(
-                                  //   thickness: 1,
-                                  // ),
+                                  Divider(
+                                    height: 1,
+                                    thickness: 1,
+                                  ),
                                   Container(
                                     padding: EdgeInsets.symmetric(
                                       horizontal: 16,
@@ -126,16 +130,32 @@ class _TransactionsCardWidgetState extends State<TransactionsCardWidget> {
                                                   color: Color.fromRGBO(
                                                       52, 48, 144, 1)),
                                         ),
-                                        Text(
-                                          "R\$ ${totalValue.toStringAsFixed(2).replaceAll(".", ",")}",
-                                          style: AppTextStyles.kSubtitle3Medium
-                                              .copyWith(
-                                                  color: widget.type == 0
-                                                      ? Color.fromRGBO(
-                                                          88, 179, 104, 1)
-                                                      : Color.fromRGBO(
-                                                          244, 67, 54, 1)),
-                                        ),
+                                        if (widget.type == 0) ...[
+                                          Text(
+                                            "+R\$ ${totalValue.toStringAsFixed(2).replaceAll(".", ",")}",
+                                            style: AppTextStyles
+                                                .kSubtitle3Medium
+                                                .copyWith(
+                                                    color: Color(0xff58B368)),
+                                          )
+                                        ] else if (widget.type == 1) ...[
+                                          Text(
+                                            "-R\$ ${totalValue.toStringAsFixed(2).replaceAll(".", ",")}",
+                                            style: AppTextStyles
+                                                .kSubtitle3Medium
+                                                .copyWith(
+                                                    color: Color(0xffF44336)),
+                                          )
+                                        ] else ...[
+                                          Text(
+                                            "R\$ ${totalValue.toStringAsFixed(2).replaceAll(".", ",")}",
+                                            style: AppTextStyles
+                                                .kSubtitle3Medium
+                                                .copyWith(
+                                                    color: Color.fromRGBO(
+                                                        244, 67, 54, 1)),
+                                          ),
+                                        ],
                                       ],
                                     ),
                                   ),
@@ -169,39 +189,40 @@ class _TransactionsCardWidgetState extends State<TransactionsCardWidget> {
                       return Container();
                     }),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
-      Visibility(
-        visible: widget.type == 2 ? false : true,
-        child: Positioned(
-            bottom: 18,
-            left: (MediaQuery.of(context).size.width - 32) / 2,
-            child: InkWell(
-              onTap: () {
-                if (widget.type == 0) {
-                  Navigator.of(context)
-                      .push(MaterialPageRoute(builder: (_) => InPage()));
-                } else if (widget.type == 1) {
-                  Navigator.of(context)
-                      .push(MaterialPageRoute(builder: (_) => OutPage()));
-                }
-              },
-              child: Container(
-                height: 50,
-                width: 50,
-                decoration: BoxDecoration(
-                    gradient: AppColors.kBlueGradient, shape: BoxShape.circle),
-                child: Center(
-                  child: Icon(
-                    Icons.add,
-                    color: Colors.white,
+        Visibility(
+          visible: widget.type == 2 ? false : true,
+          child: Positioned(
+              bottom: 18,
+              left: (MediaQuery.of(context).size.width - 32) / 2,
+              child: InkWell(
+                onTap: () {
+                  if (widget.type == 0) {
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (_) => InPage()));
+                  } else if (widget.type == 1) {
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (_) => OutPage()));
+                  }
+                },
+                child: Container(
+                  height: 50,
+                  width: 50,
+                  decoration: BoxDecoration(
+                      gradient: AppColors.kBlueGradient,
+                      shape: BoxShape.circle),
+                  child: Center(
+                    child: Icon(
+                      Icons.add,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
-              ),
-            )),
-      )
-    ]);
+              )),
+        )
+      ],
+    );
   }
 }

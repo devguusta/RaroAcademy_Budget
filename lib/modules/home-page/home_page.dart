@@ -104,9 +104,7 @@ class _HomePageState extends State<HomePage> {
         floatingActionButton: isInternet
             ? NextButtonWidget(
                 onTap: () {
-                 
                   // Navigator.pushNamed(context, InPage.id);
-                  
                 },
                 prefixIcon: Icons.add,
                 buttonText: "Novo Controle",

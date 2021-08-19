@@ -5,7 +5,7 @@ import 'package:raro_academy_budget/modules/signup-page/signup_page.dart';
 import 'package:raro_academy_budget/modules/splash-page/splash_page.dart';
 import 'package:raro_academy_budget/modules/transactions/transaction-in-page/transaction_in_page.dart';
 import 'package:raro_academy_budget/modules/transactions/transaction-out-page/transaction_out_page.dart';
-
+import 'package:raro_academy_budget/modules/transactions/transaction-update/transaction_update_page.dart';
 
 class AppWidget extends StatelessWidget {
   const AppWidget({Key? key}) : super(key: key);
@@ -25,6 +25,7 @@ class AppWidget extends StatelessWidget {
         // incluir a rota nomeada como static const
         InPage.id: (context) => const InPage(),
         OutPage.id: (context) => const OutPage(),
+        UpdatePage.id: (context) => const UpdatePage(),
         // HomePage.id: (context) => HomePage(); incluir a rota nomeada como static const
         // Login.id: (context) => HomePage();
         // CreateAccount.id: (context) => HomePage();
