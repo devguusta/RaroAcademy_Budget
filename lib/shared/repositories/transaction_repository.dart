@@ -85,18 +85,4 @@ class TransactionRepository {
     }
   }
 
-  //  Stream<List<TransactionModel?>> getInTransaction(
-  //    {  required TransactionModel? transaction})
-  //   async* {
-  //   try {
-  //     yield* FirebaseFirestore.instance
-  //         .collection("transaction")
-  //         .where("type", isEqualTo: 'in').orderBy("date",descending: true).snapshots()
-  //         .map((e) => e.docs.map((item) => TransactionModel?.fromMap(item.data())).toList());
-
-  //   } catch (e) {
-  //     throw e;
-  //   }
-  // }
-
 }

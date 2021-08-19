@@ -40,53 +40,11 @@ class _ListViewLastTransactionsState extends State<ListViewLastTransactions> {
                         itemCount: list.length < 3 ? list.length : 3,
                         itemBuilder: (_, index) => TransactionWidget(
                           description: list[index].category,
+                          category: list[index].category,
                           date:
                               DateFormat("dd/MM/yyyy").format(list[index].date),
-                          value: list[index].value.toStringAsFixed(2).replaceAll(".", ","),
+                          value: 'R\$ ${list[index].value.toStringAsFixed(2).replaceAll(".", ",")}',
                           textStyle: AppTextStyles.kLastTransaction,
-                           color: list[index].category =='Refeição' ?
-                                        AppColors.kYellow :
-                                        list[index].category == 'Viagem'?
-                                        AppColors.kPink :
-                                        list[index].category == 'Educação' ?
-                                        AppColors.kCyan :
-                                        list[index].category == 'Transporte'?
-                                        AppColors.kGreen :
-                                        list[index].category == 'Pagamentos'?
-                                        AppColors.kPurple :
-                                        list[index].category == 'Outros'?
-                                        AppColors.kLilac :
-                                        Color.fromRGBO(52,48,144,1),
-                          icon: list[index].category == 'Pix'
-                              ? AppIcons.kPix
-                              : list[index].category == 'Ted'
-                                  ? AppIcons.kTed
-                                  : list[index].category == 'Boleto'
-                                      ? AppIcons.kBoleto
-                                      : list[index].category == 'Dinheiro'
-                                          ? AppIcons.kMoney
-                                          : list[index].category == 'Doc'
-                                              ? AppIcons.kDoc
-                                              : list[index].category ==
-                                                      'Transporte'
-                                                  ? AppIcons.kTransport
-                                                  : list[index].category ==
-                                                          'Viagem'
-                                                      ? AppIcons.kTravel
-                                                      : list[index].category ==
-                                                              'Educação'
-                                                          ? AppIcons.kEducation
-                                                          : list[index]
-                                                                      .category ==
-                                                                  'Refeição'
-                                                              ? AppIcons.kMeal
-                                                              : list[index]
-                                                                          .category ==
-                                                                      'Pagamentos'
-                                                                  ? AppIcons
-                                                                      .kPayments
-                                                                  : AppIcons
-                                                                      .kOthers,
                         ),
                       )
                     : Center(

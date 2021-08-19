@@ -271,13 +271,15 @@ class _TransactionsCardWidgetState extends State<TransactionsCardWidget> {
                           return Text("Erro ao buscar os dados");
                         } else if (snapshot.hasData) {
                           list = snapshot.data ?? [];
-
+                          totalValue = 0;
                           list.forEach((transaction) async {
                             wait = true;
-                            totalValue += transaction.value;
+                               totalValue += transaction.value;
+                                print("Total value: $totalValue");
+                               
                             wait = false;
                           });
-                          print("Value $totalValue");
+                         
                           return list.length > 0
                               ? Column(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -290,58 +292,7 @@ class _TransactionsCardWidgetState extends State<TransactionsCardWidget> {
                                         itemBuilder: (_, index) => Container(
                                           padding: EdgeInsets.only(bottom: 20),
                                           child: TransactionWidget(
-                                              color: list[index].category =='Refeição' ?
-                                              AppColors.kYellow :
-                                              list[index].category == 'Viagem'?
-                                              AppColors.kPink :
-                                              list[index].category == 'Educação' ?
-                                              AppColors.kCyan :
-                                              list[index].category == 'Transporte'?
-                                              AppColors.kGreen :
-                                              list[index].category == 'Pagamentos'?
-                                              AppColors.kPurple :
-                                              list[index].category == 'Outros'?
-                                              AppColors.kLilac :
-                                              Color.fromRGBO(52,48,144,1),
-                                              icon: list[index].category == 'Pix'
-                                                  ? AppIcons.kPix
-                                                  : list[index].category == 'Ted'
-                                                      ? AppIcons.kTed
-                                                      : list[index].category ==
-                                                              'Boleto'
-                                                          ? AppIcons.kBoleto
-                                                          : list[index].category ==
-                                                                  'Dinheiro'
-                                                              ? AppIcons.kMoney
-                                                              : list[index]
-                                                                          .category ==
-                                                                      'Doc'
-                                                                  ? AppIcons.kDoc
-                                                                  : list[index]
-                                                                              .category ==
-                                                                          'Transporte'
-                                                                      ? AppIcons
-                                                                          .kTransport
-                                                                      : list[index]
-                                                                                  .category ==
-                                                                              'Viagem'
-                                                                          ? AppIcons
-                                                                              .kTravel
-                                                                          : list[index]
-                                                                                      .category ==
-                                                                                  'Educação'
-                                                                              ? AppIcons
-                                                                                  .kEducation
-                                                                              : list[index].category ==
-                                                                                      'Refeição'
-                                                                                  ? AppIcons
-                                                                                      .kMeal
-                                                                                  : list[index].category ==
-                                                                                          'Pagamentos'
-                                                                                      ? AppIcons
-                                                                                          .kPayments
-                                                                                      : AppIcons
-                                                                                          .kOthers,
+                                              category: list[index].category,   
                                               description: list[index].category,
                                               date: DateFormat("dd/MM/yyyy")
                                                   .format(list[index].date),
