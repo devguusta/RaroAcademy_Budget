@@ -70,17 +70,19 @@ class _TransactionWidgetState extends State<TransactionWidget> {
                 // SizedBox(width: size.width * 0.25),
               ],
             ),
-            FittedBox(
-              fit: BoxFit.fitWidth,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    widget.value,
-                    style: widget.textStyle,
-                  ),
-                ],
+            Flexible(
+              child: FittedBox(
+                fit: BoxFit.fitWidth,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      widget.value,
+                      style: widget.textStyle,
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
