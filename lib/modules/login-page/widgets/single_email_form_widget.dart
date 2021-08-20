@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:raro_academy_budget/modules/signup-page/signup_page.dart';
 import 'package:raro_academy_budget/shared/controllers/login_controller.dart';
 import 'package:raro_academy_budget/modules/login-page/password-page/password_page.dart';
 import 'package:raro_academy_budget/modules/login-page/widgets/facebook_button_widget.dart';
@@ -46,6 +47,13 @@ class _SingleEmailFormWidgetState extends State<SingleEmailFormWidget> {
               builder: (_) => PasswordPage(email: _inputController.text),
             ),
           );
+        } else{
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (_) => SignUpPage(),
+            ),
+          );
+
         }
       };
     }

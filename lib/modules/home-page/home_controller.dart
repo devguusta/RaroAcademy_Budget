@@ -30,16 +30,17 @@ abstract class _HomeControllerBase with Store {
           print(isInternet);
       });
       appStatus = isInternet ? AppStatus.success : AppStatus.empty;
-      // print(isInternet);
     } on PlatformException catch (e) {
+      
       errorMessage = e.message.toString();
       appStatus = AppStatus.error;
-      // print(isInternet);
+     
     } catch(e){
+       
       errorMessage = e.toString();
       appStatus = AppStatus.error;
       appStatus.message();
-      // print(isInternet);
+     
     }
    
 
