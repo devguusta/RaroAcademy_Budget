@@ -16,20 +16,31 @@ abstract class _SignUpManagerBase with Store {
   @observable
   bool loading = false;
 
+  @observable
+  bool checkComboBox = false;
+  
+
+
+
+  @action
+  Future<bool> changeComboBox(bool? value) async {
+   return checkComboBox = value!;
+   
+  }
 
   @action
   Future<void> changeTrueLoading() async{
-    loading =  true;
+    loading = await true;
   }
   
   @action
   Future<void> changeFalseLoading() async{
-    loading =  false;
+    loading = await false;
   }
 
   @action
   Future<void> nextPage() async {
-    pageController.nextPage(
+   await pageController.nextPage(
       duration: const Duration(microseconds: 400),
       curve: Curves.easeIn,
     );
@@ -37,10 +48,11 @@ abstract class _SignUpManagerBase with Store {
 
   @action
     Future<void> backPage() async {
-      pageController.previousPage(
+      await pageController.previousPage(
         duration: const Duration(microseconds: 400),
         curve: Curves.easeIn,
       );
     }
 
 }
+enum SingingCharacter { yes, no }

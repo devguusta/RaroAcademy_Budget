@@ -58,8 +58,9 @@ mixin _$HomeController on _HomeControllerBase, Store {
       AsyncAction('_HomeControllerBase.checkInternet');
 
   @override
-  Future<void> checkInternet() {
-    return _$checkInternetAsyncAction.run(() => super.checkInternet());
+  ObservableFuture<void> checkInternet() {
+    return ObservableFuture<void>(
+        _$checkInternetAsyncAction.run(() => super.checkInternet()));
   }
 
   @override

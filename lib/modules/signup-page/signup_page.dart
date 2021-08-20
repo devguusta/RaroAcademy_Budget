@@ -22,24 +22,20 @@ class SignUpPage extends StatefulWidget {
 enum SingingCharacter { yes, no }
 
 class _SignUpPageState extends State<SignUpPage> {
-  PageController pageController = PageController();
+ 
   final controller = SignUpManager();
   final formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _cpfController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
-  final TextEditingController _confirmpasswordController =
-      TextEditingController();
+  final TextEditingController _confirmpasswordController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
 
   SingingCharacter? character = SingingCharacter.no;
-  bool stateRadio = true;
-  int pageChanged = 0;
+ 
   @override
-  
   initState() {
-   
     super.initState();
   }
 
@@ -51,14 +47,13 @@ class _SignUpPageState extends State<SignUpPage> {
     _cpfController.dispose();
     _phoneController.dispose();
     _confirmpasswordController.dispose();
-    pageController.dispose();
+    
     super.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
-    
+     bool stateRadio = controller.checkComboBox;
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: SingleChildScrollView(
@@ -69,119 +64,140 @@ class _SignUpPageState extends State<SignUpPage> {
               child: Form(
                 key: formKey,
                 child: SizedBox(
-                  height: size.height,
-                  child: Observer(builder:(_){
-                    return PageView(
-                      scrollDirection: Axis.horizontal,
-                      physics: const NeverScrollableScrollPhysics(),
-                      pageSnapping: true,
-                      onPageChanged: (index) {
-                        controller.pageChanged = index;          
-                      },
-                      controller: controller.pageController,
-                      children: [
-                        Stack(
-                          children: [
-                            PageViewOne(
-                              nameController: _nameController,
-                              emailController: _emailController,
-                            ),
-                            Align(
-                              alignment: Alignment.bottomCenter,
-                              child: SignUpFooter(
-                                page: '1',
-                                onPressed: () {
-                                  if (formKey.currentState!.validate()) {
-                                   controller.nextPage();
-                                  }
-                                },
-                                onBack: () {
-                                  Navigator.pushNamed(
-                                    context,
-                                    InitialLoginPage.id,
-                                  );
-                                },
+                    height: size.height,
+                    child: Observer(builder: (_) {
+                      return PageView(
+                        scrollDirection: Axis.horizontal,
+                        physics: const NeverScrollableScrollPhysics(),
+                        pageSnapping: true,
+                        onPageChanged: (index) {
+                          controller.pageChanged = index;
+                        },
+                        controller: controller.pageController,
+                        children: [
+                          Stack(
+                            children: [
+                              PageViewOne(
+                                nameController: _nameController,
+                                emailController: _emailController,
                               ),
-                            ),
-                          ],
-                        ),
-                        Stack(
-                          children: [
-                            PageViewTwo(
-                              phoneController: _phoneController,
-                              cpfController: _cpfController,
-                            ),
-                            Align(
-                              alignment: Alignment.bottomCenter,
-                              child: SignUpFooter(
-                                page: '2',
-                                onPressed: () {
-                                  if (formKey.currentState!.validate()) {
-                                   controller.nextPage();
-                                    
-                                  }
-                                },
-                                onBack: () {
-                                  controller.backPage();
+                              Align(
+                                alignment: Alignment.bottomCenter,
+                                child: SignUpFooter(
+                                  page: '1',
+                                  onPressed: () {
+                                    if (formKey.currentState!.validate()) {
+                                      controller.nextPage();
+                                    }
+                                  },
+                                  onBack: () {
+                                    Navigator.pushNamed(
+                                      context,
+                                      InitialLoginPage.id,
+                                    );
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                          Stack(
+                            children: [
+                              PageViewTwo(
+                                phoneController: _phoneController,
+                                cpfController: _cpfController,
+                              ),
+                              Align(
+                                alignment: Alignment.bottomCenter,
+                                child: SignUpFooter(
+                                  page: '2',
+                                  onPressed: () {
+                                    if (formKey.currentState!.validate()) {
+                                      controller.nextPage();
+                                    }
+                                  },
+                                  onBack: () {
+                                    controller.backPage();
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                          Stack(
+                            children: [
+                              SignUpUseTerms(
+                                childRadio: Observer(builder:(_) {
+                            return  Checkbox(
+                              value: controller.checkComboBox,
+                              shape: CircleBorder(),
+                              onChanged:(bool? value){                    
+                                controller.changeComboBox(value);
+                                print(controller.checkComboBox);      
+                              }        
+                            );
+                            }),
+                               
+                              ),
+                              Align(
+                                alignment: Alignment.bottomCenter,
+                                child: SignUpFooter(
+                                    page: '3',
+                                    onPressed: () {
+                                      
+                                      if (controller.checkComboBox == true) {
+                                        controller.nextPage();
+                                      } else {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          const SnackBar(
+                                            content: Text(
+                                              "é necessário aceitar os termos de uso para prosseguir",
+                                            ),
+                                          ),
+                                        );
+                                      }
+                                    },
+                                    onBack: () {
+                                      controller.backPage();
+                                    },
                                   
-                                },
+
+                                ),
+                                ),
+                              
+                            ],
+                          ),
+                          Stack(
+                            children: [
+                              PageViewFor(
+                                passwordController: _passwordController,
+                                confirmPasswordController:
+                                    _confirmpasswordController,
                               ),
-                            ),
-                          ],
-                        ),
-                        Stack(
-                          children: [
-                            SignUpUseTerms(
-                              state: stateRadio,
-                            ),
-                            Align(
-                              alignment: Alignment.bottomCenter,
-                              child: SignUpFooter(
-                                page: '3',
-                                onPressed: () {
-                                  if (stateRadio == true) {
-                                   controller.nextPage();
-                                  
-                                  }
-                                },
-                                onBack: () {
-                                 controller.backPage();
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
-                        Stack(
-                          children: [
-                            PageViewFor(
-                              passwordController: _passwordController,
-                              confirmPasswordController:
-                                  _confirmpasswordController,
-                            ),
-                            Align(
-                              alignment: Alignment.bottomCenter,
-                              child: SignUpFooter(
-                                loading: controller.loading,
-                                page: '4',
-                                onPressed: () async {
-                                  if (formKey.currentState!.validate()) {
-                                   
-                                    controller.changeTrueLoading();
-                                    };
-                                   
+                              Align(
+                                alignment: Alignment.bottomCenter,
+                                child: SignUpFooter(
+                                  loading: controller.loading,
+                                  page: '4',
+                                  onPressed: () async {
+                                    if (formKey.currentState!.validate()) {
+                                      controller.changeTrueLoading();
+                                    }
+                                    ;
+
                                     try {
                                       bool result = await LoginController()
                                           .createAccount(
                                               email: _emailController.text,
-                                              password: _passwordController.text,
+                                              password:
+                                                  _passwordController.text,
                                               name: _nameController.text,
                                               phone: _phoneController.text,
                                               cpf: _cpfController.text);
-                  
+
                                       if (result) {
-                                       controller.changeFalseLoading();
-                                      
-                                       controller.nextPage();
+                                        controller.changeFalseLoading();
+
+                                        controller.nextPage();
                                       } else {
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(
@@ -193,7 +209,8 @@ class _SignUpPageState extends State<SignUpPage> {
                                         );
                                       }
                                     } catch (e) {
-                                      ScaffoldMessenger.of(context).showSnackBar(
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
                                         const SnackBar(
                                           content: Text(
                                             "Erro ao cadastrar, verifique sua conexão e tente novamente",
@@ -202,24 +219,20 @@ class _SignUpPageState extends State<SignUpPage> {
                                       );
                                     }
                                     controller.changeFalseLoading();
-                                   
                                   },
-                                onBack: () {
-                                controller.backPage();
-                                },
+                                  onBack: () {
+                                    controller.backPage();
+                                  },
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                        const OnBoarding(),
-                      ],
-                    );
-                  })
-                    
-                  ),
-                ),
+                            ],
+                          ),
+                          const OnBoarding(),
+                        ],
+                      );
+                    })),
               ),
-            
+            ),
           ],
         ),
       ),

@@ -54,6 +54,29 @@ mixin _$SignUpManager on _SignUpManagerBase, Store {
     });
   }
 
+  final _$checkComboBoxAtom = Atom(name: '_SignUpManagerBase.checkComboBox');
+
+  @override
+  bool get checkComboBox {
+    _$checkComboBoxAtom.reportRead();
+    return super.checkComboBox;
+  }
+
+  @override
+  set checkComboBox(bool value) {
+    _$checkComboBoxAtom.reportWrite(value, super.checkComboBox, () {
+      super.checkComboBox = value;
+    });
+  }
+
+  final _$changeComboBoxAsyncAction =
+      AsyncAction('_SignUpManagerBase.changeComboBox');
+
+  @override
+  Future<bool> changeComboBox(bool? value) {
+    return _$changeComboBoxAsyncAction.run(() => super.changeComboBox(value));
+  }
+
   final _$changeTrueLoadingAsyncAction =
       AsyncAction('_SignUpManagerBase.changeTrueLoading');
 
@@ -90,7 +113,8 @@ mixin _$SignUpManager on _SignUpManagerBase, Store {
     return '''
 pageController: ${pageController},
 pageChanged: ${pageChanged},
-loading: ${loading}
+loading: ${loading},
+checkComboBox: ${checkComboBox}
     ''';
   }
 }

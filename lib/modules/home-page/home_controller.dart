@@ -19,6 +19,8 @@ abstract class _HomeControllerBase with Store {
 
   @observable
   late StreamSubscription sub;
+  @observable
+  
 
   @action
   Future<void> checkInternet() async{

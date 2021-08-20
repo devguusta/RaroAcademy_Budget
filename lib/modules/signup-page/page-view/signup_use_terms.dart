@@ -1,13 +1,18 @@
 import 'package:animated_card/animated_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:raro_academy_budget/modules/signup-page/signup_manager.dart';
 import 'package:raro_academy_budget/util/constants/app_images.dart';
 import 'package:raro_academy_budget/util/constants/app_text_styles.dart';
 
 class SignUpUseTerms extends StatefulWidget {
   final bool? state;
+  final Widget? childRadio;
+  
   const SignUpUseTerms({
     Key? key,
     this.state,
+    this.childRadio,
   }) : super(key: key);
 
   @override
@@ -15,8 +20,9 @@ class SignUpUseTerms extends StatefulWidget {
 }
 
 class _SignUpUseTermsState extends State<SignUpUseTerms> {
-  SingingCharacter? _character = SingingCharacter.no;
-  bool isState = false;
+  final controller = SignUpManager();
+  bool isChecked = false;
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -69,20 +75,20 @@ class _SignUpUseTermsState extends State<SignUpUseTerms> {
                     Padding(
                       padding: const EdgeInsets.only(bottom: 0.0),
                       child: SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.1,
-                        child: Radio<SingingCharacter>(
-                          value: SingingCharacter.yes,
-                          groupValue: _character,
-                          toggleable: true,
-                          onChanged: (SingingCharacter? value) {
-                            setState(() {
-                              _character = value;
-                              isState = !isState;
-                            });
-                          },
-                        ),
-                      ),
-                    ),
+                          width: MediaQuery.of(context).size.width * 0.1,
+                         child: widget.childRadio,
+                          // child: Observer(builder:(_) {
+                          //   return  Checkbox(
+                          //     value: controller.checkComboBox,
+                          //     shape: CircleBorder(),
+                          //     onChanged:(bool? value){                    
+                          //       controller.changeComboBox(value);
+                          //       print(controller.checkComboBox);      
+                          //     }        
+                          //   );
+                          // }),
+                          ),
+                          ),
                     const Padding(
                       padding: EdgeInsets.only(bottom: 0.0),
                       child: FittedBox(
