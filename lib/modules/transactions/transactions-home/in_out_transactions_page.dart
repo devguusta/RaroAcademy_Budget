@@ -21,7 +21,6 @@ class _InOutTransactionsPageState extends State<InOutTransactionsPage> {
   double totalValueIn = 0;
   double balanceTransaction = 0.0;
   var list = [];
-
   var inTextStyle =
       AppTextStyles.kInputTextMedium.copyWith(color: Colors.white);
   var outTextStyle = AppTextStyles.kInputTextMedium

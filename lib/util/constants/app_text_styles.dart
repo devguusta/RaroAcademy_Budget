@@ -294,4 +294,28 @@ class AppTextStyles {
     letterSpacing: 0.15,
     color: Color.fromRGBO(0, 0, 0, 0.87),
   );
+  static const TextStyle kOutTextStyle = TextStyle(
+    fontFamily: 'Roboto',
+    fontSize: 16.0,
+    fontStyle: FontStyle.normal,
+    fontWeight: FontWeight.w500,
+    letterSpacing: 0.15,
+    color: Color.fromRGBO(255, 255, 255, 0.6),
+  );
+  static const TextStyle kInTextStyle = TextStyle(
+    fontFamily: 'Roboto',
+    fontSize: 16.0,
+    fontStyle: FontStyle.normal,
+    fontWeight: FontWeight.w500,
+    letterSpacing: 0.15,
+    color: Colors.white,
+  );
+  static const TextStyle kAllTextStyle = TextStyle(
+    fontFamily: 'Roboto',
+    fontSize: 16.0,
+    fontStyle: FontStyle.normal,
+    fontWeight: FontWeight.w500,
+    letterSpacing: 0.15,
+    color: Color.fromRGBO(255, 255, 255, 0.6),
+  );
 }

@@ -48,8 +48,9 @@ class _ListViewLastTransactionsState extends State<ListViewLastTransactions> {
                           category: list[index].category,
                           date:
                               DateFormat("dd/MM/yyyy").format(list[index].date),
-                          value:
-                              'R\$ ${list[index].value.toStringAsFixed(2).replaceAll(".", ",")}',
+                          value: list[index].type == 'out'
+                              ? '-R\$ ${list[index].value.toStringAsFixed(2).replaceAll(".", ",")}'
+                              : 'R\$ ${list[index].value.toStringAsFixed(2).replaceAll(".", ",")}',
                           textStyle: AppTextStyles.kLastTransaction,
                         ),
                       )
