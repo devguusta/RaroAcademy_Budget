@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:raro_academy_budget/modules/transactions/transaction-out-page/widgets/transaction_out_input_widget.dart';
 import 'package:raro_academy_budget/shared/controllers/transaction_controller.dart';
 import 'package:raro_academy_budget/shared/models/transaction_model.dart';
+import 'package:raro_academy_budget/shared/repositories/transaction_repository.dart';
 import 'package:raro_academy_budget/shared/widgets/dropdown_item_widget.dart';
 import 'package:raro_academy_budget/shared/widgets/dropdown_widget.dart';
 import 'package:raro_academy_budget/shared/widgets/button_widget.dart';
@@ -78,6 +79,7 @@ class _OutPageState extends State<OutPage> {
               value: double.parse(_amountValue.text),
             ),
           );
+
           Navigator.pop(context);
         },
       ),
