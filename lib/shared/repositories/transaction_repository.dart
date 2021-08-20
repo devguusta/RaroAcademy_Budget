@@ -5,15 +5,23 @@ import 'package:raro_academy_budget/shared/services/user_manager.dart';
 
 class TransactionRepository {
   final UserManager userManager = GetIt.I<UserManager>();
+  FirebaseFirestore _db = FirebaseFirestore.instance;
 
   Future<TransactionModel?> addTransaction(
       {required TransactionModel transaction}) async {
     try {
-      final transactionRefeference = await FirebaseFirestore.instance
+      final transactionRefeference = await _db
           .collection("transaction")
           .add(transaction.copyWith(userId: userManager.user!.uid).toMap());
+      // int month = transaction.date.month;
+      // var value = transaction.value;
+
+      // var balanceSnapshot =
+      //     await _db.collection('balances').doc(userManager.user!.uid).get();
+
       print("document $transactionRefeference added");
     } catch (e) {
+      print(e);
       throw e;
     }
   }
@@ -21,7 +29,7 @@ class TransactionRepository {
   Future<TransactionModel?> updateTransaction(
       {required TransactionModel transaction}) async {
     try {
-      final transactionRefeference = FirebaseFirestore.instance
+      final transactionRefeference = _db
           .collection("transaction")
           .doc(transaction.transactionId)
           .update(transaction.toMap());
@@ -31,30 +39,36 @@ class TransactionRepository {
     }
   }
 
-  Stream<List<TransactionModel>> getOutTransaction()  {
+  Stream<List<TransactionModel>> getOutTransaction() {
     try {
-      return FirebaseFirestore.instance
+      return _db
           .collection("transaction")
           .where("type", isEqualTo: 'out')
           .where("userId", isEqualTo: userManager.user!.uid)
           .orderBy("date", descending: true)
-          .snapshots().map((e) => 
-          e.docs.map((item) => TransactionModel.fromMap(item.data())).toList());
+          .snapshots()
+          .map((e) => e.docs
+              .map((item) => TransactionModel.fromMap(item.data())
+                  .copyWith(transactionId: item.id))
+              .toList());
     } catch (e) {
       throw e;
     }
   }
 
-
   Stream<List<TransactionModel>> getInTransaction() {
     try {
-      return FirebaseFirestore.instance
+      return _db
           .collection("transaction")
           .where("type", isEqualTo: 'in')
-          .where("userId", isEqualTo: userManager.user!.uid).where("field")
+          .where("userId", isEqualTo: userManager.user!.uid)
+          .where("field")
           .orderBy("date", descending: true)
-          .snapshots().map((e) => 
-          e.docs.map((item) => TransactionModel.fromMap(item.data())).toList());
+          .snapshots()
+          .map((e) => e.docs
+              .map((item) => TransactionModel.fromMap(item.data())
+                  .copyWith(transactionId: item.id))
+              .toList());
     } catch (e) {
       throw e;
     }
@@ -62,28 +76,34 @@ class TransactionRepository {
 
   Stream<List<TransactionModel>> getTransaction() {
     try {
-      return FirebaseFirestore.instance
+      return _db
           .collection("transaction")
           .where("userId", isEqualTo: userManager.user!.uid)
           .orderBy("date", descending: true)
-          .snapshots().map((e) => 
-          e.docs.map((item) => TransactionModel.fromMap(item.data())).toList());
-         
-    } catch (e) {
-      throw e;
-    }
-  }
-  Stream<List<TransactionModel>> getLastTransaction() {
-    try {
-      return  FirebaseFirestore.instance.
-      collection("transaction").
-      where("userId",isEqualTo: userManager.user!.uid)
-      .orderBy("date",descending: true).limit(3)
-      .snapshots().map((e) => e.docs.map((item) => TransactionModel.fromMap(item.data())).toList());
-      // return response.docs.map((e) => TransactionModel.fromMap(e.data())).toList();
+          .snapshots()
+          .map((e) => e.docs
+              .map((item) => TransactionModel.fromMap(item.data())
+                  .copyWith(transactionId: item.id))
+              .toList());
     } catch (e) {
       throw e;
     }
   }
 
+  Stream<List<TransactionModel>> getLastTransaction() {
+    try {
+      return _db
+          .collection("transaction")
+          .where("userId", isEqualTo: userManager.user!.uid)
+          .orderBy("date", descending: true)
+          .limit(3)
+          .snapshots()
+          .map((e) => e.docs
+              .map((item) => TransactionModel.fromMap(item.data()))
+              .toList());
+      // return response.docs.map((e) => TransactionModel.fromMap(e.data())).toList();
+    } catch (e) {
+      throw e;
+    }
+  }
 }

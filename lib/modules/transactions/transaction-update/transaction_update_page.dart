@@ -39,6 +39,9 @@ class _UpdatePageState extends State<UpdatePage> {
         Center(
           child: Text(transctioModel.value.toString()),
         ),
+        Center(
+          child: Text(transctioModel.transactionId!),
+        ),
       ],
     );
   }
