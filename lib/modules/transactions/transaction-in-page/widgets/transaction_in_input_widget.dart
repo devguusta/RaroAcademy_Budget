@@ -8,8 +8,11 @@ class TransactionInInputWidget extends StatelessWidget {
   final FormFieldValidator<String>? validator;
   final ValueChanged<String>? onChanged;
   final FilteringTextInputFormatter inputFormat;
+  final FocusNode? focusNode;
+  final TextInputAction? textInputAction;
   final TextEditingController controller;
   final TextInputType keyboardType;
+  final VoidCallback? onEditingComplete;
   final bool obscureText;
   final Widget? suffixIcon;
   const TransactionInInputWidget({
@@ -23,6 +26,8 @@ class TransactionInInputWidget extends StatelessWidget {
     required this.keyboardType,
     this.obscureText = false,
     this.suffixIcon,
+    this.focusNode,
+    this.textInputAction, this.onEditingComplete,
   }) : super(key: key);
 
   @override
@@ -35,6 +40,8 @@ class TransactionInInputWidget extends StatelessWidget {
         onChanged: onChanged,
         obscureText: obscureText,
         keyboardType: keyboardType,
+        focusNode: focusNode,
+        textInputAction:  textInputAction,
         decoration: InputDecoration(
           focusedBorder: UnderlineInputBorder(
             borderSide: BorderSide(

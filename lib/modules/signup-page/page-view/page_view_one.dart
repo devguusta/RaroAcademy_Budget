@@ -70,6 +70,7 @@ class _PageViewOneState extends State<PageViewOne> {
           labelText: "Nome",
           controller: widget.nameController,
           validator: (String? value) => Validators().validateName(value!),
+          textInputAction: TextInputAction.next,
         ),
         SizedBox(height: size.height * 0.05),
         InputForm(
@@ -79,6 +80,8 @@ class _PageViewOneState extends State<PageViewOne> {
           onChanged: (value) {},
           validator: (String? value) => Validators.validateEmail(value),
           keyboardType: TextInputType.emailAddress,
+          textInputAction: TextInputAction.next
+           
         ),
       ],
     );

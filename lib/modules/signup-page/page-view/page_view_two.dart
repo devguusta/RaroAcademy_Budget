@@ -1,4 +1,5 @@
 import 'package:animated_card/animated_card.dart';
+import 'package:extended_masked_text/extended_masked_text.dart';
 import 'package:flutter/material.dart';
 // import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:raro_academy_budget/shared/widgets/input_form_widget.dart';
@@ -8,8 +9,8 @@ import 'package:raro_academy_budget/util/validators/text_validator.dart';
 import 'package:flutter/services.dart';
 
 class PageViewTwo extends StatefulWidget {
-  final TextEditingController phoneController;
-  final TextEditingController cpfController;
+  final MaskedTextController phoneController;
+  final MaskedTextController cpfController;
   const PageViewTwo({
     Key? key,
     required this.phoneController,
@@ -21,7 +22,8 @@ class PageViewTwo extends StatefulWidget {
 }
 
 class _PageViewTwoState extends State<PageViewTwo> {
-  //  var maskFormatter = MaskTextInputFormatter(mask: '+# (###) ###-##-##');
+  FocusNode _cpfFocusNode = FocusNode();
+  FocusNode _phoneFocusNode = FocusNode();
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -60,10 +62,10 @@ class _PageViewTwoState extends State<PageViewTwo> {
           onChanged: (value) {},
           validator: (String? value) => Validators().validatePhone(value!),
           keyboardType: TextInputType.number,
-          // inputFormatters: [
-          //   FilteringTextInputFormatter.digitsOnly,
-          //   maskFormatter,
-          // ],
+          textInputAction: TextInputAction.next,
+          onEditingComplete: (){
+            FocusScope.of(context).nextFocus();
+          },
         ),
         SizedBox(height: size.height * 0.05),
         InputForm(
@@ -71,10 +73,11 @@ class _PageViewTwoState extends State<PageViewTwo> {
           labelText: "Cpf",
           controller: widget.cpfController,
           validator: (String? value) => Validators().cpfValidator(value!),
-          // inputFormatters: [
-          //   FilteringTextInputFormatter.digitsOnly,
-
-          // ],
+          keyboardType: TextInputType.number,
+          textInputAction: TextInputAction.next,
+          onEditingComplete: (){
+            FocusScope.of(context).nextFocus();
+          },
         ),
       ],
     );

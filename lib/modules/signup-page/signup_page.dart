@@ -1,3 +1,4 @@
+import 'package:extended_masked_text/extended_masked_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:raro_academy_budget/modules/login-page/initial_login_page.dart';
@@ -27,8 +28,8 @@ class _SignUpPageState extends State<SignUpPage> {
   final formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _cpfController = TextEditingController();
-  final TextEditingController _phoneController = TextEditingController();
+  final MaskedTextController _cpfController = MaskedTextController(mask: '000.000.000-00');
+  final MaskedTextController _phoneController = MaskedTextController(mask:"(00)00000-0000");
   final TextEditingController _confirmpasswordController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
 
@@ -86,6 +87,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                 child: SignUpFooter(
                                   page: '1',
                                   onPressed: () {
+                                    FocusScope.of(context).unfocus();
                                     if (formKey.currentState!.validate()) {
                                       controller.nextPage();
                                     }
@@ -111,6 +113,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                 child: SignUpFooter(
                                   page: '2',
                                   onPressed: () {
+                                    FocusScope.of(context).unfocus();
                                     if (formKey.currentState!.validate()) {
                                       controller.nextPage();
                                     }
@@ -124,25 +127,27 @@ class _SignUpPageState extends State<SignUpPage> {
                           ),
                           Stack(
                             children: [
-                              SignUpUseTerms(
-                                childRadio: Observer(builder:(_) {
-                            return  Checkbox(
-                              value: controller.checkComboBox,
-                              shape: CircleBorder(),
-                              onChanged:(bool? value){                    
-                                controller.changeComboBox(value);
-                                print(controller.checkComboBox);      
-                              }        
-                            );
-                            }),
-                               
+                              Flexible(
+                                child: SignUpUseTerms(
+                                  childRadio: Observer(builder:(_) {
+                                                          return  Checkbox(
+                                value: controller.checkComboBox,
+                                shape: CircleBorder(),
+                                onChanged:(bool? value){                    
+                                  controller.changeComboBox(value);
+                                  print(controller.checkComboBox);      
+                                }        
+                                                          );
+                                                          }),
+                                 
+                                ),
                               ),
                               Align(
                                 alignment: Alignment.bottomCenter,
                                 child: SignUpFooter(
                                     page: '3',
                                     onPressed: () {
-                                      
+                                      FocusScope.of(context).unfocus();
                                       if (controller.checkComboBox == true) {
                                         controller.nextPage();
                                       } else {
@@ -179,12 +184,10 @@ class _SignUpPageState extends State<SignUpPage> {
                                   loading: controller.loading,
                                   page: '4',
                                   onPressed: () async {
+                                    FocusScope.of(context).unfocus();
                                     if (formKey.currentState!.validate()) {
                                       controller.changeTrueLoading();
-                                    }
-                                    ;
-
-                                    try {
+                                      try {
                                       bool result = await LoginController()
                                           .createAccount(
                                               email: _emailController.text,
@@ -196,7 +199,6 @@ class _SignUpPageState extends State<SignUpPage> {
 
                                       if (result) {
                                         controller.changeFalseLoading();
-
                                         controller.nextPage();
                                       } else {
                                         ScaffoldMessenger.of(context)
@@ -219,6 +221,8 @@ class _SignUpPageState extends State<SignUpPage> {
                                       );
                                     }
                                     controller.changeFalseLoading();
+                                    };
+                                    
                                   },
                                   onBack: () {
                                     controller.backPage();

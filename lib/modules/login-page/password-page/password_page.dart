@@ -25,6 +25,7 @@ class _PasswordPageState extends State<PasswordPage> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
@@ -51,7 +52,7 @@ class _PasswordPageState extends State<PasswordPage> {
                 style: AppTextStyles.kPrimaryTextLoginPage,
               ),
             ),
-            const SizedBox(height: 100.0),
+            SizedBox(height: size.height * 0.1),
             Form(
               key: _formKey,
               child: Column(
@@ -62,6 +63,10 @@ class _PasswordPageState extends State<PasswordPage> {
                     initialValue: widget.email,
                     enabled: false,
                     keyboardType: TextInputType.emailAddress,
+                    onEditingComplete: (){
+                      FocusScope.of(context).nextFocus();
+                    },
+                    
                   ),
                   const SizedBox(height: 50.0),
                   InputForm(

@@ -31,7 +31,7 @@ class Validators {
     if (value!.isEmpty) {
       print(value);
       return "Preencha corretamente o campo";
-    } else if (value.length != 11) {
+    } else if (value.length != 14) {
       return "Informe o ddd e o número";
     } else {
       print(value);
@@ -45,7 +45,7 @@ class Validators {
       print(value);
       return null;
     } else {
-      return "Formato do CPF inválido";
+      return "Formato do CPF inválido ou não existe";
     }
   }
 

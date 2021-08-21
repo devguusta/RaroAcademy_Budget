@@ -88,7 +88,11 @@ class _HomePageState extends State<HomePage> {
                     Padding(
                       padding: const EdgeInsets.only(top: 24.0),
                       child: NextButtonWidget(
-                        onTap: () {},
+                        onTap: () {
+                         
+                          controller.checkInternet();
+                          
+                        },
                         buttonText: "Tentar Novamente",
                       ),
                     ),

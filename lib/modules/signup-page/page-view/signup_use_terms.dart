@@ -44,7 +44,7 @@ class _SignUpUseTermsState extends State<SignUpUseTerms> {
             ),
           ),
           const Padding(
-            padding: EdgeInsets.only(left: 48.0, top: 16.0),
+            padding: EdgeInsets.only(left: 48.0, top: 8.0),
             child: Text(
               "Bem-vindo!",
               style: AppTextStyles.kPrimaryTextLoginPage,
@@ -59,14 +59,14 @@ class _SignUpUseTermsState extends State<SignUpUseTerms> {
           ),
           SizedBox(height: size.height * 0.06),
           const Padding(
-            padding: EdgeInsets.only(left: 48.0, right: 48.0, bottom: 24.0),
+            padding: EdgeInsets.only(left: 36, right: 36, bottom: 24.0),
             child: Text(
               'Lorem Ipsum neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit. Ipsum neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit. Nque porro  est qui dolorem ipsum quia dolor sit amet, , adipisci velit. Quisquam est qui dolorem ipsum.',
               style: AppTextStyles.kPasswordTextLogin,
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 8.0, left: 24),
+            padding: const EdgeInsets.only(top: 8.0, left: 0),
             child: Flex(
               direction: Axis.horizontal,
               children: [
@@ -77,27 +77,15 @@ class _SignUpUseTermsState extends State<SignUpUseTerms> {
                       child: SizedBox(
                           width: MediaQuery.of(context).size.width * 0.1,
                          child: widget.childRadio,
-                          // child: Observer(builder:(_) {
-                          //   return  Checkbox(
-                          //     value: controller.checkComboBox,
-                          //     shape: CircleBorder(),
-                          //     onChanged:(bool? value){                    
-                          //       controller.changeComboBox(value);
-                          //       print(controller.checkComboBox);      
-                          //     }        
-                          //   );
-                          // }),
+
                           ),
                           ),
-                    const Padding(
-                      padding: EdgeInsets.only(bottom: 0.0),
-                      child: FittedBox(
-                        fit: BoxFit.fitWidth,
-                        child: Text(
-                          'Eu li e aceito os termos e condições\ne a Política de privacidade do budget.',
-                          overflow: TextOverflow.ellipsis,
-                          style: AppTextStyles.kPasswordTextLogin,
-                        ),
+                    FittedBox(
+                      fit: BoxFit.fitWidth,
+                      child: Text(
+                        'Eu li e aceito os termos e condições\ne a Política de privacidade do budget.',
+                        overflow: TextOverflow.ellipsis,
+                        style: AppTextStyles.kPasswordTextLogin,
                       ),
                     ),
                   ],

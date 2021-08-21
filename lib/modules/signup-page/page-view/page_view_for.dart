@@ -88,16 +88,13 @@ class _PageViewForState extends State<PageViewFor> {
             password = value;
           },
           validator: (value) => Validators().validatePassword(value!),
-
-          // onChanged: (value) => {
-          //   password = value,
-          //   widget.passwordController!.text = password,
-          //    print(widget.passwordController!.text),
-          // },
           keyboardType: TextInputType.visiblePassword,
           obscureText: true,
+          onEditingComplete: (){
+            FocusScope.of(context).nextFocus();
+          },
         ),
-        SizedBox(height: size.height * 0.05),
+        SizedBox(height: size.height * 0.04),
         InputForm(
           keyboardType: TextInputType.visiblePassword,
           hintText: "Confirme sua senha",
@@ -106,23 +103,11 @@ class _PageViewForState extends State<PageViewFor> {
           validator: (value) =>
               Validators().validateConfirmPassword(value!, password),
           obscureText: true,
+          onEditingComplete: (){
+            FocusScope.of(context).unfocus();
+          },
         ),
       ],
     );
   }
 }
-
-//  onChanged: (String value) => {
-//             password = value,
-//             widget.passwordController!.text = password,
-//              print(widget.passwordController!.text),
-//           },
-// validator: (value) => Validators().validatePassword(value,)
-
-// onChanged: (String value) =>{
-//   confirmPassword = value,
-//   // print(value),
-//   widget.confirmPasswordController!.text = confirmPassword,
-//   print(widget.confirmPasswordController!.text),
-
-// },

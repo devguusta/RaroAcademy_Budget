@@ -13,30 +13,6 @@ abstract class _SignUpManagerBase with Store {
   );
   @observable
   int pageChanged = 0;
-  @observable
-  bool loading = false;
-
-  @observable
-  bool checkComboBox = false;
-  
-
-
-
-  @action
-  Future<bool> changeComboBox(bool? value) async {
-   return checkComboBox = value!;
-   
-  }
-
-  @action
-  Future<void> changeTrueLoading() async{
-    loading = await true;
-  }
-  
-  @action
-  Future<void> changeFalseLoading() async{
-    loading = await false;
-  }
 
   @action
   Future<void> nextPage() async {
@@ -53,6 +29,34 @@ abstract class _SignUpManagerBase with Store {
         curve: Curves.easeIn,
       );
     }
+
+  @observable
+  bool loading = false;
+
+  @action
+  Future<void> changeTrueLoading() async{
+    loading = await true;
+  }
+  @action
+  Future<void> changeFalseLoading() async{
+    loading = await false;
+  }
+
+  @observable
+  bool checkComboBox = false;
+
+  @action
+  Future<bool> changeComboBox(bool? value) async {
+   return checkComboBox = value!;
+   
+  }
+
+
+
+
+  @observable
+  bool result = true;
+  
 
 }
 enum SingingCharacter { yes, no }

@@ -80,6 +80,10 @@ class _InPageState extends State<InPage> {
           labelText: "Valor em R\$",
           controller: _amountValue,
           keyboardType: TextInputType.numberWithOptions(decimal: true),
+          textInputAction: TextInputAction.next,
+          onEditingComplete: (){
+            FocusScope.of(context).nextFocus();
+          },
           inputFormat:
               FilteringTextInputFormatter.allow(RegExp(r'^\d{1,3}\.?\d{0,2}')),
         ),
