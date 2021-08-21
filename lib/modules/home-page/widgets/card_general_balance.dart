@@ -44,7 +44,7 @@ class _CardGeneralBalanceState extends State<CardGeneralBalance> {
           borderRadius: BorderRadius.circular(7),
         ),
         child: StreamBuilder<List<TransactionModel>>(
-          stream: controller.getTransaction(),
+          stream: controller.getBalance(),
           builder: (context, snapshot) {
             if(!snapshot.hasData){
                return Center(child: CircularProgressIndicator());
@@ -52,18 +52,19 @@ class _CardGeneralBalanceState extends State<CardGeneralBalance> {
                   return Text("Erro ao buscar os dados");
             } else if(snapshot.hasData) {
               list = snapshot.data ?? [];
-                  totalValue = 0;
-                  totalValueOut = 0;
-                  totalValueIn = 0;    
+              print(list);
+              //     totalValue = 0;
+              //     totalValueOut = 0;
+              //     totalValueIn = 0;    
                         
-                  list.forEach((transaction)async {
-                    if(transaction.type == 'out') {
-                       totalValueOut += transaction.value;
-                    } else if(transaction.type == 'in') {
-                       totalValueIn += transaction.value;
-                    }   
-                    totalValue = totalValueIn - totalValueOut; 
-                  });    
+              //     list.forEach((transaction)async {
+              //       if(transaction.type == 'out') {
+              //          totalValueOut += transaction.value;
+              //       } else if(transaction.type == 'in') {
+              //          totalValueIn += transaction.value;
+              //       }   
+              //       totalValue = totalValueIn - totalValueOut; 
+              //     });    
                   return Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -101,7 +102,8 @@ class _CardGeneralBalanceState extends State<CardGeneralBalance> {
                     child: balanceVisible
                         ? Container()
                         : Text(
-                            "R\$ ${totalValue.toStringAsFixed(2).replaceAll(".",",")}",
+                            // "R\$ ${totalValue.toStringAsFixed(2).replaceAll(".",",")}",
+                            "",
                             style: AppTextStyles.kSubTitleHomeMedium,
                           ),
                   ),

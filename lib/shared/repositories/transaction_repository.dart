@@ -7,6 +7,9 @@ import 'dart:math' as math;
 class TransactionRepository {
   final UserManager userManager = GetIt.I<UserManager>();
   FirebaseFirestore _db = FirebaseFirestore.instance;
+  String year = '';
+  int month = 0;
+
 
   Future<TransactionModel?> addTransaction(
       {required TransactionModel transaction}) async {
@@ -25,8 +28,8 @@ class TransactionRepository {
         double transactionValue = transaction.type == 'out'
             ? -1 * transaction.value
             : transaction.value;
-        String year = transaction.date.year.toString();
-        int month = transaction.date.month - 1;
+         year = transaction.date.year.toString();
+         month = transaction.date.month - 1;
         if (value.exists) {
           var data = value.data();
 
@@ -72,6 +75,36 @@ class TransactionRepository {
       throw e;
     }
   }
+
+  // Future<List<TransactionModel>> getBalanceF() async {
+  //   try{
+  //     final balance = await _db.collection("balances").doc(userManager.user!.uid).get();
+    
+  // } catch(e){
+  //   throw e;
+  //   print("e");
+  // }
+
+  //   }
+    // return _db.collection("balances").doc(userManager.user!.uid);
+
+  Stream<List<TransactionModel>> getBalance() {
+    try {
+     return _db
+          .collection("balances")
+          .where("userId", isEqualTo: userManager.user!.uid).where("type", isEqualTo: 'test')
+          .orderBy("date", descending: true)
+          .snapshots()
+          .map((e) => e.docs
+              .map((item) => TransactionModel.fromMap(item.data())
+                  .copyWith(transactionId: item.id))
+              .toList());
+    }
+    catch (e) {
+      throw e;
+    }
+  }
+
 
   Stream<List<TransactionModel>> getOutTransaction() {
     try {
