@@ -2,20 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:raro_academy_budget/util/constants/app_colors.dart';
 
-class TransactionInInputWidget extends StatelessWidget {
+class TransactionInputValue extends StatelessWidget {
   final String hintText;
   final String labelText;
   final FormFieldValidator<String>? validator;
   final ValueChanged<String>? onChanged;
   final FilteringTextInputFormatter? inputFormat;
-  final FocusNode? focusNode;
-  final TextInputAction? textInputAction;
   final TextEditingController controller;
   final TextInputType? keyboardType;
-  final VoidCallback? onEditingComplete;
   final bool obscureText;
   final Widget? suffixIcon;
-  const TransactionInInputWidget({
+  const TransactionInputValue({
     Key? key,
     required this.hintText,
     required this.labelText,
@@ -26,8 +23,6 @@ class TransactionInInputWidget extends StatelessWidget {
     this.keyboardType,
     this.obscureText = false,
     this.suffixIcon,
-    this.focusNode,
-    this.textInputAction, this.onEditingComplete,
   }) : super(key: key);
 
   @override
@@ -40,8 +35,6 @@ class TransactionInInputWidget extends StatelessWidget {
         onChanged: onChanged,
         obscureText: obscureText,
         keyboardType: keyboardType,
-        focusNode: focusNode,
-        textInputAction:  textInputAction,
         decoration: InputDecoration(
           focusedBorder: UnderlineInputBorder(
             borderSide: BorderSide(
