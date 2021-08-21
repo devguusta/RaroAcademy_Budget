@@ -80,7 +80,7 @@ class _PageViewOneState extends State<PageViewOne> {
           onChanged: (value) {},
           validator: (String? value) => Validators.validateEmail(value),
           keyboardType: TextInputType.emailAddress,
-          textInputAction: TextInputAction.next
+          textInputAction: TextInputAction.next,
            
         ),
       ],

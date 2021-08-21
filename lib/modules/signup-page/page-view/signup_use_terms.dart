@@ -73,7 +73,7 @@ class _SignUpUseTermsState extends State<SignUpUseTerms> {
                 Row(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(bottom: 0.0),
+                      padding: const EdgeInsets.only(bottom: 0.0, left: 8),
                       child: SizedBox(
                           width: MediaQuery.of(context).size.width * 0.1,
                          child: widget.childRadio,

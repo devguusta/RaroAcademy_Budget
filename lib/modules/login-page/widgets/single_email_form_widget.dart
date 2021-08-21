@@ -50,14 +50,7 @@ class _SingleEmailFormWidgetState extends State<SingleEmailFormWidget> {
               builder: (_) => PasswordPage(email: _inputController.text),
             ),
           );
-        } else{
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (_) => SignUpPage(),
-            ),
-          );
-
-        }
+        } 
       };
     }
     return Form(

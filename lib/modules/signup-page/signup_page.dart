@@ -32,14 +32,12 @@ class _SignUpPageState extends State<SignUpPage> {
   final MaskedTextController _phoneController = MaskedTextController(mask:"(00)00000-0000");
   final TextEditingController _confirmpasswordController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
-
   SingingCharacter? character = SingingCharacter.no;
  
   @override
   initState() {
     super.initState();
   }
-
   @override
   dispose() {
     _nameController.dispose();
@@ -54,7 +52,6 @@ class _SignUpPageState extends State<SignUpPage> {
 
   @override
   Widget build(BuildContext context) {
-     bool stateRadio = controller.checkComboBox;
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: SingleChildScrollView(
