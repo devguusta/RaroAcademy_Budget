@@ -51,4 +51,12 @@ class LoginController {
       throw e;
     }
   }
+
+  Future updateUser(UserModel user) async {
+    try {
+      await repository.updateUser(user);
+    } catch (e) {
+      throw e;
+    }
+  }
 }

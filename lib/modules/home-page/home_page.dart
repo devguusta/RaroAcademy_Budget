@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
+import 'package:mobx/mobx.dart';
 import 'package:raro_academy_budget/modules/home-page/widgets/card_day_by_day.dart';
 import 'package:raro_academy_budget/modules/home-page/widgets/card_general_balance.dart';
 import 'package:raro_academy_budget/modules/home-page/widgets/card_last_transactions.dart';
@@ -47,8 +49,10 @@ class _HomePageState extends State<HomePage> {
         appBar: AppBar(
           toolbarHeight: size.height * 0.12625,
           centerTitle: true,
-          title: Text("Olá, " + userManager.user!.name.split(" ")[0],
-              style: AppTextStyles.kAppBarName),
+          title: Observer(
+              builder: (_) => Text(
+                  "Olá, " + userManager.user!.name.split(" ")[0],
+                  style: AppTextStyles.kAppBarName)),
           flexibleSpace: Container(
             decoration: const BoxDecoration(
               gradient: AppColors.kblueGradientAppBar,
