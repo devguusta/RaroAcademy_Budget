@@ -32,117 +32,117 @@ class DrawerWidget extends StatelessWidget {
                 )),
           ),
           Expanded(
-              child: SingleChildScrollView(
-                child: Container(          
-                  child: Column(          
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                  Wrap(
-                    children: [
-                      Container(
-                        width: 308,
-                        padding: const EdgeInsets.only(
-                          left: 27,
-                          top: 14,
-                          bottom: 21,
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              'Perfil',
-                              style: AppTextStyles.kLabelItemDrawer,
-                            ),
-                            const SizedBox(height: 10),
-                            InkWell(
-                              onTap: () {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) => const RegistryEditPage(),
-                                  ),
-                                );
-                              },
-                              child: const Text('Cadastro',
-                                  style: AppTextStyles.kInputTextMedium),
-                            )
-                          ],
-                        ),
+              child: Container(          
+                child: Column(          
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                Wrap(
+                  children: [
+                    Container(
+                      width: 308,
+                      padding: const EdgeInsets.only(
+                        left: 27,
+                        top: 14,
+                        bottom: 21,
                       ),
-                      const Divider(
-                        height: 1,
-                        thickness: 1,
-                        color: Color.fromRGBO(224, 224, 224, 1),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'Perfil',
+                            style: AppTextStyles.kLabelItemDrawer,
+                          ),
+                          const SizedBox(height: 10),
+                          InkWell(
+                            onTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => const RegistryEditPage(),
+                                ),
+                              );
+                            },
+                            child: const Text('Cadastro',
+                                style: AppTextStyles.kInputTextMedium),
+                          )
+                        ],
                       ),
-                      Container(
-                        width: 308,
-                        padding: const EdgeInsets.only(
-                          left: 27,
-                          top: 14,
-                          bottom: 21,
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              'Conta',
-                              style: AppTextStyles.kLabelItemDrawer,
-                            ),
-                            const SizedBox(height: 15),
-                            InkWell(
-                              onTap: () {},
-                              child: const Text(
-                                'Gerenciar cartões',
-                                style: AppTextStyles.kInputTextMedium,
-                              ),
-                            ),
-                            const SizedBox(height: 15),
-                            InkWell(
-                              onTap: () {},
-                              child: const Text(
-                                'Investimentos',
-                                style: AppTextStyles.kInputTextMedium,
-                              ),
-                            )
-                          ],
-                        ),
+                    ),
+                    const Divider(
+                      height: 1,
+                      thickness: 1,
+                      color: Color.fromRGBO(224, 224, 224, 1),
+                    ),
+                    Container(
+                      width: 308,
+                      padding: const EdgeInsets.only(
+                        left: 27,
+                        top: 14,
+                        bottom: 21,
                       ),
-                      const Divider(
-                        thickness: 1,
-                        color: Color.fromRGBO(224, 224, 224, 1),
-                      ),
-                      Container(
-                        width: 308,
-                        padding: const EdgeInsets.only(
-                          left: 27,
-                          top: 14,
-                          bottom: 21,
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              'Segurança',
-                              style: AppTextStyles.kLabelItemDrawer,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'Conta',
+                            style: AppTextStyles.kLabelItemDrawer,
+                          ),
+                          const SizedBox(height: 15),
+                          InkWell(
+                            onTap: () {},
+                            child: const Text(
+                              'Gerenciar cartões',
+                              style: AppTextStyles.kInputTextMedium,
                             ),
-                            const SizedBox(
-                              height: 15,
+                          ),
+                          const SizedBox(height: 15),
+                          InkWell(
+                            onTap: () {},
+                            child: const Text(
+                              'Investimentos',
+                              style: AppTextStyles.kInputTextMedium,
                             ),
-                            InkWell(
-                              onTap: () {},
-                              child: const Text(
-                                'Alterar Senha',
-                                style: AppTextStyles.kInputTextMedium,
-                              ),
+                          )
+                        ],
+                      ),
+                    ),
+                    const Divider(
+                      thickness: 1,
+                      color: Color.fromRGBO(224, 224, 224, 1),
+                    ),
+                    Container(
+                      width: 308,
+                      padding: const EdgeInsets.only(
+                        left: 27,
+                        top: 14,
+                        bottom: 21,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'Segurança',
+                            style: AppTextStyles.kLabelItemDrawer,
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          InkWell(
+                            onTap: () {},
+                            child: const Text(
+                              'Alterar Senha',
+                              style: AppTextStyles.kInputTextMedium,
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
-                      const Divider(
-                        thickness: 1,
-                        color: Color.fromRGBO(224, 224, 224, 1),
-                      ),
-                      Container(
+                    ),
+                    const Divider(
+                      thickness: 1,
+                      color: Color.fromRGBO(224, 224, 224, 1),
+                    ),
+                    SingleChildScrollView(
+                      child: Container(
                         width: 308,
                         padding: const EdgeInsets.only(
                           left: 27,
@@ -162,43 +162,43 @@ class DrawerWidget extends StatelessWidget {
                           ],
                         ),
                       ),
-                    ],
-                  ),
-                  Wrap(
-                    children: [
-                      const Divider(thickness: 1),
-                      Center(
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 20, bottom: 20),
-                          child: InkWell(
-                            onTap: () async {
-                              GetIt.I<UserManager>().setUser(null);
-                              SharedPreferences _prefs =
-                                  await SharedPreferences.getInstance();
-                              _prefs.remove('user');
-                              Navigator.of(context).pushAndRemoveUntil(
-                                  MaterialPageRoute(
-                                      builder: (_) => const InitialLoginPage()),
-                                  (route) => false);
-                            },
-                            child: const Text(
-                              'Sair',
-                              style: TextStyle(
-                                fontFamily: 'Roboto',
-                                fontWeight: FontWeight.w400,
-                                fontSize: 16,
-                                letterSpacing: 0.15,
-                                color: Color.fromRGBO(58, 91, 150, 1),
-                              ),
+                    ),
+                  ],
+                ),
+                Wrap(
+                  children: [
+                    const Divider(thickness: 1),
+                    Center(
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 20, bottom: 20),
+                        child: InkWell(
+                          onTap: () async {
+                            GetIt.I<UserManager>().setUser(null);
+                            SharedPreferences _prefs =
+                                await SharedPreferences.getInstance();
+                            _prefs.remove('user');
+                            Navigator.of(context).pushAndRemoveUntil(
+                                MaterialPageRoute(
+                                    builder: (_) => const InitialLoginPage()),
+                                (route) => false);
+                          },
+                          child: const Text(
+                            'Sair',
+                            style: TextStyle(
+                              fontFamily: 'Roboto',
+                              fontWeight: FontWeight.w400,
+                              fontSize: 16,
+                              letterSpacing: 0.15,
+                              color: Color.fromRGBO(58, 91, 150, 1),
                             ),
                           ),
                         ),
-                      )
-                    ],
-                  )
-                          ],
-                        ),
-                ),
+                      ),
+                    )
+                  ],
+                )
+                        ],
+                      ),
               ))
         ],
       ),
