@@ -29,10 +29,20 @@ class TransactionRepository {
         int month = transaction.date.month - 1;
         if (value.exists) {
           var data = value.data();
+
+          // print(data![year]);
           if (data![year] != null) {
-            var newData = data[year].map((element, index) =>
-                index == month ? element + transactionValue : element);
-            // var generalBalance = newData.sum(); Somar elementos da lista
+            List months = data[year];
+
+            months[month] += transactionValue;
+            var sum = 0.0;
+            months.forEach((element) {
+              sum += element;
+            });
+            _db
+                .collection("balances")
+                .doc(userManager.user!.uid)
+                .update({year: months, "general_balance": sum});
           }
         } else {
           _db.collection('balances').doc(userManager.user!.uid).set({
