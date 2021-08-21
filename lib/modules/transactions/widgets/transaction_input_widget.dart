@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:raro_academy_budget/util/constants/app_colors.dart';
 
-class TransactionInInputWidget extends StatelessWidget {
+class TransactionInputValue extends StatelessWidget {
   final String hintText;
   final String labelText;
   final FormFieldValidator<String>? validator;
@@ -12,7 +12,7 @@ class TransactionInInputWidget extends StatelessWidget {
   final TextInputType? keyboardType;
   final bool obscureText;
   final Widget? suffixIcon;
-  const TransactionInInputWidget({
+  const TransactionInputValue({
     Key? key,
     required this.hintText,
     required this.labelText,
