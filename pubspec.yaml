@@ -24,6 +24,8 @@ dependencies:
   flutter_mobx: ^2.0.2
   get_it: ^7.2.0
   shared_preferences: ^2.0.6
+  extended_masked_text: ^2.3.1
+  
   
 
   

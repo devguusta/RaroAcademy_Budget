@@ -198,8 +198,8 @@ class _CardDaybyDayState extends State<CardDaybyDay> {
                           child: (totalValueOut != 0 && totalValueIn != 0 ) ?
                           Container(
                             width: totalValueOut > totalValueIn ?
-                            size.width :
-                            (totalValueOut/totalValueIn) * 100 ,
+                            size.width : totalValueOut < totalValueIn ?
+                            (totalValueOut/totalValueIn) * 100 : size.width*0.45,
                             height: 11,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(360),
@@ -251,8 +251,8 @@ class _CardDaybyDayState extends State<CardDaybyDay> {
                           child: (totalValueOut != 0 && totalValueIn != 0 ) ?
                           Container(
                             width: totalValueIn > totalValueOut ?
-                            size.width :
-                            (totalValueIn/totalValueOut) * 100,
+                            size.width : totalValueIn < totalValueOut ?
+                            (totalValueIn/totalValueOut) * 100 : size.width * 0.45,
                             height: 11,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(360),

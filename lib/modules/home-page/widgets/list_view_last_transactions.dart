@@ -48,8 +48,9 @@ class _ListViewLastTransactionsState extends State<ListViewLastTransactions> {
                           category: list[index].category,
                           date:
                               DateFormat("dd/MM/yyyy").format(list[index].date),
-                          value:
-                              'R\$ ${list[index].value.toStringAsFixed(2).replaceAll(".", ",")}',
+                          value: list[index].type == 'out'
+                              ? '-R\$ ${list[index].value.toStringAsFixed(2).replaceAll(".", ",")}'
+                              : 'R\$ ${list[index].value.toStringAsFixed(2).replaceAll(".", ",")}',
                           textStyle: AppTextStyles.kLastTransaction,
                         ),
                       )
@@ -64,7 +65,7 @@ class _ListViewLastTransactionsState extends State<ListViewLastTransactions> {
                           children: [
                             Center(
                               child: Padding(
-                                padding: const EdgeInsets.only(bottom: 24.0),
+                                padding: const EdgeInsets.only(bottom: 24.0, top: 24),
                                 child: Text(
                                     'Parece que você não realizou nenhuma transação recentemente!',
                                     style: TextStyle(

@@ -1,4 +1,6 @@
+import 'package:extended_masked_text/extended_masked_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:raro_academy_budget/modules/login-page/initial_login_page.dart';
 import 'package:raro_academy_budget/modules/signup-page/page-view/page_view_for.dart';
 import 'package:raro_academy_budget/modules/signup-page/page-view/page_view_onboarding.dart';
@@ -6,6 +8,7 @@ import 'package:raro_academy_budget/modules/signup-page/page-view/page_view_one.
 import 'package:raro_academy_budget/modules/signup-page/page-view/page_view_two.dart';
 import 'package:raro_academy_budget/modules/signup-page/signup-footer/signup_footer.dart';
 import 'package:raro_academy_budget/modules/signup-page/page-view/signup_use_terms.dart';
+import 'package:raro_academy_budget/modules/signup-page/signup_manager.dart';
 import 'package:raro_academy_budget/shared/controllers/login_controller.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -20,29 +23,21 @@ class SignUpPage extends StatefulWidget {
 enum SingingCharacter { yes, no }
 
 class _SignUpPageState extends State<SignUpPage> {
-  PageController pageController = PageController();
+ 
+  final controller = SignUpManager();
   final formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _cpfController = TextEditingController();
-  final TextEditingController _phoneController = TextEditingController();
-  final TextEditingController _confirmpasswordController =
-      TextEditingController();
+  final MaskedTextController _cpfController = MaskedTextController(mask: '000.000.000-00');
+  final MaskedTextController _phoneController = MaskedTextController(mask:"(00)00000-0000");
+  final TextEditingController _confirmpasswordController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
-
   SingingCharacter? character = SingingCharacter.no;
-  bool stateRadio = true;
-  int pageChanged = 0;
+ 
   @override
   initState() {
-    pageController = PageController(
-      initialPage: 0,
-      keepPage: true,
-      viewportFraction: 1,
-    );
     super.initState();
   }
-
   @override
   dispose() {
     _nameController.dispose();
@@ -51,11 +46,9 @@ class _SignUpPageState extends State<SignUpPage> {
     _cpfController.dispose();
     _phoneController.dispose();
     _confirmpasswordController.dispose();
-    pageController.dispose();
+    
     super.dispose();
   }
-
-  bool loading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -69,136 +62,152 @@ class _SignUpPageState extends State<SignUpPage> {
               child: Form(
                 key: formKey,
                 child: SizedBox(
-                  height: size.height,
-                  child: PageView(
-                    scrollDirection: Axis.horizontal,
-                    physics: const NeverScrollableScrollPhysics(),
-                    pageSnapping: true,
-                    onPageChanged: (index) {
-                      setState(
-                        () {
-                          pageChanged = index;
+                    height: size.height,
+                    child: Observer(builder: (_) {
+                      return PageView(
+                        scrollDirection: Axis.horizontal,
+                        physics: const NeverScrollableScrollPhysics(),
+                        pageSnapping: true,
+                        onPageChanged: (index) {
+                          controller.pageChanged = index;
                         },
-                      );
-                    },
-                    controller: pageController,
-                    children: [
-                      Stack(
+                        controller: controller.pageController,
                         children: [
-                          PageViewOne(
-                            nameController: _nameController,
-                            emailController: _emailController,
+                          Stack(
+                            children: [
+                              PageViewOne(
+                                nameController: _nameController,
+                                emailController: _emailController,
+                              ),
+                              Align(
+                                alignment: Alignment.bottomCenter,
+                                child: SignUpFooter(
+                                  page: '1',
+                                  onPressed: () {
+                                    FocusScope.of(context).unfocus();
+                                    if (formKey.currentState!.validate()) {
+                                      controller.nextPage();
+                                    }
+                                  },
+                                  onBack: () {
+                                    Navigator.pushNamed(
+                                      context,
+                                      InitialLoginPage.id,
+                                    );
+                                  },
+                                ),
+                              ),
+                            ],
                           ),
-                          Align(
-                            alignment: Alignment.bottomCenter,
-                            child: SignUpFooter(
-                              page: '1',
-                              onPressed: () {
-                                if (formKey.currentState!.validate()) {
-                                  pageController.nextPage(
-                                    duration: const Duration(microseconds: 400),
-                                    curve: Curves.easeIn,
-                                  );
-                                }
-                              },
-                              onBack: () {
-                                Navigator.pushNamed(
-                                  context,
-                                  InitialLoginPage.id,
-                                );
-                              },
-                            ),
+                          Stack(
+                            children: [
+                              PageViewTwo(
+                                phoneController: _phoneController,
+                                cpfController: _cpfController,
+                              ),
+                              Align(
+                                alignment: Alignment.bottomCenter,
+                                child: SignUpFooter(
+                                  page: '2',
+                                  onPressed: () {
+                                    FocusScope.of(context).unfocus();
+                                    if (formKey.currentState!.validate()) {
+                                      controller.nextPage();
+                                    }
+                                  },
+                                  onBack: () {
+                                    controller.backPage();
+                                  },
+                                ),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                      Stack(
-                        children: [
-                          PageViewTwo(
-                            phoneController: _phoneController,
-                            cpfController: _cpfController,
-                          ),
-                          Align(
-                            alignment: Alignment.bottomCenter,
-                            child: SignUpFooter(
-                              page: '2',
-                              onPressed: () {
-                                if (formKey.currentState!.validate()) {
-                                  pageController.nextPage(
-                                    duration: const Duration(microseconds: 400),
-                                    curve: Curves.easeIn,
-                                  );
-                                }
-                              },
-                              onBack: () {
-                                pageController.previousPage(
-                                  duration: const Duration(microseconds: 400),
-                                  curve: Curves.easeIn,
-                                );
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                      Stack(
-                        children: [
-                          SignUpUseTerms(
-                            state: stateRadio,
-                          ),
-                          Align(
-                            alignment: Alignment.bottomCenter,
-                            child: SignUpFooter(
-                              page: '3',
-                              onPressed: () {
-                                if (stateRadio == true) {
-                                  pageController.nextPage(
-                                    duration: const Duration(microseconds: 400),
-                                    curve: Curves.easeIn,
-                                  );
-                                }
-                              },
-                              onBack: () {
-                                pageController.previousPage(
-                                  duration: const Duration(microseconds: 400),
-                                  curve: Curves.easeIn,
-                                );
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                      Stack(
-                        children: [
-                          PageViewFor(
-                            passwordController: _passwordController,
-                            confirmPasswordController:
-                                _confirmpasswordController,
-                          ),
-                          Align(
-                            alignment: Alignment.bottomCenter,
-                            child: SignUpFooter(
-                              loading: loading,
-                              page: '4',
-                              onPressed: () async {
-                                if (formKey.currentState!.validate()) {
-                                  setState(() => loading = true);
-                                  try {
-                                    bool result = await LoginController()
-                                        .createAccount(
-                                            email: _emailController.text,
-                                            password: _passwordController.text,
-                                            name: _nameController.text,
-                                            phone: _phoneController.text,
-                                            cpf: _cpfController.text);
+                          Stack(
+                            children: [
+                              Flexible(
+                                child: SignUpUseTerms(
+                                  childRadio: Observer(builder:(_) {
+                                                          return  Checkbox(
+                                value: controller.checkComboBox,
+                                shape: CircleBorder(),
+                                onChanged:(bool? value){                    
+                                  controller.changeComboBox(value);
+                                  print(controller.checkComboBox);      
+                                }        
+                                                          );
+                                                          }),
+                                 
+                                ),
+                              ),
+                              Align(
+                                alignment: Alignment.bottomCenter,
+                                child: SignUpFooter(
+                                    page: '3',
+                                    onPressed: () {
+                                      FocusScope.of(context).unfocus();
+                                      if (controller.checkComboBox == true) {
+                                        controller.nextPage();
+                                      } else {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          const SnackBar(
+                                            content: Text(
+                                              "é necessário aceitar os termos de uso para prosseguir",
+                                            ),
+                                          ),
+                                        );
+                                      }
+                                    },
+                                    onBack: () {
+                                      controller.backPage();
+                                    },
+                                  
 
-                                    if (result) {
-                                      setState(() => loading = false);
-                                      pageController.nextPage(
-                                        duration: const Duration(
-                                          microseconds: 400,
-                                        ),
-                                        curve: Curves.easeIn,
-                                      );
-                                    } else {
+                                ),
+                                ),
+                              
+                            ],
+                          ),
+                          Stack(
+                            children: [
+                              PageViewFor(
+                                passwordController: _passwordController,
+                                confirmPasswordController:
+                                    _confirmpasswordController,
+                              ),
+                              Align(
+                                alignment: Alignment.bottomCenter,
+                                child: SignUpFooter(
+                                  loading: controller.loading,
+                                  page: '4',
+                                  onPressed: () async {
+                                    FocusScope.of(context).unfocus();
+                                    if (formKey.currentState!.validate()) {
+                                      controller.changeTrueLoading();
+                                      try {
+                                      bool result = await LoginController()
+                                          .createAccount(
+                                              email: _emailController.text,
+                                              password:
+                                                  _passwordController.text,
+                                              name: _nameController.text,
+                                              phone: _phoneController.text,
+                                              cpf: _cpfController.text);
+
+                                      if (result) {
+                                        controller.changeFalseLoading();
+                                        controller.nextPage();
+                                      } else {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          const SnackBar(
+                                            content: Text(
+                                              "Erro ao cadastrar, verifique sua conexão e tente novamente",
+                                            ),
+                                          ),
+                                        );
+                                      }
+                                    } catch (e) {
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(
                                         const SnackBar(
@@ -208,32 +217,21 @@ class _SignUpPageState extends State<SignUpPage> {
                                         ),
                                       );
                                     }
-                                  } catch (e) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content: Text(
-                                          "Erro ao cadastrar, verifique sua conexão e tente novamente",
-                                        ),
-                                      ),
-                                    );
-                                  }
-                                  setState(() => loading = false);
-                                }
-                              },
-                              onBack: () {
-                                pageController.previousPage(
-                                  duration: const Duration(microseconds: 400),
-                                  curve: Curves.easeIn,
-                                );
-                              },
-                            ),
+                                    controller.changeFalseLoading();
+                                    };
+                                    
+                                  },
+                                  onBack: () {
+                                    controller.backPage();
+                                  },
+                                ),
+                              ),
+                            ],
                           ),
+                          const OnBoarding(),
                         ],
-                      ),
-                      const OnBoarding(),
-                    ],
-                  ),
-                ),
+                      );
+                    })),
               ),
             ),
           ],

@@ -15,7 +15,7 @@ class VisibleWidget extends StatelessWidget {
     return IconButton(
       icon: Icon(
         visible ? Icons.visibility_off : Icons.visibility,
-        color: Color.fromRGBO(52, 48, 144, 1),
+        color: Color.fromRGBO(0,0,0, 0.54),
       ),
       onPressed: onPressed,
     );
