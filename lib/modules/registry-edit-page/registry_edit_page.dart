@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:raro_academy_budget/modules/registry-edit-page/widgets/header_widget.dart';
+import 'package:raro_academy_budget/shared/controllers/login_controller.dart';
 import 'package:raro_academy_budget/shared/models/user_model.dart';
 import 'package:raro_academy_budget/shared/widgets/input_form_widget.dart';
 import 'package:raro_academy_budget/util/constants/app_colors.dart';
@@ -149,10 +150,8 @@ class _RegistryEditPageState extends State<RegistryEditPage> {
                         cpf: cpfEditing,
                         phone: phoneEditing);
 
-                    await FirebaseFirestore.instance
-                        .collection('users')
-                        .doc(userManager.user!.uid)
-                        .update(newUser.toMap());
+                    LoginController().updateUser(newUser);
+
                     userManager.setUser(newUser);
                     _prefs.setString("user", json.encode(newUser.toJson()));
                     setState(() {
