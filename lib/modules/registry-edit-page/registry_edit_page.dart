@@ -1,12 +1,16 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:raro_academy_budget/modules/registry-edit-page/widgets/header_widget.dart';
+import 'package:raro_academy_budget/shared/models/user_model.dart';
 import 'package:raro_academy_budget/shared/widgets/input_form_widget.dart';
 import 'package:raro_academy_budget/util/constants/app_colors.dart';
 import 'package:raro_academy_budget/util/constants/app_shadows.dart';
 import 'package:get_it/get_it.dart';
 import 'package:raro_academy_budget/shared/services/user_manager.dart';
 import 'package:raro_academy_budget/util/constants/app_text_styles.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class RegistryEditPage extends StatefulWidget {
   static const String id = '/in';
@@ -18,13 +22,12 @@ class RegistryEditPage extends StatefulWidget {
 class _RegistryEditPageState extends State<RegistryEditPage> {
   GlobalKey<FormState> form = GlobalKey<FormState>();
   final UserManager userManager = GetIt.I<UserManager>();
-  TextEditingController name = TextEditingController();
-  TextEditingController phone = TextEditingController();
-  TextEditingController email = TextEditingController();
-  TextEditingController cpf = TextEditingController();
+
   String nameEditing = '';
   String phoneEditing = '';
   String cpfEditing = '';
+
+  bool loading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +65,12 @@ class _RegistryEditPageState extends State<RegistryEditPage> {
                       InputForm(
                         hintText: "Nome",
                         labelText: "Nome",
-                        controller: name,
+                        initialValue: nameEditing,
+                        enabled: !loading,
+                        onSaved: (value) {
+                          nameEditing = value ?? nameEditing;
+                        },
+                        // controller: name,
                         validator: (value) {
                           if (value!.isEmpty) {
                             return 'Favor preencher o campo vazio.';
@@ -74,7 +82,11 @@ class _RegistryEditPageState extends State<RegistryEditPage> {
                       InputForm(
                         hintText: "CPF",
                         labelText: "CPF",
-                        controller: cpf,
+                        initialValue: cpfEditing,
+                        enabled: !loading,
+                        onSaved: (value) {
+                          cpfEditing = value ?? cpfEditing;
+                        },
                         validator: (value) {
                           if (value!.isEmpty) {
                             return 'Favor preencher o campo vazio.';
@@ -99,7 +111,11 @@ class _RegistryEditPageState extends State<RegistryEditPage> {
                       InputForm(
                         hintText: "Celular",
                         labelText: "Celular",
-                        controller: phone,
+                        enabled: !loading,
+                        initialValue: phoneEditing,
+                        onSaved: (value) {
+                          phoneEditing = value ?? phoneEditing;
+                        },
                         validator: (value) {
                           if (value!.isEmpty) {
                             return 'Favor preencher o campo vazio.';
@@ -121,17 +137,27 @@ class _RegistryEditPageState extends State<RegistryEditPage> {
                 ),
                 onTap: () async {
                   if (form.currentState!.validate()) {
+                    form.currentState!.save();
+                    setState(() {
+                      loading = true;
+                    });
+                    SharedPreferences _prefs =
+                        await SharedPreferences.getInstance();
+
+                    UserModel newUser = userManager.user!.copyWith(
+                        name: nameEditing,
+                        cpf: cpfEditing,
+                        phone: phoneEditing);
+
                     await FirebaseFirestore.instance
                         .collection('users')
                         .doc(userManager.user!.uid)
-                        .update({
-                      'name': name.text,
-                      'phone': phone.text,
-                      'cpf': cpf.text,
+                        .update(newUser.toMap());
+                    userManager.setUser(newUser);
+                    _prefs.setString("user", json.encode(newUser.toJson()));
+                    setState(() {
+                      loading = false;
                     });
-                    userManager.setUser(
-                      userManager.user!.copyWith(name: name.text),
-                    );
                     Navigator.of(context).pop();
                   }
                 },
@@ -145,10 +171,16 @@ class _RegistryEditPageState extends State<RegistryEditPage> {
                       horizontal: 16,
                       vertical: 12,
                     ),
-                    child: Text(
-                      'Salvar alterações'.toUpperCase(),
-                      style: AppTextStyles.kSaveData,
-                    ),
+                    child: loading
+                        ? Center(
+                            child: CircularProgressIndicator(
+                              color: Colors.white,
+                            ),
+                          )
+                        : Text(
+                            'Salvar alterações'.toUpperCase(),
+                            style: AppTextStyles.kSaveData,
+                          ),
                   ),
                 ),
               ),
