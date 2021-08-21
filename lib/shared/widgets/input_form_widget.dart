@@ -7,6 +7,7 @@ class InputForm extends StatelessWidget {
   final String labelText;
   final FormFieldValidator<String>? validator;
   final ValueChanged<String>? onChanged;
+  final ValueChanged<String?>? onSaved;
   final TextEditingController? controller;
   final TextInputType? keyboardType;
   final bool obscureText;
@@ -28,7 +29,7 @@ class InputForm extends StatelessWidget {
     this.obscureText = false,
     this.suffixIcon,
     this.initialValue,
-    this.enabled, this.onEditingComplete, this.textInputAction, this.inputFormatters, this.focusNode,
+    this.enabled, this.onEditingComplete, this.textInputAction, this.inputFormatters, this.focusNode, this.onSaved,
   }) : super(key: key);
 
   @override
@@ -39,6 +40,7 @@ class InputForm extends StatelessWidget {
         initialValue: initialValue,
         enabled: enabled,
         onChanged: onChanged,
+        onSaved: onSaved,
         obscureText: obscureText,
         keyboardType: keyboardType,
         validator: validator,

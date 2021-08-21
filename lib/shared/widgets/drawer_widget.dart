@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:raro_academy_budget/modules/login-page/initial_login_page.dart';
 import 'package:raro_academy_budget/modules/registry-edit-page/registry_edit_page.dart';
@@ -23,10 +24,12 @@ class DrawerWidget extends StatelessWidget {
               gradient: AppColors.kblueGradientAppBar,
             ),
             child: Padding(
-              padding: const EdgeInsets.only(left: 25, top: 45),
-              child: Text("Olá, " + userManager.user!.name.split(" ")[0],
-                  style: AppTextStyles.kAppBarName),
-            ),
+                padding: const EdgeInsets.only(left: 25, top: 45),
+                child: Observer(
+                  builder: (_) => Text(
+                      "Olá, " + userManager.user!.name.split(" ")[0],
+                      style: AppTextStyles.kAppBarName),
+                )),
           ),
           Expanded(
               child: SingleChildScrollView(

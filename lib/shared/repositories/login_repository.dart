@@ -59,9 +59,16 @@ class LoginRepository {
       } else {
         throw Exception();
       }
-      // AuthController.instance.loginUser(user!);
     } catch (e) {
       rethrow;
+    }
+  }
+
+  Future updateUser(UserModel user) async {
+    try {
+      await _db.collection('users').doc(user.uid).update(user.toMap());
+    } catch (e) {
+      throw e;
     }
   }
 }
