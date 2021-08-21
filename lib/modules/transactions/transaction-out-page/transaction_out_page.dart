@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:raro_academy_budget/modules/transactions/transaction-out-page/widgets/transaction_out_input_widget.dart';
+import 'package:raro_academy_budget/modules/transactions/widgets/transaction_input_widget.dart';
 import 'package:raro_academy_budget/shared/controllers/transaction_controller.dart';
 import 'package:raro_academy_budget/shared/models/transaction_model.dart';
 import 'package:raro_academy_budget/shared/repositories/transaction_repository.dart';
@@ -84,7 +85,7 @@ class _OutPageState extends State<OutPage> {
         },
       ),
       children: [
-        TransactionOutInputWidget(
+        TransactionInputValue(
           hintText: "Valor em R\$",
           labelText: "Valor em R\$",
           controller: _amountValue,
@@ -92,6 +93,7 @@ class _OutPageState extends State<OutPage> {
         DropdownWidget(
           value: _value,
           labelText: "Tipo de Saída",
+          hintText: "Escolha",
           selectedItemBuilder: (_) => items.map((DropDownMenuItem item) {
             return Align(
               alignment: Alignment.centerLeft,

@@ -43,17 +43,19 @@ class _TransactionIconWidgetState extends State<TransactionIconWidget> {
                     ? AppIcons.kMoney
                     : widget.category == 'Doc'
                         ? AppIcons.kDoc
-                        : widget.category == 'Viagem'
-                            ? AppIcons.kTravel
-                            : widget.category == 'Educação'
-                                ? AppIcons.kEducation
-                                : widget.category == 'Refeição'
-                                    ? AppIcons.kMeal
-                                    : widget.category == 'Pagamentos'
-                                        ? AppIcons.kPayments
-                                        : widget.category == 'Transporte'
-                                            ? AppIcons.kTransport
-                                            : AppIcons.kOthers,
+                        : widget.category == 'Ted'
+                            ? AppIcons.kTed
+                            : widget.category == 'Viagem'
+                                ? AppIcons.kTravel
+                                : widget.category == 'Educação'
+                                    ? AppIcons.kEducation
+                                    : widget.category == 'Refeição'
+                                        ? AppIcons.kMeal
+                                        : widget.category == 'Pagamentos'
+                                            ? AppIcons.kPayments
+                                            : widget.category == 'Transporte'
+                                                ? AppIcons.kTransport
+                                                : AppIcons.kOthers,
         color: Colors.white,
       ),
     );
