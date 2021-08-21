@@ -69,12 +69,51 @@ mixin _$SignUpManager on _SignUpManagerBase, Store {
     });
   }
 
-  final _$changeComboBoxAsyncAction =
-      AsyncAction('_SignUpManagerBase.changeComboBox');
+  final _$passwordVisibleAtom =
+      Atom(name: '_SignUpManagerBase.passwordVisible');
 
   @override
-  Future<bool> changeComboBox(bool? value) {
-    return _$changeComboBoxAsyncAction.run(() => super.changeComboBox(value));
+  bool get passwordVisible {
+    _$passwordVisibleAtom.reportRead();
+    return super.passwordVisible;
+  }
+
+  @override
+  set passwordVisible(bool value) {
+    _$passwordVisibleAtom.reportWrite(value, super.passwordVisible, () {
+      super.passwordVisible = value;
+    });
+  }
+
+  final _$confirmPasswordVisibleAtom =
+      Atom(name: '_SignUpManagerBase.confirmPasswordVisible');
+
+  @override
+  bool get confirmPasswordVisible {
+    _$confirmPasswordVisibleAtom.reportRead();
+    return super.confirmPasswordVisible;
+  }
+
+  @override
+  set confirmPasswordVisible(bool value) {
+    _$confirmPasswordVisibleAtom
+        .reportWrite(value, super.confirmPasswordVisible, () {
+      super.confirmPasswordVisible = value;
+    });
+  }
+
+  final _$nextPageAsyncAction = AsyncAction('_SignUpManagerBase.nextPage');
+
+  @override
+  Future<void> nextPage() {
+    return _$nextPageAsyncAction.run(() => super.nextPage());
+  }
+
+  final _$backPageAsyncAction = AsyncAction('_SignUpManagerBase.backPage');
+
+  @override
+  Future<void> backPage() {
+    return _$backPageAsyncAction.run(() => super.backPage());
   }
 
   final _$changeTrueLoadingAsyncAction =
@@ -94,18 +133,30 @@ mixin _$SignUpManager on _SignUpManagerBase, Store {
         .run(() => super.changeFalseLoading());
   }
 
-  final _$nextPageAsyncAction = AsyncAction('_SignUpManagerBase.nextPage');
+  final _$changeComboBoxAsyncAction =
+      AsyncAction('_SignUpManagerBase.changeComboBox');
 
   @override
-  Future<void> nextPage() {
-    return _$nextPageAsyncAction.run(() => super.nextPage());
+  Future<bool> changeComboBox(bool? value) {
+    return _$changeComboBoxAsyncAction.run(() => super.changeComboBox(value));
   }
 
-  final _$backPageAsyncAction = AsyncAction('_SignUpManagerBase.backPage');
+  final _$changePasswordVisibleAsyncAction =
+      AsyncAction('_SignUpManagerBase.changePasswordVisible');
 
   @override
-  Future<void> backPage() {
-    return _$backPageAsyncAction.run(() => super.backPage());
+  Future<void> changePasswordVisible() {
+    return _$changePasswordVisibleAsyncAction
+        .run(() => super.changePasswordVisible());
+  }
+
+  final _$changeconfirmPasswordVisibleAsyncAction =
+      AsyncAction('_SignUpManagerBase.changeconfirmPasswordVisible');
+
+  @override
+  Future<void> changeconfirmPasswordVisible() {
+    return _$changeconfirmPasswordVisibleAsyncAction
+        .run(() => super.changeconfirmPasswordVisible());
   }
 
   @override
@@ -114,7 +165,9 @@ mixin _$SignUpManager on _SignUpManagerBase, Store {
 pageController: ${pageController},
 pageChanged: ${pageChanged},
 loading: ${loading},
-checkComboBox: ${checkComboBox}
+checkComboBox: ${checkComboBox},
+passwordVisible: ${passwordVisible},
+confirmPasswordVisible: ${confirmPasswordVisible}
     ''';
   }
 }

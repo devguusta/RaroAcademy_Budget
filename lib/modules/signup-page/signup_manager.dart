@@ -51,11 +51,22 @@ abstract class _SignUpManagerBase with Store {
    
   }
 
-
-
-
   @observable
-  bool result = true;
+  bool passwordVisible = false;
+
+ @action
+  Future<void> changePasswordVisible() async {
+    passwordVisible = !passwordVisible;
+  }
+  
+  @observable
+  bool confirmPasswordVisible = false;
+
+ @action
+  Future<void> changeconfirmPasswordVisible() async {
+    confirmPasswordVisible = !confirmPasswordVisible;
+  }
+
   
 
 }

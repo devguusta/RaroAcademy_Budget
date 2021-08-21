@@ -6,9 +6,11 @@ class LoginManager = _LoginManagerBase with _$LoginManager;
 abstract class _LoginManagerBase with Store {
 
   @observable
-  bool enabled = false;
+  bool passwordVisible=false;
 
-  @observable
-  bool result = true;
-  
+  @action
+  Future<void> changePasswordVisible() async {
+    passwordVisible = !passwordVisible;
+  }
+ 
 }

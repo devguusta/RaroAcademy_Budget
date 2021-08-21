@@ -9,41 +9,34 @@ part of 'login_manager.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$LoginManager on _LoginManagerBase, Store {
-  final _$enabledAtom = Atom(name: '_LoginManagerBase.enabled');
+  final _$passwordVisibleAtom = Atom(name: '_LoginManagerBase.passwordVisible');
 
   @override
-  bool get enabled {
-    _$enabledAtom.reportRead();
-    return super.enabled;
+  bool get passwordVisible {
+    _$passwordVisibleAtom.reportRead();
+    return super.passwordVisible;
   }
 
   @override
-  set enabled(bool value) {
-    _$enabledAtom.reportWrite(value, super.enabled, () {
-      super.enabled = value;
+  set passwordVisible(bool value) {
+    _$passwordVisibleAtom.reportWrite(value, super.passwordVisible, () {
+      super.passwordVisible = value;
     });
   }
 
-  final _$resultAtom = Atom(name: '_LoginManagerBase.result');
+  final _$changePasswordVisibleAsyncAction =
+      AsyncAction('_LoginManagerBase.changePasswordVisible');
 
   @override
-  bool get result {
-    _$resultAtom.reportRead();
-    return super.result;
-  }
-
-  @override
-  set result(bool value) {
-    _$resultAtom.reportWrite(value, super.result, () {
-      super.result = value;
-    });
+  Future<void> changePasswordVisible() {
+    return _$changePasswordVisibleAsyncAction
+        .run(() => super.changePasswordVisible());
   }
 
   @override
   String toString() {
     return '''
-enabled: ${enabled},
-result: ${result}
+passwordVisible: ${passwordVisible}
     ''';
   }
 }
