@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get_it/get_it.dart';
 import 'package:raro_academy_budget/shared/models/transaction_model.dart';
 import 'package:raro_academy_budget/shared/services/user_manager.dart';
+import 'dart:math' as math;
 
 class TransactionRepository {
   final UserManager userManager = GetIt.I<UserManager>();
@@ -16,8 +17,31 @@ class TransactionRepository {
       // int month = transaction.date.month;
       // var value = transaction.value;
 
-      // var balanceSnapshot =
-      //     await _db.collection('balances').doc(userManager.user!.uid).get();
+      await _db
+          .collection('balances')
+          .doc(userManager.user!.uid)
+          .get()
+          .then((value) {
+        double transactionValue = transaction.type == 'out'
+            ? -1 * transaction.value
+            : transaction.value;
+        String year = transaction.date.year.toString();
+        int month = transaction.date.month - 1;
+        if (value.exists) {
+          var data = value.data();
+          if (data![year] != null) {
+            var newData = data[year].map((element, index) =>
+                index == month ? element + transactionValue : element);
+            // var generalBalance = newData.sum(); Somar elementos da lista
+          }
+        } else {
+          _db.collection('balances').doc(userManager.user!.uid).set({
+            year: List.generate(
+                12, (index) => index == month ? transactionValue : 0),
+            'general_balance': transactionValue
+          });
+        }
+      });
 
       print("document $transactionRefeference added");
     } catch (e) {
