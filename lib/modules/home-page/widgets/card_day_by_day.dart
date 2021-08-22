@@ -185,29 +185,30 @@ class _CardDaybyDayState extends State<CardDaybyDay> {
                               if (!snapshot.hasData) {
                                 switch (snapshot.connectionState) {
                                   case ConnectionState.waiting:
-                                  return Center(
-                          child: Container(
-                              width: 20,
-                              height: 20,
-                              child: CircularProgressIndicator()));               
-                              break;
-                              case ConnectionState.active:
-                              return Row(
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                          left: 16.0, bottom: 16, top: 8),
-                                      child: Text(
-                                          "R\$ 0.00",
-                                          style: AppTextStyles
-                                              .kSubTitleHomeMedium),
-                                    ),
-                                  ],
-                                );
+                                    return Center(
+                                        child: Container(
+                                            width: 20,
+                                            height: 20,
+                                            child:
+                                                CircularProgressIndicator()));
+                                    break;
+                                  case ConnectionState.active:
+                                    return Row(
+                                      children: [
+                                        Padding(
+                                          padding: EdgeInsets.only(
+                                              left: 16.0, bottom: 16, top: 8),
+                                          child: Text("R\$ 0.00",
+                                              style: AppTextStyles
+                                                  .kSubTitleHomeMedium),
+                                        ),
+                                      ],
+                                    );
 
-                                  default: Container();
+                                  default:
+                                    Container();
                                 }
-                                
+
                                 return CircularProgressIndicator();
                               } else if (snapshot.hasData) {
                                 return Row(
@@ -260,9 +261,10 @@ class _CardDaybyDayState extends State<CardDaybyDay> {
                                         : totalValueOut > totalValueIn
                                             ? size.width
                                             : totalValueOut < totalValueIn
-                                                ? ((totalValueIn /
-                                                            totalValueOut) *
-                                                        100) -
+                                                ? ((totalValueOut * 100) /
+                                                            totalValueIn) /
+                                                        100 *
+                                                        size.width -
                                                     32
                                                 : size.width,
                                     height: 11,
@@ -320,9 +322,10 @@ class _CardDaybyDayState extends State<CardDaybyDay> {
                                         : totalValueIn > totalValueOut
                                             ? size.width
                                             : totalValueIn < totalValueOut
-                                                ? ((totalValueOut /
-                                                            totalValueIn) *
-                                                        100) -
+                                                ? ((totalValueIn * 100) /
+                                                            totalValueOut) /
+                                                        100 *
+                                                        size.width -
                                                     32
                                                 : size.width,
                                     height: 11,
