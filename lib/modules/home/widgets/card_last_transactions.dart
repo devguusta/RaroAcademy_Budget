@@ -16,11 +16,11 @@ class LastTransactions extends StatelessWidget {
     double totalValueInLastTransactions = 0;
     double totalValueOutLastTransactions = 0;
     var list = [];
-    Size size = MediaQuery.of(context).size;
     return SingleChildScrollView(
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+        padding: EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 40.0),
         child: Container(
+          padding: EdgeInsets.only(bottom: 8.0),
           decoration: BoxDecoration(
             boxShadow: const [
               BoxShadow(

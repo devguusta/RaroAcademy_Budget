@@ -32,6 +32,7 @@ class _TransactionWidgetState extends State<TransactionWidget> {
   Widget build(BuildContext context) {
     return Material(
       child: Ink(
+        color: Colors.white,
         child: InkWell(
           onTap: widget.onTap,
           child: Container(

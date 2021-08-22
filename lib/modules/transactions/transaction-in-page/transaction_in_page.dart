@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
-import 'package:raro_academy_budget/modules/transactions/transaction-in-page/widgets/transaction_in_input_widget.dart';
 import 'package:raro_academy_budget/modules/transactions/widgets/transaction_input_widget.dart';
 import 'package:raro_academy_budget/shared/controllers/transaction_controller.dart';
 import 'package:raro_academy_budget/shared/models/transaction_model.dart';

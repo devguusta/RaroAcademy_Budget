@@ -6,12 +6,14 @@ class ButtonWidget extends StatelessWidget {
   final String? buttonText;
   final IconData? buttonIcon;
   final VoidCallback? onTap;
+  final double? size;
 
   const ButtonWidget({
     Key? key,
     this.buttonText = '',
     this.buttonIcon,
     this.onTap,
+    this.size,
   }) : super(key: key);
 
   @override
@@ -41,6 +43,7 @@ class ButtonWidget extends StatelessWidget {
                 Icon(
                   buttonIcon,
                   color: Colors.white,
+                  size: size,
                 ),
                 Text(
                   buttonText!.toUpperCase(),

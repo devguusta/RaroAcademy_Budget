@@ -28,7 +28,7 @@ class TransactionPageWidget extends StatelessWidget {
               flex: 1,
               child: Container(
                 decoration: BoxDecoration(
-                  gradient: AppColors.kblueGradient2,
+                  gradient: AppColors.kblueGradientAppBar,
                   boxShadow: [
                     BoxShadow(
                       color: Colors.grey.withOpacity(0.25),

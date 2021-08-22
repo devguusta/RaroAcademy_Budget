@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:intl/intl.dart';
-import 'package:raro_academy_budget/modules/transactions/transaction-in-page/widgets/transaction_in_input_widget.dart';
 import 'package:raro_academy_budget/modules/transactions/transaction_manager.dart';
 import 'package:raro_academy_budget/modules/transactions/widgets/transaction_date_widget.dart';
 import 'package:raro_academy_budget/modules/transactions/widgets/transaction_input_widget.dart';
@@ -135,7 +134,7 @@ class _UpdatePageState extends State<UpdatePage> {
           },
         ),
         children: [
-          TransactionInInputWidget(
+          TransactionInputValue(
             hintText: "Valor em R\$",
             labelText: "Valor em R\$",
             controller: _amountValue,
@@ -199,7 +198,7 @@ class _UpdatePageState extends State<UpdatePage> {
             },
           ),
           transctioModel.type == "in"
-              ? TransactionInInputWidget(
+              ? TransactionInputValue(
                   hintText: " ",
                   labelText: "Nome da Entrada",
                   controller: _amountDescription,

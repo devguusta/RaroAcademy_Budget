@@ -58,7 +58,6 @@ class _CardGeneralBalanceState extends State<CardGeneralBalance> {
                               width: 20,
                               height: 20,
                               child: CircularProgressIndicator()));
-                      break;
                     case ConnectionState.active:
                       return Observer(builder: (_) {
                         return Column(

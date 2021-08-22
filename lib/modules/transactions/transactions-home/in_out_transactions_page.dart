@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:raro_academy_budget/modules/transactions/widgets/transaction_card_widget.dart';
 import 'package:raro_academy_budget/shared/controllers/transaction_controller.dart';
-import 'package:raro_academy_budget/shared/models/transaction_model.dart';
 import 'package:raro_academy_budget/shared/widgets/drawer_widget.dart';
 import 'package:raro_academy_budget/util/constants/app_colors.dart';
 import 'package:raro_academy_budget/util/constants/app_text_styles.dart';
@@ -43,19 +42,18 @@ class _InOutTransactionsPageState extends State<InOutTransactionsPage> {
     'NOV',
     'DEZ'
   ];
-  
+
   @override
   void initState() {
     streamBalance = controller.getBalance();
     super.initState();
   }
-  
+
   @override
   Widget build(BuildContext context) {
-
     print('tela reinicia');
     Size size = MediaQuery.of(context).size;
-    int indexMonth = months.indexOf(dropdownValue);  
+    int indexMonth = months.indexOf(dropdownValue);
     return Scaffold(
       drawer: DrawerWidget(),
       drawerEnableOpenDragGesture: false,
@@ -87,43 +85,41 @@ class _InOutTransactionsPageState extends State<InOutTransactionsPage> {
                       ),
                     ),
                     child: DropdownButton<String>(
-                                    menuMaxHeight: size.height * 0.3,
-                                    elevation: 8,
-                                    dropdownColor: AppColors.kPurple,
-                                    value: dropdownValue,
-                                    underline: Container(
-                                      height: 0,
-                                    ),
-                                    icon: const Padding(
-                                      padding: EdgeInsets.all(8.0),
-                                      child: Icon(
-                                        Icons.expand_more_outlined,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                    iconSize: 18,
-                                    onChanged: (String? newValue) {
-                                      setState(() {
-                                        indexMonth = months.indexOf(newValue!);
-                                        dropdownValue = newValue;
-                                      });
-                                    },
-                                    items: months.map<DropdownMenuItem<String>>(
-                                        (String value) {
-                                      return DropdownMenuItem<String>(
-                                        value: value,
-                                        child: Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 8.0),
-                                          child: Text(
-                                            value,
-                                            overflow: TextOverflow.ellipsis,
-                                            style:
-                                                AppTextStyles.kNextButtonMedium,
-                                          ),
-                                        ),
-                                      );
-                                    }).toList(),
+                      menuMaxHeight: size.height * 0.3,
+                      elevation: 8,
+                      dropdownColor: AppColors.kPurple,
+                      value: dropdownValue,
+                      underline: Container(
+                        height: 0,
+                      ),
+                      icon: const Padding(
+                        padding: EdgeInsets.all(4.0),
+                        child: Icon(
+                          Icons.expand_more_outlined,
+                          color: Colors.white,
+                        ),
+                      ),
+                      iconSize: 18,
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          indexMonth = months.indexOf(newValue!);
+                          dropdownValue = newValue;
+                        });
+                      },
+                      items:
+                          months.map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 8.0),
+                            child: Text(
+                              value,
+                              overflow: TextOverflow.ellipsis,
+                              style: AppTextStyles.kNextButtonMedium,
+                            ),
+                          ),
+                        );
+                      }).toList(),
                     ),
                   ),
                 ],
@@ -133,25 +129,25 @@ class _InOutTransactionsPageState extends State<InOutTransactionsPage> {
                   builder: (context, snapshot) {
                     if (!snapshot.hasData) {
                       switch (snapshot.connectionState) {
-                  case ConnectionState.waiting:
-                    return Center(
-                        child: Container(
-                            width: 20,
-                            height: 20,
-                            child: CircularProgressIndicator()));
-                  
-                  case ConnectionState.active: return Padding(
-                        padding: const EdgeInsets.only(top: 27, bottom: 11),
-                        child: Text(
-                          "R\$ 0,00",
-                          style: AppTextStyles.kTextTrasanctionHeader,
-                        ),
-                      );
-     
-                  
-                  default:
-                   return Container();
-                }
+                        case ConnectionState.waiting:
+                          return Center(
+                              child: Container(
+                                  width: 20,
+                                  height: 20,
+                                  child: CircularProgressIndicator()));
+
+                        case ConnectionState.active:
+                          return Padding(
+                            padding: const EdgeInsets.only(top: 27, bottom: 11),
+                            child: Text(
+                              "R\$ 0,00",
+                              style: AppTextStyles.kTextTrasanctionHeader,
+                            ),
+                          );
+
+                        default:
+                          return Container();
+                      }
                     } else if (snapshot.hasError) {
                       return Text("Erro ao buscar os dados");
                     } else if (snapshot.hasData) {
@@ -159,15 +155,15 @@ class _InOutTransactionsPageState extends State<InOutTransactionsPage> {
                       totalValueOut = 0;
                       totalValueIn = 0;
                       list.forEach((transaction) async {
-                         print(transaction.date.month);
-                        if(transaction.date == dropdownValue) {   
-                           if (transaction.type == 'out') {
-                          totalValueOut += transaction.value ?? 0;
-                        } else if (transaction.type == 'in') {
-                          totalValueIn += transaction.value ?? 0;
+                        print(transaction.date.month);
+                        if (transaction.date == dropdownValue) {
+                          if (transaction.type == 'out') {
+                            totalValueOut += transaction.value ?? 0;
+                          } else if (transaction.type == 'in') {
+                            totalValueIn += transaction.value ?? 0;
+                          }
+                          balanceTransaction = totalValueIn - totalValueOut;
                         }
-                        balanceTransaction = totalValueIn - totalValueOut;
-                        }   
                       });
                       return Padding(
                         padding: const EdgeInsets.only(top: 27, bottom: 11),

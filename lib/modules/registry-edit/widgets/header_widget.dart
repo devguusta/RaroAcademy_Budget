@@ -8,7 +8,7 @@ class Header extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        gradient: AppColors.kBlueGradient,
+        gradient: AppColors.kblueGradientAppBar,
         boxShadow: [
           BoxShadow(
             color: Colors.grey.withOpacity(0.25),

@@ -47,34 +47,34 @@ class _CardDaybyDayState extends State<CardDaybyDay> {
     Size size = MediaQuery.of(context).size;
     int indexMonth = months.indexOf(dropdownValue);
     return SingleChildScrollView(
-      child: InkWell(
-        onTap: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (_) => const InOutTransactionsPage(),
-            ),
-          );
-        }, // adicionar a função que abre a tela de entradas/saidas/todos
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16),
-          child: Container(
-            decoration: BoxDecoration(
-              boxShadow: const [
-                BoxShadow(
-                  color: Color.fromRGBO(0, 0, 0, 0.12),
-                  // spreadRadius: 1,
-                  blurRadius: 1,
-                  offset: Offset(0, 1),
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 16),
+        child: Ink(
+          decoration: BoxDecoration(
+            boxShadow: const [
+              BoxShadow(
+                color: Color.fromRGBO(0, 0, 0, 0.12),
+                // spreadRadius: 1,
+                blurRadius: 1,
+                offset: Offset(0, 1),
+              ),
+              BoxShadow(
+                color: Color.fromRGBO(0, 0, 0, 0.14),
+                offset: Offset(0, 3),
+                blurRadius: 1,
+              ),
+            ],
+            color: const Color.fromRGBO(253, 253, 253, 1),
+            borderRadius: BorderRadius.circular(7),
+          ),
+          child: InkWell(
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) => const InOutTransactionsPage(),
                 ),
-                BoxShadow(
-                  color: Color.fromRGBO(0, 0, 0, 0.14),
-                  offset: Offset(0, 3),
-                  blurRadius: 1,
-                ),
-              ],
-              color: const Color.fromRGBO(253, 253, 253, 1),
-              borderRadius: BorderRadius.circular(7),
-            ),
+              );
+            }, // adicionar a função que abre a tela de entradas/saidas/todos
             child: StreamBuilder<List<TransactionModel>>(
                 stream: controller.getTransaction(),
                 builder: (context, snapshot) {
@@ -191,7 +191,6 @@ class _CardDaybyDayState extends State<CardDaybyDay> {
                                             height: 20,
                                             child:
                                                 CircularProgressIndicator()));
-                                    break;
                                   case ConnectionState.active:
                                     return Row(
                                       children: [
