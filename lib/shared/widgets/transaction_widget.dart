@@ -30,62 +30,66 @@ class TransactionWidget extends StatefulWidget {
 class _TransactionWidgetState extends State<TransactionWidget> {
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: widget.onTap,
-      child: Container(
-        padding:
-            EdgeInsets.only(top: 16.0, bottom: 12.0, left: 16.0, right: 16.0),
-        child: Flex(
-          direction: Axis.horizontal,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Flex(
+    return Material(
+      child: Ink(
+        child: InkWell(
+          onTap: widget.onTap,
+          child: Container(
+            padding: EdgeInsets.only(
+                top: 16.0, bottom: 12.0, left: 16.0, right: 16.0),
+            child: Flex(
               direction: Axis.horizontal,
-              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                TransactionIconWidget(
-                  category: widget.category,
-                ),
-                SizedBox(width: 8.0),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      width: MediaQuery.of(context).size.width / 2.5,
-                      child: Text(
-                        widget.type == 'in'
-                            ? "${widget.category + ' - ' + widget.description}"
-                            : widget.category,
-                        style: AppTextStyles.kTitleListLastTransictions,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                    Text(
-                      widget.date,
-                      style: AppTextStyles.kDateLastTransictions,
-                    ),
-                  ],
-                ),
-                // SizedBox(width: size.width * 0.25),
-              ],
-            ),
-            Flexible(
-              child: FittedBox(
-                fit: BoxFit.fitWidth,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
+                Flex(
+                  direction: Axis.horizontal,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text(
-                      widget.value,
-                      style: widget.textStyle,
+                    TransactionIconWidget(
+                      category: widget.category,
                     ),
+                    SizedBox(width: 8.0),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width / 2.5,
+                          child: Text(
+                            widget.type == 'in'
+                                ? "${widget.category + ' - ' + widget.description}"
+                                : widget.category,
+                            style: AppTextStyles.kTitleListLastTransictions,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                        Text(
+                          widget.date,
+                          style: AppTextStyles.kDateLastTransictions,
+                        ),
+                      ],
+                    ),
+                    // SizedBox(width: size.width * 0.25),
                   ],
                 ),
-              ),
+                Flexible(
+                  child: FittedBox(
+                    fit: BoxFit.fitWidth,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          widget.value,
+                          style: widget.textStyle,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );

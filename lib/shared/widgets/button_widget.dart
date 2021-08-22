@@ -16,33 +16,38 @@ class ButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      borderRadius: const BorderRadius.all(
+    return Material(
+      borderRadius: BorderRadius.all(
         Radius.circular(24.0),
       ),
-      onTap: onTap,
-      child: Container(
+      child: Ink(
         decoration: const BoxDecoration(
           gradient: AppColors.kblueGradientAppBar,
           borderRadius: BorderRadius.all(
             Radius.circular(24.0),
           ),
         ),
-        child: Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Icon(
-                buttonIcon,
-                color: Colors.white,
-              ),
-              Text(
-                buttonText!.toUpperCase(),
-                style: AppTextStyles.kNextButtonMedium,
-              ),
-            ],
+        child: InkWell(
+          borderRadius: const BorderRadius.all(
+            Radius.circular(24.0),
+          ),
+          onTap: onTap,
+          child: Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Icon(
+                  buttonIcon,
+                  color: Colors.white,
+                ),
+                Text(
+                  buttonText!.toUpperCase(),
+                  style: AppTextStyles.kNextButtonMedium,
+                ),
+              ],
+            ),
           ),
         ),
       ),

@@ -69,7 +69,8 @@ class _ListViewLastTransactionsState extends State<ListViewLastTransactions> {
                           children: [
                             Center(
                               child: Padding(
-                                padding: const EdgeInsets.only(bottom: 24.0, top: 24),
+                                padding: const EdgeInsets.only(
+                                    bottom: 24.0, top: 24),
                                 child: Text(
                                     'Parece que você não realizou nenhuma transação recentemente!',
                                     style: TextStyle(

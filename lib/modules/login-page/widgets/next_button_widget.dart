@@ -32,8 +32,9 @@ class _NextButtonWidgetState extends State<NextButtonWidget> {
             onPressed: widget.onPressed,
             child: Ink(
               decoration: BoxDecoration(
-                  gradient:
-                      widget.onPressed != null ? AppColors.kBlueGradient : null,
+                  gradient: widget.onPressed != null
+                      ? AppColors.kblueGradientAppBar
+                      : null,
                   borderRadius: const BorderRadius.all(Radius.circular(20))),
               child: Padding(
                 padding: const EdgeInsets.all(10.0),

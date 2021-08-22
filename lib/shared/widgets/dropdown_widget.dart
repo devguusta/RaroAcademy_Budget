@@ -22,7 +22,6 @@ class DropdownWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("widget 2 atualizado");
     return Flex(
       direction: Axis.horizontal,
       children: [

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:raro_academy_budget/modules/transactions/transaction-in-page/widgets/transaction_in_input_widget.dart';
+import 'package:raro_academy_budget/modules/transactions/widgets/transaction_input_widget.dart';
 import 'package:raro_academy_budget/shared/controllers/transaction_controller.dart';
 import 'package:raro_academy_budget/shared/models/transaction_model.dart';
 import 'package:raro_academy_budget/shared/widgets/dropdown_item_widget.dart';
@@ -75,15 +76,11 @@ class _InPageState extends State<InPage> {
         },
       ),
       children: [
-        TransactionInInputWidget(
+        TransactionInputValue(
           hintText: "Valor em R\$",
           labelText: "Valor em R\$",
           controller: _amountValue,
           keyboardType: TextInputType.numberWithOptions(decimal: true),
-          textInputAction: TextInputAction.next,
-          onEditingComplete: (){
-            FocusScope.of(context).nextFocus();
-          },
           inputFormat:
               FilteringTextInputFormatter.allow(RegExp(r'^\d{1,3}\.?\d{0,2}')),
         ),
@@ -134,7 +131,7 @@ class _InPageState extends State<InPage> {
             },
           ),
         ),
-        TransactionInInputWidget(
+        TransactionInputValue(
           hintText: " ",
           labelText: "Nome da Entrada",
           controller: _amountDescription,

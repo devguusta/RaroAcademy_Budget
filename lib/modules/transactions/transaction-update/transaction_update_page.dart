@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:raro_academy_budget/modules/transactions/transaction-in-page/widgets/transaction_in_input_widget.dart';
 import 'package:raro_academy_budget/modules/transactions/widgets/transaction_date_widget.dart';
+import 'package:raro_academy_budget/modules/transactions/widgets/transaction_input_widget.dart';
 import 'package:raro_academy_budget/shared/controllers/transaction_controller.dart';
 import 'package:raro_academy_budget/shared/models/transaction_model.dart';
 import 'package:raro_academy_budget/shared/widgets/button_widget.dart';
@@ -120,17 +121,17 @@ class _UpdatePageState extends State<UpdatePage> {
               type: transctioModel.type,
               category: _value!.category,
               description:
-                  transctioModel.type == "in" ? _amountDescription.text : null,
+                  transctioModel.type == "in" ? _amountDescription.text : ' ',
               userId: transctioModel.userId!,
               date: _dateTime!,
-              transactionId: transctioModel.transactionId!,
+              transactionId: transctioModel.transactionId,
             ),
           );
           Navigator.pop(context);
         },
       ),
       children: [
-        TransactionInInputWidget(
+        TransactionInputValue(
           hintText: "Valor em R\$",
           labelText: "Valor em R\$",
           controller: _amountValue,
@@ -180,7 +181,7 @@ class _UpdatePageState extends State<UpdatePage> {
           },
         ),
         TransactionDateWidget(
-          date: DateFormat("dd/MM/yyyy").format(transctioModel.date),
+          date: DateFormat("dd/MM/yyyy").format(_dateTime!),
           onPressed: () {
             showDatePicker(
               context: context,
