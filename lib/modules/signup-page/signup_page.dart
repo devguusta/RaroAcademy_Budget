@@ -23,21 +23,24 @@ class SignUpPage extends StatefulWidget {
 enum SingingCharacter { yes, no }
 
 class _SignUpPageState extends State<SignUpPage> {
- 
   final controller = SignUpManager();
   final formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final MaskedTextController _cpfController = MaskedTextController(mask: '000.000.000-00');
-  final MaskedTextController _phoneController = MaskedTextController(mask:"(00)00000-0000");
-  final TextEditingController _confirmpasswordController = TextEditingController();
+  final MaskedTextController _cpfController =
+      MaskedTextController(mask: '000.000.000-00');
+  final MaskedTextController _phoneController =
+      MaskedTextController(mask: "(00)00000-0000");
+  final TextEditingController _confirmpasswordController =
+      TextEditingController();
   final TextEditingController _nameController = TextEditingController();
   SingingCharacter? character = SingingCharacter.no;
- 
+
   @override
   initState() {
     super.initState();
   }
+
   @override
   dispose() {
     _nameController.dispose();
@@ -46,7 +49,7 @@ class _SignUpPageState extends State<SignUpPage> {
     _cpfController.dispose();
     _phoneController.dispose();
     _confirmpasswordController.dispose();
-    
+
     super.dispose();
   }
 
@@ -126,46 +129,41 @@ class _SignUpPageState extends State<SignUpPage> {
                             children: [
                               Flexible(
                                 child: SignUpUseTerms(
-                                  childRadio: Observer(builder:(_) {
-                                                          return  Checkbox(
-                                value: controller.checkComboBox,
-                                shape: CircleBorder(),
-                                onChanged:(bool? value){                    
-                                  controller.changeComboBox(value);
-                                  print(controller.checkComboBox);      
-                                }        
-                                                          );
-                                                          }),
-                                 
+                                  childRadio: Observer(builder: (_) {
+                                    return Checkbox(
+                                        value: controller.checkComboBox,
+                                        shape: CircleBorder(),
+                                        onChanged: (bool? value) {
+                                          controller.changeComboBox(value);
+                                          print(controller.checkComboBox);
+                                        });
+                                  }),
                                 ),
                               ),
                               Align(
                                 alignment: Alignment.bottomCenter,
                                 child: SignUpFooter(
-                                    page: '3',
-                                    onPressed: () {
-                                      FocusScope.of(context).unfocus();
-                                      if (controller.checkComboBox == true) {
-                                        controller.nextPage();
-                                      } else {
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(
-                                          const SnackBar(
-                                            content: Text(
-                                              "é necessário aceitar os termos de uso para prosseguir",
-                                            ),
+                                  page: '3',
+                                  onPressed: () {
+                                    FocusScope.of(context).unfocus();
+                                    if (controller.checkComboBox == true) {
+                                      controller.nextPage();
+                                    } else {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        const SnackBar(
+                                          content: Text(
+                                            "é necessário aceitar os termos de uso para prosseguir",
                                           ),
-                                        );
-                                      }
-                                    },
-                                    onBack: () {
-                                      controller.backPage();
-                                    },
-                                  
-
+                                        ),
+                                      );
+                                    }
+                                  },
+                                  onBack: () {
+                                    controller.backPage();
+                                  },
                                 ),
-                                ),
-                              
+                              ),
                             ],
                           ),
                           Stack(
@@ -185,19 +183,29 @@ class _SignUpPageState extends State<SignUpPage> {
                                     if (formKey.currentState!.validate()) {
                                       controller.changeTrueLoading();
                                       try {
-                                      bool result = await LoginController()
-                                          .createAccount(
-                                              email: _emailController.text,
-                                              password:
-                                                  _passwordController.text,
-                                              name: _nameController.text,
-                                              phone: _phoneController.text,
-                                              cpf: _cpfController.text);
+                                        bool result = await LoginController()
+                                            .createAccount(
+                                                email: _emailController.text,
+                                                password:
+                                                    _passwordController.text,
+                                                name: _nameController.text,
+                                                phone: _phoneController.text,
+                                                cpf: _cpfController.text);
 
-                                      if (result) {
-                                        controller.changeFalseLoading();
-                                        controller.nextPage();
-                                      } else {
+                                        if (result) {
+                                          controller.changeFalseLoading();
+                                          controller.nextPage();
+                                        } else {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            const SnackBar(
+                                              content: Text(
+                                                "Erro ao cadastrar, verifique sua conexão e tente novamente",
+                                              ),
+                                            ),
+                                          );
+                                        }
+                                      } catch (e) {
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(
                                           const SnackBar(
@@ -207,19 +215,9 @@ class _SignUpPageState extends State<SignUpPage> {
                                           ),
                                         );
                                       }
-                                    } catch (e) {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        const SnackBar(
-                                          content: Text(
-                                            "Erro ao cadastrar, verifique sua conexão e tente novamente",
-                                          ),
-                                        ),
-                                      );
+                                      controller.changeFalseLoading();
                                     }
-                                    controller.changeFalseLoading();
-                                    };
-                                    
+                                    ;
                                   },
                                   onBack: () {
                                     controller.backPage();
