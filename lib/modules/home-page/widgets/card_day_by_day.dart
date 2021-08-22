@@ -183,6 +183,31 @@ class _CardDaybyDayState extends State<CardDaybyDay> {
                             stream: dayByDay,
                             builder: (context, snapshot) {
                               if (!snapshot.hasData) {
+                                switch (snapshot.connectionState) {
+                                  case ConnectionState.waiting:
+                                  return Center(
+                          child: Container(
+                              width: 20,
+                              height: 20,
+                              child: CircularProgressIndicator()));               
+                              break;
+                              case ConnectionState.active:
+                              return Row(
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.only(
+                                          left: 16.0, bottom: 16, top: 8),
+                                      child: Text(
+                                          "R\$ 0.00",
+                                          style: AppTextStyles
+                                              .kSubTitleHomeMedium),
+                                    ),
+                                  ],
+                                );
+
+                                  default: Container();
+                                }
+                                
                                 return CircularProgressIndicator();
                               } else if (snapshot.hasData) {
                                 return Row(
