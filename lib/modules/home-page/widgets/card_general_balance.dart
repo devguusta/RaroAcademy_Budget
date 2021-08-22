@@ -47,7 +47,7 @@ class _CardGeneralBalanceState extends State<CardGeneralBalance> {
           stream: controller.getBalance(),
           builder: (context, snapshot) {
             if(!snapshot.hasData){
-               return Center(child: CircularProgressIndicator());
+               return Center(child: Container(width: 20, height: 20,child: CircularProgressIndicator()));
                 } else if (snapshot.hasError) {
                   return Text("Erro ao buscar os dados");
             } else if(snapshot.hasData) {

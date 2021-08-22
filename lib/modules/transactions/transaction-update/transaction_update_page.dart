@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:intl/intl.dart';
 import 'package:raro_academy_budget/modules/transactions/transaction-in-page/widgets/transaction_in_input_widget.dart';
-import 'package:raro_academy_budget/modules/transactions/transaction_controller.dart';
+import 'package:raro_academy_budget/modules/transactions/transaction_manager.dart';
 import 'package:raro_academy_budget/modules/transactions/widgets/transaction_date_widget.dart';
 import 'package:raro_academy_budget/shared/controllers/transaction_controller.dart';
 import 'package:raro_academy_budget/shared/models/transaction_model.dart';
@@ -29,7 +29,6 @@ class _UpdatePageState extends State<UpdatePage> {
   DropDownMenuItem? _value;
   TextEditingController _amountValue = TextEditingController();
   TextEditingController _amountDescription = TextEditingController();
-  DateTime? _dateTime;
   final controller = TransactionManager();
 
   @override
@@ -193,7 +192,6 @@ class _UpdatePageState extends State<UpdatePage> {
                 firstDate: DateTime(2020),
                 lastDate: DateTime(2022),
               ).then((date) {
-                //TODO: falta atualizar na tela
                 controller.changeDateTime(date!);
                 print(controller.dateTime);
               });

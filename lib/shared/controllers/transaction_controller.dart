@@ -45,9 +45,16 @@ class TransactionController {
       throw e;
     }
   }
-  Stream<List<TransactionModel>> getBalance()  {
+  // Stream<List<TransactionModel>> getBalance()  {
+  //   try {
+  //     return repository.getBalance();
+  //   } catch (e) {
+  //     throw e;
+  //   }
+  // }
+   Stream<List<TransactionModel>> getBalance()  {
     try {
-      return repository.getTransaction();
+      return repository.getBalance();
     } catch (e) {
       throw e;
     }

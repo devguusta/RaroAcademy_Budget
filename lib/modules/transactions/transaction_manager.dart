@@ -1,5 +1,5 @@
 import 'package:mobx/mobx.dart';
-part 'transaction_controller.g.dart';
+part 'transaction_manager.g.dart';
 
 class TransactionManager = _TransactionManagerBase with _$TransactionManager;
 

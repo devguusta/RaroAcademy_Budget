@@ -7,6 +7,7 @@ import 'dart:math' as math;
 class TransactionRepository {
   final UserManager userManager = GetIt.I<UserManager>();
   FirebaseFirestore _db = FirebaseFirestore.instance;
+  CollectionReference get tarefas => FirebaseFirestore.instance.collection("/balances");
   String year = '';
   int month = 0;
 
@@ -76,23 +77,22 @@ class TransactionRepository {
     }
   }
 
-  // Future<List<TransactionModel>> getBalanceF() async {
-  //   try{
-  //     final balance = await _db.collection("balances").doc(userManager.user!.uid).get();
+  // Future<List> getBalance() async {
+  //  return (await tarefas.get()).docs.map((e) =>{"general_balance":e.data['general_balance']});
     
   // } catch(e){
   //   throw e;
-  //   print("e");
+    
   // }
 
-  //   }
+    // }
     // return _db.collection("balances").doc(userManager.user!.uid);
 
   Stream<List<TransactionModel>> getBalance() {
     try {
      return _db
           .collection("balances")
-          .where("userId", isEqualTo: userManager.user!.uid).where("type", isEqualTo: 'test')
+          .where("userId", isEqualTo: userManager.user!.uid)
           .orderBy("date", descending: true)
           .snapshots()
           .map((e) => e.docs

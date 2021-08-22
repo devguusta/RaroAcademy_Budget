@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'transaction_controller.dart';
+part of 'transaction_manager.dart';
 
 // **************************************************************************
 // StoreGenerator
