@@ -30,7 +30,7 @@ class TransactionController {
     }
   }
 
-  Stream<List<TransactionModel>> getInTransaction()  {
+  Stream<List<TransactionModel>> getInTransaction() {
     try {
       return repository.getInTransaction();
     } catch (e) {
@@ -38,13 +38,14 @@ class TransactionController {
     }
   }
 
-  Stream<List<TransactionModel>> getTransaction()  {
+  Stream<List<TransactionModel>> getTransaction() {
     try {
       return repository.getTransaction();
     } catch (e) {
       throw e;
     }
   }
+
   // Stream<List<TransactionModel>> getBalance()  {
   //   try {
   //     return repository.getBalance();
@@ -52,7 +53,7 @@ class TransactionController {
   //     throw e;
   //   }
   // }
-   Stream<List<TransactionModel>> getBalance()  {
+  Stream<Map<String, dynamic>?> getBalance() {
     try {
       return repository.getBalance();
     } catch (e) {
@@ -60,9 +61,8 @@ class TransactionController {
     }
   }
 
-
   Stream<List<TransactionModel>> getLastTransaction() {
-    try{
+    try {
       return repository.getLastTransaction();
     } catch (e) {
       throw e;
