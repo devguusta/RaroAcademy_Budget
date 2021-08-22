@@ -23,85 +23,88 @@ class _CardGeneralBalanceState extends State<CardGeneralBalance> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return SingleChildScrollView(
-      child: Container(
-        width: size.width * 0.9,
-        decoration: BoxDecoration(
-          boxShadow: const [
-            BoxShadow(
-              color: Color.fromRGBO(0, 0, 0, 0.12),
-              // spreadRadius: 1,
-              blurRadius: 1,
-              offset: Offset(0, 1),
-            ),
-            BoxShadow(
-              color: Color.fromRGBO(0, 0, 0, 0.14),
-              offset: Offset(0, 3),
-              blurRadius: 1,
-            ),
-          ],
-          color: const Color.fromRGBO(253, 253, 253, 1),
-          borderRadius: BorderRadius.circular(7),
-        ),
-        child: StreamBuilder<Map<String, dynamic>?>(
-            stream: controller.getBalance(),
-            builder: (context, snapshot) {
-              if (!snapshot.hasData) {
-                return Center(
-                    child: Container(
-                        width: 20,
-                        height: 20,
-                        child: CircularProgressIndicator()));
-              } else if (snapshot.hasError) {
-                return Text("Erro ao buscar os dados");
-              } else if (snapshot.hasData) {
-                return Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        left: 16.0,
-                        right: 16,
-                        top: 16,
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text(
-                            "Saldo geral",
-                            style: AppTextStyles.kTitleHomeMedium,
-                          ),
-                          VisibleWidget(
-                            visible: balanceVisible,
-                            onPressed: () {
-                              setState(() {
-                                balanceVisible = !balanceVisible;
-                              });
-                            },
-                          )
-                        ],
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.bottomLeft,
-                      child: Padding(
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+        child: Container(
+          width: size.width * 0.9,
+          decoration: BoxDecoration(
+            boxShadow: const [
+              BoxShadow(
+                color: Color.fromRGBO(0, 0, 0, 0.12),
+                // spreadRadius: 1,
+                blurRadius: 1,
+                offset: Offset(0, 1),
+              ),
+              BoxShadow(
+                color: Color.fromRGBO(0, 0, 0, 0.14),
+                offset: Offset(0, 3),
+                blurRadius: 1,
+              ),
+            ],
+            color: const Color.fromRGBO(253, 253, 253, 1),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: StreamBuilder<Map<String, dynamic>?>(
+              stream: controller.getBalance(),
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) {
+                  return Center(
+                      child: Container(
+                          width: 20,
+                          height: 20,
+                          child: CircularProgressIndicator()));
+                } else if (snapshot.hasError) {
+                  return Text("Erro ao buscar os dados");
+                } else if (snapshot.hasData) {
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Padding(
                         padding: const EdgeInsets.only(
                           left: 16.0,
-                          bottom: 16,
+                          right: 16,
+                          top: 16,
                         ),
-                        child: balanceVisible
-                            ? Container()
-                            : Text(
-                                "${snapshot.data!['general_balance']}",
-                                style: AppTextStyles.kSubTitleHomeMedium,
-                              ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text(
+                              "Saldo geral",
+                              style: AppTextStyles.kTitleHomeMedium,
+                            ),
+                            VisibleWidget(
+                              visible: balanceVisible,
+                              onPressed: () {
+                                setState(() {
+                                  balanceVisible = !balanceVisible;
+                                });
+                              },
+                            )
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
-                );
-              } else {
-                return Container();
-              }
-            }),
+                      Align(
+                        alignment: Alignment.bottomLeft,
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                            left: 16.0,
+                            bottom: 16,
+                          ),
+                          child: balanceVisible
+                              ? Container()
+                              : Text(
+                                  "${snapshot.data!['general_balance']}",
+                                  style: AppTextStyles.kSubTitleHomeMedium,
+                                ),
+                        ),
+                      ),
+                    ],
+                  );
+                } else {
+                  return Container();
+                }
+              }),
+        ),
       ),
     );
   }
