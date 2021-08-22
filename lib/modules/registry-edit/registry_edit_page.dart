@@ -41,26 +41,27 @@ class _RegistryEditPageState extends State<RegistryEditPage> {
         preferredSize:
             Size.fromHeight(MediaQuery.of(context).size.height * 0.3),
       ),
-      body: Stack(
-        children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(16, 16, 16, 40),
-            child: Container(
-              height: MediaQuery.of(context).size.height * 0.6,
-              padding: const EdgeInsets.symmetric(vertical: 35),
-              decoration: BoxDecoration(
-                borderRadius: const BorderRadius.all(Radius.circular(7.0)),
-                color: const Color(0xFFFDFDFD),
-                boxShadow: [
-                  AppShadows.opacity012,
-                  AppShadows.opacity014,
-                  AppShadows.opacity020,
-                ],
-              ),
-              child: SingleChildScrollView(
+      body: SingleChildScrollView(
+        child: Stack(
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 16, 16, 40),
+              child: Container(
+                height: MediaQuery.of(context).size.height * 0.6,
+                padding: const EdgeInsets.symmetric(vertical: 35),
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.all(Radius.circular(7.0)),
+                  color: const Color(0xFFFDFDFD),
+                  boxShadow: [
+                    AppShadows.opacity012,
+                    AppShadows.opacity014,
+                    AppShadows.opacity020,
+                  ],
+                ),
                 child: Form(
                   key: form,
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       InputForm(
                         hintText: "Nome",
@@ -78,7 +79,6 @@ class _RegistryEditPageState extends State<RegistryEditPage> {
                           return null;
                         },
                       ),
-                      const SizedBox(height: 22),
                       InputForm(
                         hintText: "CPF",
                         labelText: "CPF",
@@ -94,7 +94,6 @@ class _RegistryEditPageState extends State<RegistryEditPage> {
                           return null;
                         },
                       ),
-                      const SizedBox(height: 22),
                       InputForm(
                         enabled: false,
                         hintText: "Email",
@@ -107,7 +106,6 @@ class _RegistryEditPageState extends State<RegistryEditPage> {
                           return null;
                         },
                       ),
-                      const SizedBox(height: 22),
                       InputForm(
                         hintText: "Celular",
                         labelText: "Celular",
@@ -128,38 +126,40 @@ class _RegistryEditPageState extends State<RegistryEditPage> {
                 ),
               ),
             ),
-          ),
-          Positioned(
-            bottom: 20.0,
-            right: MediaQuery.of(context).size.width / 3.8,
-            child: ButtonWidget(
-              onTap: () async {
-                if (form.currentState!.validate()) {
-                  form.currentState!.save();
-                  setState(() {
-                    loading = true;
-                  });
-                  SharedPreferences _prefs =
-                      await SharedPreferences.getInstance();
+            Positioned(
+              bottom: 16.0,
+              right: MediaQuery.of(context).size.width / 3.8,
+              child: ButtonWidget(
+                onTap: () async {
+                  if (form.currentState!.validate()) {
+                    form.currentState!.save();
+                    setState(() {
+                      loading = true;
+                    });
+                    SharedPreferences _prefs =
+                        await SharedPreferences.getInstance();
 
-                  UserModel newUser = userManager.user!.copyWith(
-                      name: nameEditing, cpf: cpfEditing, phone: phoneEditing);
+                    UserModel newUser = userManager.user!.copyWith(
+                        name: nameEditing,
+                        cpf: cpfEditing,
+                        phone: phoneEditing);
 
-                  LoginController().updateUser(newUser);
+                    LoginController().updateUser(newUser);
 
-                  userManager.setUser(newUser);
-                  _prefs.setString("user", json.encode(newUser.toJson()));
-                  setState(() {
-                    loading = false;
-                  });
-                  Navigator.of(context).pop();
-                }
-              },
-              buttonText: "Salvar Alterações",
-              size: 0,
-            ),
-          )
-        ],
+                    userManager.setUser(newUser);
+                    _prefs.setString("user", json.encode(newUser.toJson()));
+                    setState(() {
+                      loading = false;
+                    });
+                    Navigator.of(context).pop();
+                  }
+                },
+                buttonText: "Salvar Alterações",
+                size: 0,
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
