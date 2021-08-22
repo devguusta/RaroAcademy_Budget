@@ -1,7 +1,7 @@
 import 'package:animated_card/animated_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:raro_academy_budget/modules/signup-page/signup_manager.dart';
+import 'package:raro_academy_budget/modules/signup/signup_manager.dart';
 
 import 'package:raro_academy_budget/shared/widgets/input_form_widget.dart';
 import 'package:raro_academy_budget/shared/widgets/visible_widget.dart';
@@ -25,14 +25,14 @@ class PageViewFor extends StatefulWidget {
 
 class _PageViewForState extends State<PageViewFor> {
   String password = '';
-  bool passwordVisible =false;
-  bool confirmPasswordVisible =false;
+  bool passwordVisible = false;
+  bool confirmPasswordVisible = false;
   final controller = SignUpManager();
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Observer(builder: (_){
+    return Observer(builder: (_) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -88,45 +88,42 @@ class _PageViewForState extends State<PageViewFor> {
           ),
           SizedBox(height: size.height * 0.01),
           InputForm(
-            hintText: "Crie uma senha",
-            labelText: "Senha",
-            
-            controller: widget.passwordController,
-            onChanged: (value) {
-              password = value;
-            },
-            validator: (value) => Validators().validatePassword(value!),
-            keyboardType: TextInputType.visiblePassword,
-            obscureText: !controller.passwordVisible,
-            onEditingComplete: (){
-              FocusScope.of(context).nextFocus();
-            },
-            suffixIcon: VisibleWidget(
-            visible: !controller.passwordVisible, 
-            onPressed: (){
-              controller.changePasswordVisible();
-            })
-          ),
+              hintText: "Crie uma senha",
+              labelText: "Senha",
+              controller: widget.passwordController,
+              onChanged: (value) {
+                password = value;
+              },
+              validator: (value) => Validators().validatePassword(value!),
+              keyboardType: TextInputType.visiblePassword,
+              obscureText: !controller.passwordVisible,
+              onEditingComplete: () {
+                FocusScope.of(context).nextFocus();
+              },
+              suffixIcon: VisibleWidget(
+                  visible: !controller.passwordVisible,
+                  onPressed: () {
+                    controller.changePasswordVisible();
+                  })),
           SizedBox(height: size.height * 0.04),
           InputForm(
-            keyboardType: TextInputType.visiblePassword,
-            hintText: "Confirme sua senha",
-            labelText: "Confirmar senha",
-            controller: widget.confirmPasswordController,
-            validator: (value) =>
-            Validators().validateConfirmPassword(value!, password),  
-            onEditingComplete: (){
-              FocusScope.of(context).unfocus();
-            },
-            obscureText: !controller.confirmPasswordVisible,
-            suffixIcon: VisibleWidget(
-            visible: !controller.confirmPasswordVisible, 
-            onPressed: (){
-              controller.changeconfirmPasswordVisible();
-            })
-          ),
+              keyboardType: TextInputType.visiblePassword,
+              hintText: "Confirme sua senha",
+              labelText: "Confirmar senha",
+              controller: widget.confirmPasswordController,
+              validator: (value) =>
+                  Validators().validateConfirmPassword(value!, password),
+              onEditingComplete: () {
+                FocusScope.of(context).unfocus();
+              },
+              obscureText: !controller.confirmPasswordVisible,
+              suffixIcon: VisibleWidget(
+                  visible: !controller.confirmPasswordVisible,
+                  onPressed: () {
+                    controller.changeconfirmPasswordVisible();
+                  })),
         ],
-    );
+      );
     });
   }
 }

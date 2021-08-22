@@ -1,14 +1,14 @@
 import 'package:extended_masked_text/extended_masked_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:raro_academy_budget/modules/login-page/initial_login_page.dart';
-import 'package:raro_academy_budget/modules/signup-page/page-view/page_view_for.dart';
-import 'package:raro_academy_budget/modules/signup-page/page-view/page_view_onboarding.dart';
-import 'package:raro_academy_budget/modules/signup-page/page-view/page_view_one.dart';
-import 'package:raro_academy_budget/modules/signup-page/page-view/page_view_two.dart';
-import 'package:raro_academy_budget/modules/signup-page/signup-footer/signup_footer.dart';
-import 'package:raro_academy_budget/modules/signup-page/page-view/signup_use_terms.dart';
-import 'package:raro_academy_budget/modules/signup-page/signup_manager.dart';
+import 'package:raro_academy_budget/modules/login/initial_login_page.dart';
+import 'package:raro_academy_budget/modules/signup/page-view/page_view_for.dart';
+import 'package:raro_academy_budget/modules/signup/page-view/page_view_onboarding.dart';
+import 'package:raro_academy_budget/modules/signup/page-view/page_view_one.dart';
+import 'package:raro_academy_budget/modules/signup/page-view/page_view_two.dart';
+import 'package:raro_academy_budget/modules/signup/signup-footer/signup_footer.dart';
+import 'package:raro_academy_budget/modules/signup/page-view/signup_use_terms.dart';
+import 'package:raro_academy_budget/modules/signup/signup_manager.dart';
 import 'package:raro_academy_budget/shared/controllers/login_controller.dart';
 
 class SignUpPage extends StatefulWidget {

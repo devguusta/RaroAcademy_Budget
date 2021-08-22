@@ -1,8 +1,8 @@
 import 'package:animated_card/animated_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:raro_academy_budget/modules/home-page/home_page.dart';
-import 'package:raro_academy_budget/modules/login-page/login_manager.dart';
+import 'package:raro_academy_budget/modules/home/home_page.dart';
+import 'package:raro_academy_budget/modules/login/login_manager.dart';
 import 'package:raro_academy_budget/shared/controllers/login_controller.dart';
 import 'package:raro_academy_budget/shared/models/user_model.dart';
 import 'package:raro_academy_budget/shared/widgets/input_form_widget.dart';
@@ -26,7 +26,6 @@ class _PasswordPageState extends State<PasswordPage> {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool loading = false;
-
 
   @override
   Widget build(BuildContext context) {
@@ -59,47 +58,42 @@ class _PasswordPageState extends State<PasswordPage> {
             ),
             SizedBox(height: size.height * 0.1),
             Form(
-              key: _formKey,
-              child: Observer(builder: (_){
-                return Column(
-                  children: [
-                    InputForm(
-                      hintText: "Insira seu e-mail",
-                      labelText: "E-mail",
-                      initialValue: widget.email,
-                      enabled: false,
-                      keyboardType: TextInputType.emailAddress,
-                      onEditingComplete: (){
-                        FocusScope.of(context).nextFocus();
-                      },
-                      
-                    ),
-                    const SizedBox(height: 50.0),
-                    InputForm(
-                      hintText: 'Senha',
-                      labelText: 'Senha',
-                      controller: passwordController,
-                      obscureText: !controller.passwordVisible,
-                      suffixIcon: VisibleWidget(
-                      visible: !controller.passwordVisible, 
-                      onPressed: (){
-                       controller.changePasswordVisible();
-                          
-                        }),
-                      // onChanged: (value) {},
-                      validator: (value) {
-                        if (value!.length < 6) {
-                          return 'A senha deve ter no mínimo 6 caracteres';
-                        }
-                      },
-                      keyboardType: TextInputType.text,
-                    ),
-                  ],
-                );      
-              })
-              
-             
-            ),
+                key: _formKey,
+                child: Observer(builder: (_) {
+                  return Column(
+                    children: [
+                      InputForm(
+                        hintText: "Insira seu e-mail",
+                        labelText: "E-mail",
+                        initialValue: widget.email,
+                        enabled: false,
+                        keyboardType: TextInputType.emailAddress,
+                        onEditingComplete: () {
+                          FocusScope.of(context).nextFocus();
+                        },
+                      ),
+                      const SizedBox(height: 50.0),
+                      InputForm(
+                        hintText: 'Senha',
+                        labelText: 'Senha',
+                        controller: passwordController,
+                        obscureText: !controller.passwordVisible,
+                        suffixIcon: VisibleWidget(
+                            visible: !controller.passwordVisible,
+                            onPressed: () {
+                              controller.changePasswordVisible();
+                            }),
+                        // onChanged: (value) {},
+                        validator: (value) {
+                          if (value!.length < 6) {
+                            return 'A senha deve ter no mínimo 6 caracteres';
+                          }
+                        },
+                        keyboardType: TextInputType.text,
+                      ),
+                    ],
+                  );
+                })),
             const SizedBox(height: 16.0),
             SizedBox(
               width: double.infinity,

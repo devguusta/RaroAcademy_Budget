@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:raro_academy_budget/modules/signup-page/signup_manager.dart';
-import 'package:raro_academy_budget/modules/signup-page/signup_page.dart';
+import 'package:raro_academy_budget/modules/login/password-page/password_page.dart';
+import 'package:raro_academy_budget/modules/login/widgets/facebook_button_widget.dart';
+import 'package:raro_academy_budget/modules/login/widgets/google_button_widget.dart';
+import 'package:raro_academy_budget/modules/signup/signup_manager.dart';
 import 'package:raro_academy_budget/shared/controllers/login_controller.dart';
-import 'package:raro_academy_budget/modules/login-page/password-page/password_page.dart';
-import 'package:raro_academy_budget/modules/login-page/widgets/facebook_button_widget.dart';
-import 'package:raro_academy_budget/modules/login-page/widgets/google_button_widget.dart';
 import 'package:raro_academy_budget/shared/widgets/input_form_widget.dart';
 import 'package:raro_academy_budget/util/constants/app_text_styles.dart';
 import 'package:raro_academy_budget/util/validators/text_validator.dart';
@@ -50,7 +49,7 @@ class _SingleEmailFormWidgetState extends State<SingleEmailFormWidget> {
               builder: (_) => PasswordPage(email: _inputController.text),
             ),
           );
-        } 
+        }
       };
     }
     return Form(
@@ -58,9 +57,9 @@ class _SingleEmailFormWidgetState extends State<SingleEmailFormWidget> {
       child: Column(
         children: [
           GestureDetector(
-            onTap: (){
+            onTap: () {
               FocusScopeNode currentFocus = FocusScope.of(context);
-              if(!currentFocus.hasPrimaryFocus){
+              if (!currentFocus.hasPrimaryFocus) {
                 currentFocus.unfocus();
               }
             },

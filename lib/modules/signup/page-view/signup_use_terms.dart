@@ -1,14 +1,13 @@
 import 'package:animated_card/animated_card.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:raro_academy_budget/modules/signup-page/signup_manager.dart';
+import 'package:raro_academy_budget/modules/signup/signup_manager.dart';
 import 'package:raro_academy_budget/util/constants/app_images.dart';
 import 'package:raro_academy_budget/util/constants/app_text_styles.dart';
 
 class SignUpUseTerms extends StatefulWidget {
   final bool? state;
   final Widget? childRadio;
-  
+
   const SignUpUseTerms({
     Key? key,
     this.state,
@@ -75,11 +74,10 @@ class _SignUpUseTermsState extends State<SignUpUseTerms> {
                     Padding(
                       padding: const EdgeInsets.only(bottom: 0.0, left: 8),
                       child: SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.1,
-                         child: widget.childRadio,
-
-                          ),
-                          ),
+                        width: MediaQuery.of(context).size.width * 0.1,
+                        child: widget.childRadio,
+                      ),
+                    ),
                     FittedBox(
                       fit: BoxFit.fitWidth,
                       child: Text(

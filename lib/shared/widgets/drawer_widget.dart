@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
-import 'package:raro_academy_budget/modules/login-page/initial_login_page.dart';
-import 'package:raro_academy_budget/modules/registry-edit-page/registry_edit_page.dart';
+import 'package:raro_academy_budget/modules/login/initial_login_page.dart';
+import 'package:raro_academy_budget/modules/registry-edit/registry_edit_page.dart';
 import 'package:raro_academy_budget/shared/services/user_manager.dart';
 import 'package:raro_academy_budget/util/constants/app_colors.dart';
 import 'package:raro_academy_budget/util/constants/app_text_styles.dart';

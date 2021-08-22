@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:raro_academy_budget/modules/home-page/home_page.dart';
-import 'package:raro_academy_budget/modules/login-page/initial_login_page.dart';
-import 'package:raro_academy_budget/modules/signup-page/signup_page.dart';
-import 'package:raro_academy_budget/modules/splash-page/splash_page.dart';
+import 'package:raro_academy_budget/modules/home/home_page.dart';
+import 'package:raro_academy_budget/modules/login/initial_login_page.dart';
+import 'package:raro_academy_budget/modules/signup/signup_page.dart';
+import 'package:raro_academy_budget/modules/splash/splash_page.dart';
 import 'package:raro_academy_budget/modules/transactions/transaction-in-page/transaction_in_page.dart';
 import 'package:raro_academy_budget/modules/transactions/transaction-out-page/transaction_out_page.dart';
 import 'package:raro_academy_budget/modules/transactions/transaction-update/transaction_update_page.dart';
