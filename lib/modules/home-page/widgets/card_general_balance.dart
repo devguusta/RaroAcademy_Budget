@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:raro_academy_budget/shared/controllers/transaction_controller.dart';
-import 'package:raro_academy_budget/shared/models/transaction_model.dart';
 import 'package:raro_academy_budget/shared/widgets/visible_widget.dart';
 import 'package:raro_academy_budget/util/constants/app_text_styles.dart';
 
@@ -55,19 +54,6 @@ class _CardGeneralBalanceState extends State<CardGeneralBalance> {
               } else if (snapshot.hasError) {
                 return Text("Erro ao buscar os dados");
               } else if (snapshot.hasData) {
-                print(snapshot.data);
-                //     totalValue = 0;
-                //     totalValueOut = 0;
-                //     totalValueIn = 0;
-
-                //     list.forEach((transaction)async {
-                //       if(transaction.type == 'out') {
-                //          totalValueOut += transaction.value;
-                //       } else if(transaction.type == 'in') {
-                //          totalValueIn += transaction.value;
-                //       }
-                //       totalValue = totalValueIn - totalValueOut;
-                //     });
                 return Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -105,7 +91,6 @@ class _CardGeneralBalanceState extends State<CardGeneralBalance> {
                         child: balanceVisible
                             ? Container()
                             : Text(
-                                // "R\$ ${totalValue.toStringAsFixed(2).replaceAll(".",",")}",
                                 "${snapshot.data!['general_balance']}",
                                 style: AppTextStyles.kSubTitleHomeMedium,
                               ),

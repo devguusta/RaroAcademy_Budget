@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get_it/get_it.dart';
 import 'package:raro_academy_budget/shared/models/transaction_model.dart';
 import 'package:raro_academy_budget/shared/services/user_manager.dart';
-import 'dart:math' as math;
 
 class TransactionRepository {
   final UserManager userManager = GetIt.I<UserManager>();
@@ -15,11 +14,9 @@ class TransactionRepository {
   Future<TransactionModel?> addTransaction(
       {required TransactionModel transaction}) async {
     try {
-      final transactionRefeference = await _db
+      await _db
           .collection("transaction")
           .add(transaction.copyWith(userId: userManager.user!.uid).toMap());
-      // int month = transaction.date.month;
-      // var value = transaction.value;
 
       await _db
           .collection('balances')
@@ -33,8 +30,6 @@ class TransactionRepository {
         month = transaction.date.month - 1;
         if (value.exists) {
           var data = value.data();
-
-          // print(data![year]);
           if (data![year] != null) {
             List months = data[year];
 
@@ -56,8 +51,6 @@ class TransactionRepository {
           });
         }
       });
-
-      print("document $transactionRefeference added");
     } catch (e) {
       print(e);
       throw e;
@@ -72,21 +65,17 @@ class TransactionRepository {
           .doc(transaction.transactionId)
           .update(transaction.toMap());
       print("Updated $transactionRefeference");
+      // await _db
+      //     .collection('transaction')
+      //     .doc(transaction.transactionId)
+      //     .get()
+      //     .then((value) {
+      //   value.data()!['value'];
+      // });
     } catch (e) {
       throw e;
     }
   }
-
-  // Future<List> getBalance() async {
-  //  return (await tarefas.get()).docs.map((e) =>{"general_balance":e.data['general_balance']});
-
-  // } catch(e){
-  //   throw e;
-
-  // }
-
-  // }
-  // return _db.collection("balances").doc(userManager.user!.uid);
 
   Stream<Map<String, dynamic>?> getBalance() {
     try {
@@ -162,7 +151,6 @@ class TransactionRepository {
           .map((e) => e.docs
               .map((item) => TransactionModel.fromMap(item.data()))
               .toList());
-      // return response.docs.map((e) => TransactionModel.fromMap(e.data())).toList();
     } catch (e) {
       throw e;
     }
