@@ -22,10 +22,25 @@ class _CardDaybyDayState extends State<CardDaybyDay> {
   double balanceTransaction = 0.0;
   double balanceTotal = 0;
   var list = [];
-  
+  List<String> months = [
+    'JAN',
+    'FEV',
+    'MAR',
+    'ABR',
+    'MAI',
+    'JUN',
+    'JUL',
+    'AGO',
+    'SET',
+    'OUT',
+    'NOV',
+    'DEZ'
+  ];
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    int indexMonth = months.indexOf(dropdownValue);
     return SingleChildScrollView(
       child: InkWell(
         onTap: () {
@@ -66,18 +81,17 @@ class _CardDaybyDayState extends State<CardDaybyDay> {
                   balanceTransaction = 0;
                   totalValueOut = 0;
                   totalValueIn = 0;
-                  balanceTotal = 0;        
-                  list.forEach((transaction)async {
-                    if(transaction.type == 'out') {
-                       totalValueOut += transaction.value ?? 0;
-                    } else if(transaction.type == 'in') {
-                       totalValueIn += transaction.value ?? 0;
+                  balanceTotal = 0;
+                  list.forEach((transaction) async {
+                    if (transaction.type == 'out') {
+                      totalValueOut += transaction.value ?? 0;
+                    } else if (transaction.type == 'in') {
+                      totalValueIn += transaction.value ?? 0;
                     }
-                   balanceTotal = transaction.value;
-                   balanceTransaction = totalValueIn - totalValueOut;
-                 
+                    balanceTotal = transaction.value;
+                    balanceTransaction = totalValueIn - totalValueOut;
                   });
-                  return Column( 
+                  return Column(
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(
@@ -125,23 +139,11 @@ class _CardDaybyDayState extends State<CardDaybyDay> {
                                     iconSize: 18,
                                     onChanged: (String? newValue) {
                                       setState(() {
-                                        dropdownValue = newValue!;
+                                        indexMonth = months.indexOf(newValue!);
+                                        dropdownValue = newValue;
                                       });
                                     },
-                                    items: <String>[
-                                      'JAN',
-                                      'FEV',
-                                      'MAR',
-                                      'ABR',
-                                      'MAI',
-                                      'JUN',
-                                      'JUL',
-                                      'AGO',
-                                      'SET',
-                                      'OUT',
-                                      'NOV',
-                                      'DEZ',
-                                    ].map<DropdownMenuItem<String>>(
+                                    items: months.map<DropdownMenuItem<String>>(
                                         (String value) {
                                       return DropdownMenuItem<String>(
                                         value: value,
@@ -164,18 +166,23 @@ class _CardDaybyDayState extends State<CardDaybyDay> {
                           ],
                         ),
                       ),
+                      StreamBuilder<Map<String, dynamic>?>(
+                          stream: controller.getBalance(),
+                          builder: (context, snapshot) {
+                            return Row(
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                      left: 16.0, bottom: 16, top: 8),
+                                  child: Text(
+                                      "${snapshot.data!['2021'][indexMonth]}",
+                                      style: AppTextStyles.kSubTitleHomeMedium),
+                                ),
+                              ],
+                            );
+                          }),
                       Row(
-                        children:[
-                          Padding(
-                            padding:
-                                EdgeInsets.only(left: 16.0, bottom: 16, top: 8),
-                            child: Text("R\$ ${balanceTransaction.toStringAsFixed(2).replaceAll(".",",")}",
-                                style: AppTextStyles.kSubTitleHomeMedium),
-                          ),
-                        ],
-                      ),
-                      Row(
-                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           const Padding(
                             padding:
@@ -185,8 +192,10 @@ class _CardDaybyDayState extends State<CardDaybyDay> {
                           ),
                           const SizedBox(width: 65),
                           Padding(
-                            padding: const EdgeInsets.only(bottom: 6, top: 16, right: 16),
-                            child: Text("R\$ ${totalValueOut.toStringAsFixed(2).replaceAll(".",",")}",
+                            padding: const EdgeInsets.only(
+                                bottom: 6, top: 16, right: 16),
+                            child: Text(
+                                "R\$ ${totalValueOut.toStringAsFixed(2).replaceAll(".", ",")}",
                                 style: AppTextStyles.kValueDayTransactions),
                           ),
                         ],
@@ -195,24 +204,29 @@ class _CardDaybyDayState extends State<CardDaybyDay> {
                         alignment: Alignment.centerLeft,
                         child: Padding(
                           padding: const EdgeInsets.only(left: 16.0, right: 16),
-                          child: (totalValueOut != 0 && totalValueIn != 0 ) ?
-                          Container(
-                            width: totalValueOut > totalValueIn ?
-                            size.width : totalValueOut < totalValueIn ?
-                            (totalValueOut/totalValueIn) * 100 : size.width*0.45,
-                            height: 11,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(360),
-                              color: const Color.fromRGBO(68, 194, 253, 1),
-                              boxShadow: const [
-                                BoxShadow(
-                                  color: Color.fromRGBO(255, 255, 255, 0.39),
-                                  blurRadius: 1,
-                                  offset: Offset(0, -2),
-                                ),
-                              ],
-                            ),
-                          ) : Container(),
+                          child: (totalValueOut != 0 && totalValueIn != 0)
+                              ? Container(
+                                  width: totalValueOut > totalValueIn
+                                      ? size.width
+                                      : totalValueOut < totalValueIn
+                                          ? (totalValueOut / totalValueIn) * 100
+                                          : size.width * 0.45,
+                                  height: 11,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(360),
+                                    color:
+                                        const Color.fromRGBO(68, 194, 253, 1),
+                                    boxShadow: const [
+                                      BoxShadow(
+                                        color:
+                                            Color.fromRGBO(255, 255, 255, 0.39),
+                                        blurRadius: 1,
+                                        offset: Offset(0, -2),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              : Container(),
                         ),
                       ),
                       Row(
@@ -234,7 +248,7 @@ class _CardDaybyDayState extends State<CardDaybyDay> {
                               right: 18.0,
                             ),
                             child: Text(
-                              'R\$ ${ totalValueIn.toStringAsFixed(2).replaceAll(".",",")}',
+                              'R\$ ${totalValueIn.toStringAsFixed(2).replaceAll(".", ",")}',
                               style: AppTextStyles.kValueDayTransactions,
                             ),
                           ),
@@ -244,28 +258,30 @@ class _CardDaybyDayState extends State<CardDaybyDay> {
                         alignment: Alignment.centerLeft,
                         child: Padding(
                           padding: const EdgeInsets.only(
-                            left: 16.0,
-                            bottom: 16,
-                            right: 16
-                          ),
-                          child: (totalValueOut != 0 && totalValueIn != 0 ) ?
-                          Container(
-                            width: totalValueIn > totalValueOut ?
-                            size.width : totalValueIn < totalValueOut ?
-                            (totalValueIn/totalValueOut) * 100 : size.width * 0.45,
-                            height: 11,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(360),
-                              color: const Color.fromRGBO(250, 199, 54, 1),
-                              boxShadow: const [
-                                BoxShadow(
-                                  color: Color.fromRGBO(255, 255, 255, 0.39),
-                                  blurRadius: 1,
-                                  offset: Offset(0, -2),
-                                ),
-                              ],
-                            ),
-                          ) : Container(),
+                              left: 16.0, bottom: 16, right: 16),
+                          child: (totalValueOut != 0 && totalValueIn != 0)
+                              ? Container(
+                                  width: totalValueIn > totalValueOut
+                                      ? size.width
+                                      : totalValueIn < totalValueOut
+                                          ? (totalValueIn / totalValueOut) * 100
+                                          : size.width * 0.45,
+                                  height: 11,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(360),
+                                    color:
+                                        const Color.fromRGBO(250, 199, 54, 1),
+                                    boxShadow: const [
+                                      BoxShadow(
+                                        color:
+                                            Color.fromRGBO(255, 255, 255, 0.39),
+                                        blurRadius: 1,
+                                        offset: Offset(0, -2),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              : Container(),
                         ),
                       ),
                     ],
