@@ -54,6 +54,21 @@ mixin _$HomeController on _HomeControllerBase, Store {
     });
   }
 
+  final _$visibleAtom = Atom(name: '_HomeControllerBase.visible');
+
+  @override
+  bool get visible {
+    _$visibleAtom.reportRead();
+    return super.visible;
+  }
+
+  @override
+  set visible(bool value) {
+    _$visibleAtom.reportWrite(value, super.visible, () {
+      super.visible = value;
+    });
+  }
+
   final _$checkInternetAsyncAction =
       AsyncAction('_HomeControllerBase.checkInternet');
 
@@ -63,12 +78,27 @@ mixin _$HomeController on _HomeControllerBase, Store {
         _$checkInternetAsyncAction.run(() => super.checkInternet()));
   }
 
+  final _$_HomeControllerBaseActionController =
+      ActionController(name: '_HomeControllerBase');
+
+  @override
+  dynamic changeVisible() {
+    final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
+        name: '_HomeControllerBase.changeVisible');
+    try {
+      return super.changeVisible();
+    } finally {
+      _$_HomeControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''
 isInternet: ${isInternet},
 appStatus: ${appStatus},
-sub: ${sub}
+sub: ${sub},
+visible: ${visible}
     ''';
   }
 }

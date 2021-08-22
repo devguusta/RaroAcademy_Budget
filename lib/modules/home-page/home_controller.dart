@@ -43,9 +43,15 @@ abstract class _HomeControllerBase with Store {
       appStatus = AppStatus.error;
       appStatus.message();
      
-    }
-   
+    }  
 
   }
+  @observable
+    bool visible = true;
+
+    @action
+    changeVisible() {
+      visible = !visible;
+    }
   
 }

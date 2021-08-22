@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
 import 'package:raro_academy_budget/modules/transactions/transaction-in-page/transaction_in_page.dart';
 import 'package:raro_academy_budget/modules/transactions/transaction-out-page/transaction_out_page.dart';
 import 'package:raro_academy_budget/modules/transactions/transaction-update/transaction_update_page.dart';
@@ -10,10 +11,15 @@ import 'package:raro_academy_budget/util/constants/app_colors.dart';
 import 'package:raro_academy_budget/util/constants/app_text_styles.dart';
 
 class TransactionsCardWidget extends StatefulWidget {
-  TransactionsCardWidget({Key? key, required this.context, required this.type})
-      : super(key: key);
+  TransactionsCardWidget({
+    Key? key,
+    required this.valueMonth,
+    required this.context,
+    required this.type,
+  }) : super(key: key);
   final BuildContext context;
   final int type;
+  final int valueMonth;
 
   @override
   _TransactionsCardWidgetState createState() => _TransactionsCardWidgetState();
@@ -76,16 +82,24 @@ class _TransactionsCardWidgetState extends State<TransactionsCardWidget> {
                           totalValueOut = 0;
                           totalValueIn = 0;
                           totalValue = 0;
-                          list.forEach((transaction) async {
-                            if (transaction.type == 'out') {
+                          int month = widget.valueMonth;
+                          var listMonth = [];
+                          list.forEach((transaction) {
+                            
+                            if(transaction.date.month - 1 ==  month) {
+                            
+                             listMonth.add(transaction);
+                             print(listMonth);
+                              if (transaction.type == 'out') {
                               totalValueOut += transaction.value ?? 0;
                             } else if (transaction.type == 'in') {
                               totalValueIn += transaction.value ?? 0;
                             }
                             balanceTransaction = totalValueIn - totalValueOut;
-                            totalValue += transaction.value;
+                            totalValue += transaction.value;             
+                            }              
                           });
-                          return list.length > 0
+                          return listMonth.length > 0
                               ? Column(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
@@ -94,7 +108,7 @@ class _TransactionsCardWidgetState extends State<TransactionsCardWidget> {
                                       child: ListView.builder(
                                         shrinkWrap: true,
                                         primary: false,
-                                        itemCount: list.length,
+                                        itemCount: listMonth.length,
                                         itemBuilder: (_, index) =>
                                             TransactionWidget(
                                           onTap: () {
@@ -102,17 +116,17 @@ class _TransactionsCardWidgetState extends State<TransactionsCardWidget> {
 
                                             Navigator.pushNamed(
                                                 context, UpdatePage.id,
-                                                arguments: list[index]);
+                                                arguments: listMonth[index]);
                                           },
-                                          type: list[index].type,
-                                          category: list[index].category,
-                                          description: list[index].type == 'in'
-                                              ? list[index].description
-                                              : list[index].category,
+                                          type: listMonth[index].type,
+                                          category: listMonth[index].category,
+                                          description: listMonth[index].type == 'in'
+                                              ? listMonth[index].description
+                                              : listMonth[index].category,
                                           date: DateFormat("dd/MM/yyyy")
-                                              .format(list[index].date),
+                                              .format(listMonth[index].date),
                                           value:
-                                              (('R\$ ${list[index].value.toStringAsFixed(2).replaceAll(".", ",")}')),
+                                              (('R\$ ${listMonth[index].value.toStringAsFixed(2).replaceAll(".", ",")}')),
                                           textStyle:
                                               AppTextStyles.kTextTransactions,
                                         ),

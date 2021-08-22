@@ -14,12 +14,13 @@ class InOutTransactionsPage extends StatefulWidget {
 }
 
 class _InOutTransactionsPageState extends State<InOutTransactionsPage> {
-  String dropdownValue = 'Agosto';
   TransactionController controller = TransactionController();
   final pageController = PageController(initialPage: 0);
   double totalValueOut = 0;
   double totalValueIn = 0;
   double balanceTransaction = 0.0;
+  late Stream<Map<String, dynamic>?> streamBalance;
+  String date = '';
   var list = [];
   var inTextStyle =
       AppTextStyles.kInputTextMedium.copyWith(color: Colors.white);
@@ -27,10 +28,34 @@ class _InOutTransactionsPageState extends State<InOutTransactionsPage> {
       .copyWith(color: Color.fromRGBO(255, 255, 255, 0.6));
   var allTextStyle = AppTextStyles.kInputTextMedium
       .copyWith(color: Color.fromRGBO(255, 255, 255, 0.6));
+  String dropdownValue = 'AGO';
+  List<String> months = [
+    'JAN',
+    'FEV',
+    'MAR',
+    'ABR',
+    'MAI',
+    'JUN',
+    'JUL',
+    'AGO',
+    'SET',
+    'OUT',
+    'NOV',
+    'DEZ'
+  ];
+  
+  @override
+  void initState() {
+    streamBalance = controller.getBalance();
+    super.initState();
+  }
+  
   @override
   Widget build(BuildContext context) {
+
     print('tela reinicia');
     Size size = MediaQuery.of(context).size;
+    int indexMonth = months.indexOf(dropdownValue);  
     return Scaffold(
       drawer: DrawerWidget(),
       drawerEnableOpenDragGesture: false,
@@ -62,75 +87,92 @@ class _InOutTransactionsPageState extends State<InOutTransactionsPage> {
                       ),
                     ),
                     child: DropdownButton<String>(
-                      menuMaxHeight: size.height * 0.3,
-                      elevation: 8,
-                      dropdownColor: AppColors.kPurple,
-                      value: dropdownValue,
-                      underline: Container(
-                        height: 0,
-                      ),
-                      icon: Padding(
-                        padding: const EdgeInsets.only(right: 8.0),
-                        child: Icon(Icons.expand_more_outlined,
-                            color: Colors.white),
-                      ),
-                      iconSize: 18,
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          dropdownValue = newValue!;
-                        });
-                      },
-                      items: <String>[
-                        'Janeiro',
-                        'Fevereiro',
-                        'Março',
-                        'Abril',
-                        'Maio',
-                        'Junho',
-                        'Julho',
-                        'Agosto',
-                        'Setembro',
-                        'Outubro',
-                        'Novembro',
-                        'Dezembro',
-                      ].map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(
-                            value.toUpperCase(),
-                            overflow: TextOverflow.ellipsis,
-                            style: AppTextStyles.kNextButtonMedium,
-                          ),
-                        );
-                      }).toList(),
+                                    menuMaxHeight: size.height * 0.3,
+                                    elevation: 8,
+                                    dropdownColor: AppColors.kPurple,
+                                    value: dropdownValue,
+                                    underline: Container(
+                                      height: 0,
+                                    ),
+                                    icon: const Padding(
+                                      padding: EdgeInsets.all(8.0),
+                                      child: Icon(
+                                        Icons.expand_more_outlined,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    iconSize: 18,
+                                    onChanged: (String? newValue) {
+                                      setState(() {
+                                        indexMonth = months.indexOf(newValue!);
+                                        dropdownValue = newValue;
+                                      });
+                                    },
+                                    items: months.map<DropdownMenuItem<String>>(
+                                        (String value) {
+                                      return DropdownMenuItem<String>(
+                                        value: value,
+                                        child: Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 8.0),
+                                          child: Text(
+                                            value,
+                                            overflow: TextOverflow.ellipsis,
+                                            style:
+                                                AppTextStyles.kNextButtonMedium,
+                                          ),
+                                        ),
+                                      );
+                                    }).toList(),
                     ),
                   ),
                 ],
               ),
-              StreamBuilder<List<TransactionModel>>(
-                  stream: controller.getTransaction(),
+              StreamBuilder<Map<String, dynamic>?>(
+                  stream: streamBalance,
                   builder: (context, snapshot) {
                     if (!snapshot.hasData) {
-                      return Center(child: CircularProgressIndicator());
+                      switch (snapshot.connectionState) {
+                  case ConnectionState.waiting:
+                    return Center(
+                        child: Container(
+                            width: 20,
+                            height: 20,
+                            child: CircularProgressIndicator()));
+                  
+                  case ConnectionState.active: return Padding(
+                        padding: const EdgeInsets.only(top: 27, bottom: 11),
+                        child: Text(
+                          "R\$ 0,00",
+                          style: AppTextStyles.kTextTrasanctionHeader,
+                        ),
+                      );
+     
+                  
+                  default:
+                   return Container();
+                }
                     } else if (snapshot.hasError) {
                       return Text("Erro ao buscar os dados");
                     } else if (snapshot.hasData) {
-                      list = snapshot.data ?? [];
                       balanceTransaction = 0;
                       totalValueOut = 0;
                       totalValueIn = 0;
                       list.forEach((transaction) async {
-                        if (transaction.type == 'out') {
+                         print(transaction.date.month);
+                        if(transaction.date == dropdownValue) {   
+                           if (transaction.type == 'out') {
                           totalValueOut += transaction.value ?? 0;
                         } else if (transaction.type == 'in') {
                           totalValueIn += transaction.value ?? 0;
                         }
                         balanceTransaction = totalValueIn - totalValueOut;
+                        }   
                       });
                       return Padding(
                         padding: const EdgeInsets.only(top: 27, bottom: 11),
                         child: Text(
-                          "R\$ ${balanceTransaction.toStringAsFixed(2).replaceAll(".", ",")}",
+                          "R\$ ${snapshot.data!['2021'][indexMonth].toStringAsFixed(2).replaceAll(".", ",")}",
                           style: AppTextStyles.kTextTrasanctionHeader,
                         ),
                       );
@@ -198,14 +240,17 @@ class _InOutTransactionsPageState extends State<InOutTransactionsPage> {
         controller: pageController,
         children: [
           TransactionsCardWidget(
+            valueMonth: indexMonth,
             context: context,
             type: 0,
           ),
           TransactionsCardWidget(
+            valueMonth: indexMonth,
             context: context,
             type: 1,
           ),
           TransactionsCardWidget(
+            valueMonth: indexMonth,
             context: context,
             type: 2,
           ),
