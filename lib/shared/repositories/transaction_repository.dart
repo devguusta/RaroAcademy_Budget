@@ -2,20 +2,21 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get_it/get_it.dart';
 import 'package:raro_academy_budget/shared/models/transaction_model.dart';
 import 'package:raro_academy_budget/shared/services/user_manager.dart';
-import 'dart:math' as math;
 
 class TransactionRepository {
   final UserManager userManager = GetIt.I<UserManager>();
   FirebaseFirestore _db = FirebaseFirestore.instance;
+  CollectionReference get tarefas =>
+      FirebaseFirestore.instance.collection("/balances");
+  String year = '';
+  int month = 0;
 
   Future<TransactionModel?> addTransaction(
       {required TransactionModel transaction}) async {
     try {
-      final transactionRefeference = await _db
+      await _db
           .collection("transaction")
           .add(transaction.copyWith(userId: userManager.user!.uid).toMap());
-      // int month = transaction.date.month;
-      // var value = transaction.value;
 
       await _db
           .collection('balances')
@@ -25,12 +26,10 @@ class TransactionRepository {
         double transactionValue = transaction.type == 'out'
             ? -1 * transaction.value
             : transaction.value;
-        String year = transaction.date.year.toString();
-        int month = transaction.date.month - 1;
+        year = transaction.date.year.toString();
+        month = transaction.date.month - 1;
         if (value.exists) {
           var data = value.data();
-
-          // print(data![year]);
           if (data![year] != null) {
             List months = data[year];
 
@@ -52,8 +51,6 @@ class TransactionRepository {
           });
         }
       });
-
-      print("document $transactionRefeference added");
     } catch (e) {
       print(e);
       throw e;
@@ -68,6 +65,25 @@ class TransactionRepository {
           .doc(transaction.transactionId)
           .update(transaction.toMap());
       print("Updated $transactionRefeference");
+      // await _db
+      //     .collection('transaction')
+      //     .doc(transaction.transactionId)
+      //     .get()
+      //     .then((value) {
+      //   value.data()!['value'];
+      // });
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  Stream<Map<String, dynamic>?> getBalance() {
+    try {
+      return _db
+          .collection("balances")
+          .doc(userManager.user!.uid)
+          .snapshots()
+          .map((event) => event.data());
     } catch (e) {
       throw e;
     }
@@ -135,7 +151,6 @@ class TransactionRepository {
           .map((e) => e.docs
               .map((item) => TransactionModel.fromMap(item.data()))
               .toList());
-      // return response.docs.map((e) => TransactionModel.fromMap(e.data())).toList();
     } catch (e) {
       throw e;
     }
