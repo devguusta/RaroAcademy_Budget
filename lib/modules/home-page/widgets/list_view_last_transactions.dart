@@ -38,13 +38,7 @@ class _ListViewLastTransactionsState extends State<ListViewLastTransactions> {
                         primary: false,
                         itemCount: list.length < 3 ? list.length : 3,
                         itemBuilder: (_, index) => TransactionWidget(
-                          onTap: () {
-                            Navigator.pushNamed(
-                              context,
-                              UpdatePage.id,
-                              arguments: list[index],
-                            );
-                          },
+                          onTap: () {},
                           type: list[index].type,
                           description: list[index].type == 'in'
                               ? list[index].description!

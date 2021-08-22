@@ -21,7 +21,6 @@ class LastTransactions extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
         child: Container(
-          width: size.width * 0.9,
           decoration: BoxDecoration(
             boxShadow: const [
               BoxShadow(

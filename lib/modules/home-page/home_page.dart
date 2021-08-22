@@ -75,18 +75,9 @@ class _HomePageState extends State<HomePage> {
                 controller.appStatus != AppStatus.loading) {
               return Column(
                 children: const [
-                  Padding(
-                    padding: EdgeInsets.all(16),
-                    child: CardGeneralBalance(),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16),
-                    child: CardDaybyDay(),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(16.0),
-                    child: LastTransactions(),
-                  ),
+                  CardGeneralBalance(),
+                  CardDaybyDay(),
+                  LastTransactions(),
                 ],
               );
             } else if (controller.isInternet == false) {
