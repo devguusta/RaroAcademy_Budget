@@ -170,14 +170,16 @@ class DrawerWidget extends StatelessWidget {
                       padding: const EdgeInsets.only(top: 20, bottom: 20),
                       child: InkWell(
                         onTap: () async {
-                          GetIt.I<UserManager>().setUser(null);
                           SharedPreferences _prefs =
                               await SharedPreferences.getInstance();
+                          // Navigator.of(context).pop();
+
                           _prefs.remove('user');
                           Navigator.of(context).pushAndRemoveUntil(
                               MaterialPageRoute(
                                   builder: (_) => const InitialLoginPage()),
                               (route) => false);
+                          GetIt.I<UserManager>().setUser(null);
                         },
                         child: const Text(
                           'Sair',
