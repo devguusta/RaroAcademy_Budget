@@ -60,18 +60,51 @@ class TransactionRepository {
   Future<TransactionModel?> updateTransaction(
       {required TransactionModel transaction}) async {
     try {
+      await _db
+          .collection('transaction')
+          .doc(transaction.transactionId)
+          .get()
+          .then((snapTransaxtion) async {
+        TransactionModel oldTransaction =
+            TransactionModel.fromMap(snapTransaxtion.data()!);
+        await _db
+            .collection('balances')
+            .doc(userManager.user!.uid)
+            .get()
+            .then((snapBalance) {
+          Map<String, dynamic>? balances = snapBalance.data();
+
+          if (oldTransaction.date != transaction.date) {
+            balances!['2021'][oldTransaction.date.month - 1] =
+                oldTransaction.type == 'in'
+                    ? balances['2021'][oldTransaction.date.month - 1] -
+                        oldTransaction.value
+                    : balances['2021'][oldTransaction.date.month - 1] +
+                        oldTransaction.value;
+          }
+
+          if (oldTransaction.value != transaction.value) {
+            double newValue = transaction.type == 'out'
+                ? (oldTransaction.value - transaction.value)
+                : -1 * (oldTransaction.value - transaction.value);
+            balances!['2021'][transaction.date.month - 1] += newValue;
+          }
+          var sum = 0.0;
+          balances!['2021'].forEach((element) {
+            sum += element;
+          });
+          balances['general_balance'] = sum;
+          _db
+              .collection('balances')
+              .doc(userManager.user!.uid)
+              .update(balances);
+        });
+      });
       final transactionRefeference = _db
           .collection("transaction")
           .doc(transaction.transactionId)
           .update(transaction.toMap());
       print("Updated $transactionRefeference");
-      // await _db
-      //     .collection('transaction')
-      //     .doc(transaction.transactionId)
-      //     .get()
-      //     .then((value) {
-      //   value.data()!['value'];
-      // });
     } catch (e) {
       throw e;
     }
