@@ -1,24 +1,21 @@
 import 'dart:async';
-import 'package:connectivity/connectivity.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
-import 'package:mobx/mobx.dart';
 import 'package:raro_academy_budget/modules/home-page/widgets/card_day_by_day.dart';
 import 'package:raro_academy_budget/modules/home-page/widgets/card_general_balance.dart';
 import 'package:raro_academy_budget/modules/home-page/widgets/card_last_transactions.dart';
 import 'package:raro_academy_budget/modules/home-page/widgets/new_transaction_widget.dart';
-import 'package:raro_academy_budget/modules/transactions/transaction-in-page/transaction_in_page.dart';
-import 'package:raro_academy_budget/shared/repositories/transaction_repository.dart';
 import 'package:raro_academy_budget/shared/services/user_manager.dart';
 import 'package:raro_academy_budget/shared/widgets/button_widget.dart';
 import 'package:raro_academy_budget/shared/widgets/drawer_widget.dart';
 import 'package:raro_academy_budget/shared/widgets/next_button_widget.dart';
 import 'package:raro_academy_budget/util/constants/app_colors.dart';
-import 'package:raro_academy_budget/util/constants/app_icons.dart';
 import 'package:raro_academy_budget/util/constants/app_text_styles.dart';
 import 'package:raro_academy_budget/util/extensions.dart';
+
 import 'home_controller.dart';
 
 class HomePage extends StatefulWidget {
@@ -78,9 +75,18 @@ class _HomePageState extends State<HomePage> {
                 controller.appStatus != AppStatus.loading) {
               return Column(
                 children: const [
-                  CardGeneralBalance(),
-                  CardDaybyDay(),
-                  LastTransactions(),
+                  Padding(
+                    padding: EdgeInsets.all(16),
+                    child: CardGeneralBalance(),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16),
+                    child: CardDaybyDay(),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child: LastTransactions(),
+                  ),
                 ],
               );
             } else if (controller.isInternet == false) {
