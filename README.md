@@ -2,7 +2,7 @@
 #### _Aplicativo de gerenciamento de finanças criado para o trabalho final de conclusão do curso de Flutter da Raro Academy_
 
 ### Integrantes da SQUAD 
-> [Airton Souza](https://github.com/notria-12), [Gustavo Silva](https://github.com/guusta7), [Kaio C. de Oliveira](https://github.com/devkaio) e [Lucas Tamir Faria](https://github.com/tamirfaria)
+> [Airton Sousa](https://github.com/notria-12), [Gustavo Silva](https://github.com/guusta7), [Kaio C. de Oliveira](https://github.com/devkaio) e [Lucas Tamir Faria](https://github.com/tamirfaria)
 
 ### Sobre o App
 >O aplicativo foi criado com base no layout apresentado durante as semanas finais do Raro Academy, e utilizamos em sua construção o Flutter para criação das telas e suas respectivas lógicas, e o Firebase para o armazenamento de dados como as informações do usuário, e as finanças inseridas.
