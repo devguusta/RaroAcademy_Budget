@@ -22,6 +22,7 @@ class _CardDaybyDayState extends State<CardDaybyDay> {
   double balanceTransaction = 0.0;
   double balanceTotal = 0;
   var list = [];
+  double resultCalcule = 1;
   List<String> months = [
     'JAN',
     'FEV',
@@ -89,6 +90,7 @@ class _CardDaybyDayState extends State<CardDaybyDay> {
                     totalValueIn = 0;
                     balanceTotal = 0;
                     var listMonth = [];
+                   
                     list.forEach((transaction) async {
                       if (transaction.date.month - 1 == indexMonth) {
                         listMonth.add(transaction);
@@ -97,6 +99,7 @@ class _CardDaybyDayState extends State<CardDaybyDay> {
                         } else if (transaction.type == 'in') {
                           totalValueIn += transaction.value ?? 0;
                         }
+                         resultCalcule = ((totalValueOut/totalValueIn)* 100 )- 32 ;
                         balanceTotal = transaction.value;
                         balanceTransaction = totalValueIn - totalValueOut;
                       }
@@ -253,19 +256,16 @@ class _CardDaybyDayState extends State<CardDaybyDay> {
                           child: Padding(
                             padding:
                                 const EdgeInsets.only(left: 16.0, right: 16),
-                            child: (totalValueOut != 0)
+                            child: (totalValueOut != 0 )
+                     
+                           
                                 ? Container(
-                                    width: totalValueIn == 0
-                                        ? size.width
-                                        : totalValueOut > totalValueIn
-                                            ? size.width
-                                            : totalValueOut < totalValueIn
-                                                ? ((totalValueOut * 100) /
-                                                            totalValueIn) /
-                                                        100 *
-                                                        size.width -
-                                                    32
-                                                : size.width,
+                                
+                           width: totalValueOut<= totalValueIn ?
+                            (MediaQuery.of(context).size.width * 0.70) *totalValueOut / totalValueIn
+                            : (MediaQuery.of(context).size.width * 0.70) *
+                               totalValueOut /
+                                totalValueIn,
                                     height: 11,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(360),
@@ -316,17 +316,12 @@ class _CardDaybyDayState extends State<CardDaybyDay> {
                                 left: 16.0, bottom: 16, right: 16),
                             child: (totalValueIn != 0)
                                 ? Container(
-                                    width: totalValueOut == 0
-                                        ? size.width
-                                        : totalValueIn > totalValueOut
-                                            ? size.width
-                                            : totalValueIn < totalValueOut
-                                                ? ((totalValueIn * 100) /
-                                                            totalValueOut) /
-                                                        100 *
-                                                        size.width -
-                                                    32
-                                                : size.width,
+                             width: 
+                             totalValueIn <= totalValueOut ?
+                             (MediaQuery.of(context).size.width * 0.70)*totalValueIn / totalValueOut
+                            : (MediaQuery.of(context).size.width * 0.79) *
+                               totalValueIn /
+                                totalValueOut,
                                     height: 11,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(360),
