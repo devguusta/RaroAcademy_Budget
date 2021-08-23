@@ -179,7 +179,7 @@ class DrawerWidget extends StatelessWidget {
                               MaterialPageRoute(
                                   builder: (_) => const InitialLoginPage()),
                               (route) => false);
-                          GetIt.I<UserManager>().setUser(null);
+                          //GetIt.I<UserManager>().setUser(null);
                         },
                         child: const Text(
                           'Sair',
