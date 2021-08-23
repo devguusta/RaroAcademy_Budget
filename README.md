@@ -1,8 +1,6 @@
 # Bugdet | Raro Academy
 #### _Aplicativo de gerenciamento de finanças criado para o trabalho final de conclusão do curso de Flutter da Raro Academy_
 
-![Screenshot](https://raw.githubusercontent.com/guusta7/RaroAcademy_Budget/main/assets/images/logoBudget.png?token=AQAVJOYBGN7XYGDXAYBV2YDBELSMO)
-
 ### Integrantes da SQUAD 
 > [Airton Souza](https://github.com/notria-12), [Gustavo Silva](https://github.com/guusta7), [Kaio C. de Oliveira](https://github.com/devkaio) e [Lucas Tamir Faria](https://github.com/tamirfaria)
 
